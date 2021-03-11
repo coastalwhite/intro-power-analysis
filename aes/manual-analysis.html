@@ -1,0 +1,435 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Manual analysis - Power analysis Introductory Walkthrough</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="../preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> Breaking RSA</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rsa/capture.html"><strong aria-hidden="true">3.1.</strong> Capturing your first trace</a></li><li class="chapter-item expanded "><a href="../rsa/workings.html"><strong aria-hidden="true">3.2.</strong> A deeper look at RSA</a></li><li class="chapter-item expanded "><a href="../rsa/deciphering.html"><strong aria-hidden="true">3.3.</strong> Deciphering a trace</a></li><li class="chapter-item expanded "><a href="../rsa/exercises.html"><strong aria-hidden="true">3.4.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/manual-analysis.html" class="active"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="../aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="../aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Power analysis Introductory Walkthrough</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="manual-analysis"><a class="header" href="#manual-analysis">Manual Analysis</a></h1>
+<p>With the power usage model we described in the previous chapter, we can now
+start to do some analysis of our power traces.</p>
+<p>Let look what we have up until now.</p>
+<pre><code class="language-python"># Hamming Weight
+HammingWeightFn = lambda x: bin(x).count('1')
+HammingDistanceFn = lambda x, y: HammingWeightFn(x ^ y)
+
+# ... prev ...
+
+# Precompute Hamming Weight and Hamming Distance for bytes
+HammingWeight = [ HammingWeightFn(n) for n in range (0x00, 0xff + 1) ] 
+HammingDistance = [
+    [ HammingDistanceFn(x, y) for x in range(0x00, 0xff + 1) ]
+        for y in range(0x00, 0xff + 1)
+]
+
+# Rijndael Substitution box
+SBox = [
+    # 0    1    2    3    4    5    6    7    8    9    a    b    c    d    e    f
+    0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76, # 0
+    0xca,0x82,0xc9,0x7d,0xfa,0x59,0x47,0xf0,0xad,0xd4,0xa2,0xaf,0x9c,0xa4,0x72,0xc0, # 1
+    0xb7,0xfd,0x93,0x26,0x36,0x3f,0xf7,0xcc,0x34,0xa5,0xe5,0xf1,0x71,0xd8,0x31,0x15, # 2
+    0x04,0xc7,0x23,0xc3,0x18,0x96,0x05,0x9a,0x07,0x12,0x80,0xe2,0xeb,0x27,0xb2,0x75, # 3
+    0x09,0x83,0x2c,0x1a,0x1b,0x6e,0x5a,0xa0,0x52,0x3b,0xd6,0xb3,0x29,0xe3,0x2f,0x84, # 4
+    0x53,0xd1,0x00,0xed,0x20,0xfc,0xb1,0x5b,0x6a,0xcb,0xbe,0x39,0x4a,0x4c,0x58,0xcf, # 5
+    0xd0,0xef,0xaa,0xfb,0x43,0x4d,0x33,0x85,0x45,0xf9,0x02,0x7f,0x50,0x3c,0x9f,0xa8, # 6
+    0x51,0xa3,0x40,0x8f,0x92,0x9d,0x38,0xf5,0xbc,0xb6,0xda,0x21,0x10,0xff,0xf3,0xd2, # 7
+    0xcd,0x0c,0x13,0xec,0x5f,0x97,0x44,0x17,0xc4,0xa7,0x7e,0x3d,0x64,0x5d,0x19,0x73, # 8
+    0x60,0x81,0x4f,0xdc,0x22,0x2a,0x90,0x88,0x46,0xee,0xb8,0x14,0xde,0x5e,0x0b,0xdb, # 9
+    0xe0,0x32,0x3a,0x0a,0x49,0x06,0x24,0x5c,0xc2,0xd3,0xac,0x62,0x91,0x95,0xe4,0x79, # a
+    0xe7,0xc8,0x37,0x6d,0x8d,0xd5,0x4e,0xa9,0x6c,0x56,0xf4,0xea,0x65,0x7a,0xae,0x08, # b
+    0xba,0x78,0x25,0x2e,0x1c,0xa6,0xb4,0xc6,0xe8,0xdd,0x74,0x1f,0x4b,0xbd,0x8b,0x8a, # c
+    0x70,0x3e,0xb5,0x66,0x48,0x03,0xf6,0x0e,0x61,0x35,0x57,0xb9,0x86,0xc1,0x1d,0x9e, # d
+    0xe1,0xf8,0x98,0x11,0x69,0xd9,0x8e,0x94,0x9b,0x1e,0x87,0xe9,0xce,0x55,0x28,0xdf, # e
+    0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16  # f
+]
+
+def hypothetical_power_usage(subkey, plain_text_char):
+
+    # Use the Hamming Weight power usage model
+    return HammingWeight[
+
+        # Do a SBox look up of the XOR-ed value
+        #
+        # Since the Hamming Weight of the SBox value will
+        # persist for longer in memory this will make finding the
+        # pattern easier. It is also still before the Row Shifting
+        # so it doesn't cause trouble.
+        SBox [
+
+            # The initial round key XOR-ed with the plain text
+            subkey ^ plain_text_char
+        ]
+    ]
+</code></pre>
+<p>In order to load the data we created with our trace we can add the follow few
+lines which will load in the numpy arrays.</p>
+<pre><code class="language-python">import numpy as np
+
+traces = np.load('output/traces.npy')
+textins = np.load('output/textins.npy')
+
+num_traces = np.shape(traces)[0]
+num_points = np.shape(traces)[1]
+</code></pre>
+<h2 id="are-we-data-scientists-yet"><a class="header" href="#are-we-data-scientists-yet">Are we data-scientists yet?</a></h2>
+<p>We want to change the data in such a way that it makes it easier to identify
+whether a our <strong>modeled power usage is similar to the actual power usage</strong>. We
+need multiple power traces for this. The most important of which is the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson
+correlation coefficient</a>.</p>
+<h3 id="pearson-correlation-coefficient"><a class="header" href="#pearson-correlation-coefficient">Pearson correlation coefficient</a></h3>
+<p>We have an difficult task here. Again, we want to know how likely it is that our
+modeled power usage has a similar pattern to the actual power usage. In
+statistics this is known as the modeled power usage and the actual power usage
+having a high <strong>correlation</strong>. If two functions are in perfect correlation,
+one function should always rise when the other rises and one function
+should always decline when the other declines.</p>
+<p>This is what the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation
+coefficient</a>
+indicates. We provide it with two functions and it will give us a value between
+\(-1\) and \(1\), indicating whether the two functions correlate. \(1\)
+meaning (unrealistic) levels of correlation, \(0\) meaning no correlation and
+\(-1\) meaning a inverse correlation. How the Pearson correlation coefficient
+manages to do this is not as important for us, but reading the Wikipedia page
+can be very interesting. What is important for us is the formula so we can use
+it in our code.</p>
+<p>\[
+\rho_{X,Y} = \frac{\text{cov}(X,Y)}{\sigma_X \sigma_Y}
+\]</p>
+<p>This may not be entirely clear to most people without knowledge of
+statistics. So let us break it down.</p>
+<ul>
+<li>\(\rho\) is the letter commonly used to represent the Pearson correlation
+coefficient.</li>
+<li>\(X\) and \(Y\) are our functions and can actually be represented as a
+finite list of numbers in our case. This means \(X = { x_0, \ldots, x_n }\) and
+\(Y = { y_0, \ldots, y_n }\) with \(n\) being an integers greater or
+equal to zero.</li>
+<li>\(\text{cov}(X,Y)\) is the covariance of \(X\) and \(Y\). This can be
+calculated with \(\text{cov}(X,Y)=\mathbb{E}[(X - \mu_X)(Y - \mu_Y)] =
+\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)(y_i - \mu_Y) \), with
+\(\mu_X\) and \(\mu_Y\) being the mean of \(X\) and \(Y\),
+respectively.</li>
+<li>\(\sigma_X\) and \(\sigma_Y\) being the standard deviation of \(X\) and
+\(Y\), respectively. The standard deviation can be calculated with
+\(\sigma_X = \sqrt{\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)^2}\) with
+\(\mu_X\) being the mean of \(X\).</li>
+</ul>
+<p>Let us move these formulas to python.</p>
+<pre><code class="language-python">def covariance(X, Y):
+    if len(X) != len(Y):
+        print(&quot;Lengths are unequal, quiting...&quot;)
+        quit()
+
+    n = len(X)
+    mean_x = np.mean(X, dtype=np.float64)
+    mean_y = np.mean(Y, dtype=np.float64)
+
+    return np.sum((X - mean_x) * (Y - mean_y)) / n
+
+def standard_deviation(X):
+    n = len(X)
+    mean_x = np.mean(X, dtype=np.float64)
+
+    return np.sqrt( np.sum( np.power( (X - mean_x), 2 ) ) / n )
+
+def pearson_correlation_coefficient(X, Y):
+    cov = covariance(X, Y)
+    sd_x = standard_deviation(X)
+    sd_y = standard_deviation(Y)
+
+    return cov / ( sd_x * sd_y ) 
+</code></pre>
+<p>Although this code is very inefficient, and does a lot of unnecessary and double
+calculations, it will serve well for now.</p>
+<h3 id="cracking-a-single-byte"><a class="header" href="#cracking-a-single-byte">Cracking a single byte</a></h3>
+<p>As explained in <a href="./modeling.html">Modeling AES</a>, we can — using power analysis —
+<strong>crack the <em>AES</em> key byte by byte</strong>. So let us start with a single one. We are
+going to go through every possibility and see which byte one provides the
+highest correlation coefficient between the actual power trace and our modeled
+power usage. The important realisation here is that we are doing a correlation
+between all individual power trace points and the hypothetical power
+consumption and we will select the maximum correlation coefficient for all
+subkey guesses. This is because we still have no idea where the first round
+actually takes place. If we look at all points of each power trace, the location
+where the first round takes place should have the highest correlation. We will
+demonstrate this later on.</p>
+<pre><code class="language-python">from tqdm import trange
+
+def calculate_correlation_coefficients(subkey, subkey_index):
+    # Declare a numpy for the hypothetical power usage
+    hypothetical_power = np.zeros(num_traces)
+
+    for trace_index in range(0, num_traces):
+        hypothetical_power[trace_index] = hypothetical_power_usage(
+            subkey,
+            textins[trace_index][subkey_index]
+        )
+
+    # We are going to the determine correlations between each trace point
+    # and the hypothetical power usage. This will save all those coefficients
+    point_correlation = np.zeros(num_points)
+
+    # Loop through all points and determine their correlation coefficients
+    for point_index in range(0, num_points):
+        point_correlation[point_index] = pearson_correlation_coefficient(
+            hypothetical_power,
+
+            # Look at the individual traces points for every trace
+            traces[:, point_index]
+        )
+
+    return point_correlation
+
+# Save all correlation coefficients
+max_correlation_coefficients = np.zeros(256)
+
+# Loop through values this subkey
+for subkey in trange(0xff + 1, desc=&quot;Attack Subkey&quot;):
+    max_correlation_coefficients[subkey] = max(abs(
+        calculate_correlation_coefficients(subkey, 0)
+    ))
+</code></pre>
+<p>This will determine the maximum correlation coefficients for all subkey guesses.
+If we plot this we get the following graph.</p>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+plt.plot(max_correlation_coefficients)
+plt.show()
+</code></pre>
+<p><img src="../assets/aes_max_correlation_coefficients.png" alt="Maximum Correlation Coefficients AES" /></p>
+<p><em>Figure 1: The AES Correlation Coefficients for the first subkey values</em></p>
+<p>Remember I used the key <code>H4ck3rm4n-l33t42</code>, where <code>H</code> or ASCII 72 is the first
+subkey byte. If you used a different key, your plot will most probably look
+different and there will be a high spike at the ASCII value of your first
+subkey.</p>
+<p>Well done! We have cracked our first subkey!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../aes/modeling.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../aes/pearson.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../aes/modeling.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../aes/pearson.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

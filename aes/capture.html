@@ -1,0 +1,390 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Capturing multiple traces - Power analysis Introductory Walkthrough</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="../preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> Breaking RSA</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rsa/capture.html"><strong aria-hidden="true">3.1.</strong> Capturing your first trace</a></li><li class="chapter-item expanded "><a href="../rsa/workings.html"><strong aria-hidden="true">3.2.</strong> A deeper look at RSA</a></li><li class="chapter-item expanded "><a href="../rsa/deciphering.html"><strong aria-hidden="true">3.3.</strong> Deciphering a trace</a></li><li class="chapter-item expanded "><a href="../rsa/exercises.html"><strong aria-hidden="true">3.4.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/capture.html" class="active"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/manual-analysis.html"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="../aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="../aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Power analysis Introductory Walkthrough</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="capturing-multiple-traces"><a class="header" href="#capturing-multiple-traces">Capturing multiple traces</a></h1>
+<p>AES is a lot more complex than RSA. Although looking at one trace of RSA can
+give you a lot of information about the key used, with AES it is a lot more
+common to take multiple traces and average them out. Here we are gonna have a
+look at how we can upload the <em>AES</em> source code to the chipwhisperer, and then
+capture multiple power traces.</p>
+<h2 id="base-setup"><a class="header" href="#base-setup">Base setup</a></h2>
+<p>Assuming that you have <a href="../preparing.html">setup your environment</a>, we first have
+to connect to the scope and the target. The scope being the measuring device and
+the target being the microprocessor, which is going to run the encryption
+algorithm. In order to connect to the scope and the target, we need the
+following code.</p>
+<pre><code class="language-python">import chipwhisperer as cw
+
+# Setup a connection with the CW board
+# and fetch the scope for using this board.
+scope = cw.scope()
+
+# The default settings are fine for now.
+scope.default_setup()
+
+# Fetch the target from the scope
+# This should be automatically connected
+target = cw.target(scope)
+</code></pre>
+<p>In order to disconnect them again, we can use the following code.</p>
+<pre><code class="language-python">scope.dis()
+target.dis()
+</code></pre>
+<h2 id="flashing-the-source-code"><a class="header" href="#flashing-the-source-code">Flashing the source code</a></h2>
+<p>Depending on what target we are using, we need different software. We can compile
+this ourselves, but most compiled code can also be found online. I suggest
+looking at <a href="http://github.com/coastalwhite">this repository TODO INSERT LINK
+HERE</a>.</p>
+<p>Assuming we are using the Chipwhisperer Lite 32-bit addition, we can the
+CWLITEARM hex file. in order to upload the program to the target, we can use
+the following python code.</p>
+<pre><code class="language-python">from chipwhisperer.capture.api.programmers import STM32FProgrammer
+import os
+
+# Initiate a new STM32F Program
+# STM32 being the ARM microcontroller that we are using
+# https://en.wikipedia.org/wiki/STM32#STM32_F3
+program = STM32FProgrammer
+
+# Get the path to the current folder
+# Adjust accordingly
+aes_firmware_dir = os.path.dirname(os.path.realpath(__file__))
+aes_hex_path = os.path.join(aes_firmware_dir, r&quot;simpleserial-aes-CWLITEARM.hex&quot;)
+
+# Apply the program to the actual target
+# This allows us to run the hex code on the microcontroller
+cw.program_target(scope, program, aes_hex_path)
+</code></pre>
+<h2 id="capturing-a-trace"><a class="header" href="#capturing-a-trace">Capturing a trace</a></h2>
+<p>In order to run our first trace, we need a key and some plain text. The program
+we are using is based on <strong>128 bit AES</strong> and therefore we should provide a
+128 bit key and a multiple or 128 bits for our plain text. We can quite easily
+create our first trace, with the following code.</p>
+<pre><code class="language-python"># Define the key used for the encryption
+# This key has to be 128 bits = 16 bytes
+# = 16 ascii characters in length
+key_str = 'H4ck3rm4n-l33t42'
+
+# Convert the key to a byte array
+key = bytearray(key_str, 'ascii')
+
+# Define the plain text used
+# This plain text has to be a multiple of
+# 128 bits = 16 bytes = 16 ascii characters in length.
+plain_text = bytearray('a' * 16, 'ascii')
+
+# Capture the actual trace
+trace = cw.capture_trace(scope, target, plain_text, key)
+</code></pre>
+<p>This is very interesting, but we don't really have any confirmation or
+visualization. So let us visualize it with <a href="https://github.com/matplotlib/matplotlib">pyplot</a>.</p>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+plt.plot(trace.wave)
+plt.show()
+</code></pre>
+<p>This should look something like <em>Figure 1</em>.</p>
+<p><img src="../assets/aes_single_trace_plot.png" alt="AES Single Power Trace" /></p>
+<p><em>Figure 1: AES Single Power Trace</em></p>
+<h2 id="capturing-more-than-one-trace"><a class="header" href="#capturing-more-than-one-trace">Capturing more than one trace</a></h2>
+<p>We can turn this into multiple traces with a simple <code>for</code> loop. Here we are
+going to be using the <a href="https://github.com/tqdm/tqdm">tqdm library</a>, to have a
+nice progress bar. So let us create 100 traces with random input text and save
+all relevant data into a <a href="https://github.com/numpy/numpy">numpy</a> arrays.
+This way we can save the eventual traces and plain texts to a file.</p>
+<p>First we define a function for creating random plain text strings.</p>
+<pre><code class="language-python">import string
+import random
+
+def random_string(length):
+    # Define the alphabet of the random string
+    # Here we take the lowercase latin alphabet in ascii encoding
+    # e.g. &quot;cpjsapcnrsdtjvlo&quot;, &quot;btqfocsprbualtwt&quot; or &quot;yzkwewjbkpmriccx&quot;
+    alphabet = string.ascii_lowercase
+
+    # Return a string with the given length with randomly chosen chars
+    return ''.join(random.choice(alphabet) for i in range(length))
+</code></pre>
+<p>Then we capture some traces.</p>
+<pre><code class="language-python">from tqdm import trange
+
+# Define the key used for the encryption
+# This key has to be 128 bits = 16 bytes
+# = 16 ascii characters in length
+key_str = 'H4ck3rm4n-l33t42'
+
+# Convert the key to a byte array
+key = bytearray(key_str, 'ascii')
+
+# Define the constant for the amount of traces
+N = 100
+
+textins = []
+traces = []
+
+# Loop through all traces
+for i in trange(N, desc=&quot;Capturing traces&quot;):
+
+    # Define the plain text used
+    # This plain text has to be a multiple of
+    # 128 bits = 16 bytes = 16 ascii characters in length.
+    plain_text = bytearray(random_string(16), 'ascii')
+
+    # Capture the actual trace
+    trace = cw.capture_trace(scope, target, plain_text, key)
+
+    # If the capture timed out move to the next capture
+    if trace is None:
+        continue
+
+    textins.append(plain_text)
+    traces.append(trace.wave)
+</code></pre>
+<p>Then we turn this into numpy arrays.</p>
+<pre><code class="language-python">np_traces = np.asarray(traces)
+np_textins = np.asarray(textins)
+</code></pre>
+<p>Then we can save it to a file.</p>
+<pre><code class="language-python">np.save('output/traces.npy', np_traces)
+np.save('output/textins.npy', np_textins)
+</code></pre>
+<p>This way we can later load it.</p>
+<blockquote>
+<p>For more information on how to do scripting with the ChipWhisperer python
+module have a look over <a href="https://wiki.newae.com/Making_Scripts">here</a>.
+<strong>Disclaimer:</strong> This is quite heavy.</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../aes/workings.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../aes/modeling.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../aes/workings.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../aes/modeling.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
