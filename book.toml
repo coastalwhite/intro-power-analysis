@@ -6,4 +6,5 @@ src = "src"
 title = "Power analysis Introductory Walkthrough"
 
 [output.html]
+git-repository-url = "https://github.com/coastalwhite/intro-power-analysis"
 mathjax-support = true
