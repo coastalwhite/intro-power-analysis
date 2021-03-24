@@ -141,6 +141,10 @@
                         </a>
                         
                         
+                        <a href="https://github.com/coastalwhite/intro-power-analysis" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
                     </div>
                 </div>
 
@@ -188,18 +192,19 @@ trace is taking a product and where the trace is squaring a number.</p>
 <a href="https://en.wikipedia.org/wiki/Power_analysis#/media/File:Power_attack_full.png">Audriusa</a>
 (GPFL)</em></p>
 <h2 id="what-do-you-need-for-this-walkthrough"><a class="header" href="#what-do-you-need-for-this-walkthrough">What do you need for this walkthrough</a></h2>
-<p>This walkthrough is ment to be a introduction into both power analysis and using
-the ChipWhisperer framework. It expects you to have some basic knowledge of
-Python (and maybe C). It also helps to be comfortable with the terminal/shell.
-This walkthrough is not about programming or the shell, however, and most of what
-is discussed could be followed along with, even if you have very little
-programming experience.</p>
-<p>Furthermore, if you plan on doing your own traces, you will need a ChipWhisperer
-board. This walkthrough will provide predefined data sets, so you can do
-analysis without doing the traces yourself. This could save you from buying a
-ChipWhisperer board. It is, however, highly recommended to do some traces
-yourself. If you are looking at buying a ChipWhisperer board and don't know what
-to use, this walkthrough is based on the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">CW Lite
+<p>This walkthrough is meant to be a introduction into both power analysis and
+using the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> framework.
+It expects you to have some basic knowledge of Python (and probably C or Rust).
+It also helps to be comfortable with the terminal/shell. This walkthrough is
+not about programming or the shell, however, and most of what is discussed could
+be followed along with, even if you have very little programming experience.</p>
+<p>Furthermore, if you plan on doing your own traces, you will need a
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board. This
+walkthrough will provide predefined data sets, so you can do analysis without
+doing the traces yourself. This could save you from buying a ChipWhisperer
+board. It is, however, highly recommended to do some traces yourself. If you are
+looking at buying a ChipWhisperer board and don't know what to use, this
+walkthrough is based on the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">CW Lite
 ARM</a> variant. It is a relatively
 cheap all-in-one solution.</p>
 <h2 id="chipwhisperer"><a class="header" href="#chipwhisperer">ChipWhisperer</a></h2>
@@ -214,20 +219,31 @@ measurement devices, which when put together with a target is referred to as a
 real world environments, which makes an ideal framework to learn power analysis
 with.</p>
 <h1 id="preparing-your-environment"><a class="header" href="#preparing-your-environment">Preparing your environment</a></h1>
-<p>Although working with the ChipWhisperer requires little setup, it has some
-prerequisites. Apart from from the usual text editor/IDE (VSCode, IntelliJ, VIM,
-Emacs, etc.) and python, we need to install some libraries and toolchains. What
-we need to install also depends on what we want to achieve with this
-walkthrough. So the next few sections are going to take you through some of the
-common necessities.</p>
+<blockquote>
+<p><strong>Preliminaries</strong></p>
+<p>This chapter expects the reader to have a personal computer (running a modern
+version of Windows, macOS or a commonly used GNU/Linux distribution) to which
+one has installation permissions. Especially for macOS and GNU/Linux, a basic
+understanding of the shell is recommended.</p>
+</blockquote>
+<p>Although working with the
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> requires little
+setup, it has some prerequisites. Apart from from the usual text editor/IDE
+(VSCode, IntelliJ, VIM, Emacs, etc.) and Python, we need to install some
+libraries and toolchains. What we need to install also depends on what we want
+to achieve with this walkthrough. So the next few sections are going to take you
+through some of the common necessities.</p>
 <h1 id="python-and-pip"><a class="header" href="#python-and-pip">Python and Pip</a></h1>
 <p>As previously mentioned, we are going to be heavily relying on Python to do most
-of our measurements. We are also going to do some data analysis using python.
-Therefore, we need to install Python along with some packages for Python.</p>
+of our measurements. We are also going to do some data analysis using Python.
+Therefore, we need to install Python along with some packages for it. These
+packages being <a href="https://numpy.org/"><code>numpy</code></a>,
+<a href="https://matplotlib.org/"><code>matplotlib</code></a> and
+<a href="https://github.com/tqdm/tqdm"><code>tqdm</code></a>.</p>
 <h2 id="installing-python"><a class="header" href="#installing-python">Installing Python</a></h2>
-<p>The code provided by this walkthrough uses <strong>Python 3</strong> and won't work on Python
-2. Installing Python is a platform dependent workflow. Here are some common
-operating systems, for other operating systems a simple <a href="https://letmegooglethat.com/?q=installing+python">Google
+<p>The code provided by this walkthrough uses <strong>Python 3</strong> and will <strong>NOT</strong> work on
+Python 2. Installing Python is a platform dependent workflow. Here are some
+common operating systems, for other operating systems a simple <a href="https://letmegooglethat.com/?q=installing+python">Google
 search</a> or a glance at
 <a href="https://www.python.org/">Python.org</a> should do the trick.</p>
 <h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
@@ -1349,7 +1365,46 @@ def optimized_calculate_correlation_coefficients(subkey, subkey_index):
     return point_correlation
 </code></pre>
 <p><strong>WIP:</strong> <a href="aes/./aes.html">The AES chapter here has a first draft though</a></p>
-<p><strong>WIP:</strong> <a href="./aes.html">The AES chapter here has a first draft though</a></p>
+<h1 id="assignment"><a class="header" href="#assignment">Assignment</a></h1>
+<p>As a final assignment for this topic, there should detailed report on some
+component of power analysis including a demonstration and what effect it has on
+possible attack vectors. A few categories of what we can look at along with some
+example topics:</p>
+<ul>
+<li>Breaking an encryption algorithm which is not discussed in this walkthrough.
+Possibly combined with some protections against power analysis. Some examples
+are:
+<ul>
+<li>Breaking the <a href="https://en.wikipedia.org/wiki/Curve25519">Ed25519</a>
+algorithm and providing some protections against power analysis. (Have a look
+at the <a href="">following implementation TODO</a>)</li>
+<li>Breaking <a href="https://en.wikipedia.org/wiki/Salsa20">ChaCha</a> stream ciphers and
+providing some protections against power analysis. (Have a look at the
+<a href="">following implementation TODO</a>)</li>
+</ul>
+</li>
+<li>Providing multiple protections on RSA or AES along with analysis of their
+effectiveness and remaining attack vectors.</li>
+<li>Breaking algorithms by using the data power analysis provides us in new ways.
+<ul>
+<li>Apply machine learning to the data provides by a power-trace of an
+encryption algorithm and determine its effectiveness.</li>
+<li>Look further into optimizing the amount traces needed to do a correlation
+power analysis attack. How many traces can reliably crack a certain
+algorithm? Can this be improved in some way?</li>
+</ul>
+</li>
+</ul>
+<p>These are just a few examples within the many possible topics. If another
+creative idea pops up, feel free to give it a shot. The only requirements are
+within the report are a <strong>reproducible demonstration and explanation of your
+method</strong> and a <strong>description of (remaining) attack vectors through power
+analysis</strong>.</p>
+<h2 id="grading--what-will-be-looked-at"><a class="header" href="#grading--what-will-be-looked-at">Grading / What will be looked at</a></h2>
+<p>There are a few important topics to which is going to be payed attention whilst
+grading.</p>
+<h3 id="complexity-and-creativity-of-method"><a class="header" href="#complexity-and-creativity-of-method">Complexity and creativity of method</a></h3>
+<p>How difficult and </p>
 
                     </main>
 

@@ -139,6 +139,10 @@
                         </a>
                         
                         
+                        <a href="https://github.com/coastalwhite/intro-power-analysis" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
                     </div>
                 </div>
 
@@ -166,7 +170,46 @@
 
                 <div id="content" class="content">
                     <main>
-                        <p><strong>WIP:</strong> <a href="./aes.html">The AES chapter here has a first draft though</a></p>
+                        <h1 id="assignment"><a class="header" href="#assignment">Assignment</a></h1>
+<p>As a final assignment for this topic, there should detailed report on some
+component of power analysis including a demonstration and what effect it has on
+possible attack vectors. A few categories of what we can look at along with some
+example topics:</p>
+<ul>
+<li>Breaking an encryption algorithm which is not discussed in this walkthrough.
+Possibly combined with some protections against power analysis. Some examples
+are:
+<ul>
+<li>Breaking the <a href="https://en.wikipedia.org/wiki/Curve25519">Ed25519</a>
+algorithm and providing some protections against power analysis. (Have a look
+at the <a href="">following implementation TODO</a>)</li>
+<li>Breaking <a href="https://en.wikipedia.org/wiki/Salsa20">ChaCha</a> stream ciphers and
+providing some protections against power analysis. (Have a look at the
+<a href="">following implementation TODO</a>)</li>
+</ul>
+</li>
+<li>Providing multiple protections on RSA or AES along with analysis of their
+effectiveness and remaining attack vectors.</li>
+<li>Breaking algorithms by using the data power analysis provides us in new ways.
+<ul>
+<li>Apply machine learning to the data provides by a power-trace of an
+encryption algorithm and determine its effectiveness.</li>
+<li>Look further into optimizing the amount traces needed to do a correlation
+power analysis attack. How many traces can reliably crack a certain
+algorithm? Can this be improved in some way?</li>
+</ul>
+</li>
+</ul>
+<p>These are just a few examples within the many possible topics. If another
+creative idea pops up, feel free to give it a shot. The only requirements are
+within the report are a <strong>reproducible demonstration and explanation of your
+method</strong> and a <strong>description of (remaining) attack vectors through power
+analysis</strong>.</p>
+<h2 id="grading--what-will-be-looked-at"><a class="header" href="#grading--what-will-be-looked-at">Grading / What will be looked at</a></h2>
+<p>There are a few important topics to which is going to be payed attention whilst
+grading.</p>
+<h3 id="complexity-and-creativity-of-method"><a class="header" href="#complexity-and-creativity-of-method">Complexity and creativity of method</a></h3>
+<p>How difficult and </p>
 
                     </main>
 
