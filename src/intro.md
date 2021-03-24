@@ -25,19 +25,20 @@ _Figure 1: Power Trace of a RSA encryption by
 
 ## What do you need for this walkthrough
 
-This walkthrough is ment to be a introduction into both power analysis and using
-the ChipWhisperer framework. It expects you to have some basic knowledge of
-Python (and maybe C). It also helps to be comfortable with the terminal/shell.
-This walkthrough is not about programming or the shell, however, and most of what
-is discussed could be followed along with, even if you have very little
-programming experience.
+This walkthrough is meant to be a introduction into both power analysis and
+using the [ChipWhisperer](https://github.com/newaetech/chipwhisperer) framework.
+It expects you to have some basic knowledge of Python (and probably C or Rust).
+It also helps to be comfortable with the terminal/shell. This walkthrough is
+not about programming or the shell, however, and most of what is discussed could
+be followed along with, even if you have very little programming experience.
 
-Furthermore, if you plan on doing your own traces, you will need a ChipWhisperer
-board. This walkthrough will provide predefined data sets, so you can do
-analysis without doing the traces yourself. This could save you from buying a
-ChipWhisperer board. It is, however, highly recommended to do some traces
-yourself. If you are looking at buying a ChipWhisperer board and don't know what
-to use, this walkthrough is based on the [CW Lite
+Furthermore, if you plan on doing your own traces, you will need a
+[ChipWhisperer](https://github.com/newaetech/chipwhisperer) board. This
+walkthrough will provide predefined data sets, so you can do analysis without
+doing the traces yourself. This could save you from buying a ChipWhisperer
+board. It is, however, highly recommended to do some traces yourself. If you are
+looking at buying a ChipWhisperer board and don't know what to use, this
+walkthrough is based on the [CW Lite
 ARM](https://www.newae.com/products/NAE-CWLITE-ARM) variant. It is a relatively
 cheap all-in-one solution.
 

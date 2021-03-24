@@ -1,14 +1,17 @@
 # Python and Pip
 
 As previously mentioned, we are going to be heavily relying on Python to do most
-of our measurements. We are also going to do some data analysis using python.
-Therefore, we need to install Python along with some packages for Python.
+of our measurements. We are also going to do some data analysis using Python.
+Therefore, we need to install Python along with some packages for it. These
+packages being [`numpy`](https://numpy.org/),
+[`matplotlib`](https://matplotlib.org/) and
+[`tqdm`](https://github.com/tqdm/tqdm).
 
 ## Installing Python
 
-The code provided by this walkthrough uses __Python 3__ and won't work on Python
-2. Installing Python is a platform dependent workflow. Here are some common
-operating systems, for other operating systems a simple [Google
+The code provided by this walkthrough uses __Python 3__ and will __NOT__ work on
+Python 2. Installing Python is a platform dependent workflow. Here are some
+common operating systems, for other operating systems a simple [Google
 search](https://letmegooglethat.com/?q=installing+python) or a glance at
 [Python.org](https://www.python.org/) should do the trick.
 
