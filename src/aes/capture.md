@@ -50,6 +50,15 @@ create our first trace, with the following code.
 {{#include code/first_trace.py:single_trace}}
 ```
 
+> **NOTE:** Within the SimpleSerial protocol &mdash; which is used under the
+> hood by the ChipWhisperer devices &mdash; the `capture_trace` function
+> corresponds with a couple of steps (arming the chipwhisperer, sending the
+> key/plaintext and retrieving the trace data, etc.). This can become important
+> when implementating your own algorithms. There it may be important to replace
+> w this one function with its individual steps to get more control over the
+> commands send. This can be seen in the _Python_ code of the [SimpleSerial C
+> template](https://github.com/coastalwhite/simpleserial-c-template).
+
 This is very interesting, but we don't really have any confirmation or
 visualization. So let us visualize it with [pyplot](https://github.com/matplotlib/matplotlib).
 
