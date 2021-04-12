@@ -1,25 +1,26 @@
 # Assignment
 
-As a final assignment for this topic, there should detailed report on some
+As a final assignment for this walkthrough, there should detailed report on some
 component of power analysis including a demonstration and what effect it has on
 possible attack vectors. A few categories of what we can look at along with some
 example topics:
 
-* Breaking an encryption algorithm which is not discussed in this walkthrough.
-  Possibly combined with some protections against power analysis. Some examples
-  are:
-  * Breaking the [Ed25519](https://en.wikipedia.org/wiki/Curve25519)
+- Breaking an encryption algorithm which is not discussed in this walkthrough.
+  Possibly combined with some protections against power analysis. Have a look at
+  the [Compiling your own algorithms](./preparing/toolchains.md) instructions.
+  Some examples of interesting algorithms are:
+  - Breaking the [Ed25519](https://en.wikipedia.org/wiki/Curve25519)
     algorithm and providing some protections against power analysis. (Have a look
-    at the [following implementation TODO]())
-  * Breaking [ChaCha](https://en.wikipedia.org/wiki/Salsa20) stream ciphers and
+    at the [following implementation](https://github.com/orlp/ed25519))
+  - Breaking [ChaCha](https://en.wikipedia.org/wiki/Salsa20) stream ciphers and
     providing some protections against power analysis. (Have a look at the
-    [following implementation TODO]())
-* Providing multiple protections on RSA or AES along with analysis of their
+    [following implementation](https://www.oryx-embedded.com/doc/chacha_8c_source.html))
+- Providing multiple protections on RSA or AES along with analysis of their
   effectiveness and remaining attack vectors.
-* Breaking algorithms by using the data power analysis provides us in new ways.
-  * Apply machine learning to the data provides by a power-trace of an
+- Breaking algorithms by using the data power analysis provides us in new ways.
+  - Apply machine learning to the data provides by a power-trace of an
     encryption algorithm and determine its effectiveness.
-  * Look further into optimizing the amount traces needed to do a correlation
+  - Look further into optimizing the amount traces needed to do a correlation
     power analysis attack. How many traces can reliably crack a certain
     algorithm? Can this be improved in some way?
 
@@ -36,4 +37,33 @@ grading.
 
 ### Complexity and creativity of method
 
-How difficult and 
+Most important is the complexity and creativity of your method. These are best
+formulated by the following two questions:
+
+1. What level of difficulty is your attack vector or method of execution?
+2. How much of this method was already predone by other people?
+
+This second point also lead to the point that **it is very important to cite
+sources for your attacks.** Any found plagarism will **not** be tolerated. If
+one uses a piece of text, code or method (almost) directly copied or cited from
+a source, cite that (primary) source. If one adapts a piece of text, code or
+method from a source, cite as `Adapted from ...`.
+
+### Level of explanation and writing
+
+Apart from having a great and creative method, it is also very important to make
+clear why and why your method was so great and creative. Go into depth on the
+steps of your method and why those reach the desired result. You can assume that
+the reader has also followed this walkthrough and albeit has some preliminary
+knowledge.
+
+### Reproducability
+
+The final important part of your little research is going to be reproducability.
+How easy is it for the people checking your assignment to reproduce your
+method(/results). Is your code readable? Is there some clear documentation on
+compiling code, executing an attack or installing dependencies? It is not needed
+to write step by step instructions yourself for most of these steps, but it is
+important to write an overview on installing dependencies (linking to the
+installation guide of that dependency), compiling instructions (when needed) and
+attack execution instructions.
