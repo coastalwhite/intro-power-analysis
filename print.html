@@ -395,7 +395,46 @@ documentation on it can be found
 </blockquote>
 <p><strong>WIP:</strong> <a href="./aes.html">The AES chapter here has a first draft though</a></p>
 <p><strong>WIP:</strong> <a href="rsa/./aes.html">The AES chapter here has a first draft though</a></p>
-<p><strong>WIP:</strong> <a href="rsa/./aes.html">The AES chapter here has a first draft though</a></p>
+<h1 id="a-deeper-look-at-rsa"><a class="header" href="#a-deeper-look-at-rsa">A deeper look at RSA</a></h1>
+<p>RSA is quite an simple algorithm, but to understand how and why we can crack RSA
+using power traces. It is important to understand the method RSA uses in quite
+some depth. In the chapter on AES, we will go a bit deeper into cache based
+side-channel attacks and why they work exactly, but here we will do a few
+assumptions to focus on the important bits.</p>
+<h2 id="what-is-rsa"><a class="header" href="#what-is-rsa">What is RSA?</a></h2>
+<p>RSA is used to do asymmetric encryption. This means we have two keys. Most of
+the time this means we have one to encrypt plain text to cipher text, one to
+decrypt cipher text back to plain text. It is common to have one of these keys
+be public and the other be private and secret. Thus, they might also be called
+to the public and private key.</p>
+<p>RSA uses one simple principle. For encryption with public key \( e \), for
+every byte of our plain text \(b_i\) we have encrypted byte \( c_i=b_i^e \)
+modulo some integer \( N \). For decryption with private key \( d \), for
+every byte of our cipher text \(c_i\) we have encrypted byte \( b_i=c_i^d \)
+modulo some integer \( N \). The relationship between these numbers is not as
+important for now.</p>
+<p>One might wonder how these computations are actually done on the bare hardware.
+It turns out that we can interpret this as repeated multiplication and squaring.
+This is how that works.</p>
+<p>If we are given a number \( x \) and we are tasked with the raising it to the
+13th power, we might to it as follows:</p>
+<p>\[ x^{13} = x \cdot x^{12} = x \cdot (x^6)^2 = x \cdot ((x^3)^2)^2 = x \cdot
+((x \cdot x^2)^2)^2 \]</p>
+<p>Which means that, if we go from inwards to outwards, we can in some Python
+pseudo code which calculates the power 13 of any number:</p>
+<pre><code class="language-python"># Raise to the power 13 by repeated squaring and multiplication
+function to_power_13(n):
+    step_value = n
+
+    step_value = pow(step_value, 2) #           x^2
+    step_value = n * step_value     #       x * x^2
+    step_value = pow(step_value, 2) #      (x * x^2)^2
+    step_value = pow(step_value, 2) #     ((x * x^2)^2)^2
+    step_value = n * step_value     # x * ((x * x^2)^2)^2
+
+    return step_value
+</code></pre>
+<p>We also might notice that has very close ties to binary. For example, the </p>
 <p><strong>WIP:</strong> <a href="rsa/./aes.html">The AES chapter here has a first draft though</a></p>
 <p><strong>WIP:</strong> <a href="rsa/./aes.html">The AES chapter here has a first draft though</a></p>
 <h1 id="breaking-aes"><a class="header" href="#breaking-aes">Breaking AES</a></h1>
@@ -666,6 +705,16 @@ plain_text = bytearray('a' * 16, 'ascii')
 # Capture the actual trace
 trace = cw.capture_trace(scope, target, plain_text, key)
 </code></pre>
+<blockquote>
+<p><strong>NOTE:</strong> Within the SimpleSerial protocol — which is used under the
+hood by the ChipWhisperer devices — the <code>capture_trace</code> function
+corresponds with a couple of steps (arming the chipwhisperer, sending the
+key/plaintext and retrieving the trace data, etc.). This can become important
+when implementating your own algorithms. There it may be important to replace
+w this one function with its individual steps to get more control over the
+commands send. This can be seen in the <em>Python</em> code of the <a href="https://github.com/coastalwhite/simpleserial-c-template">SimpleSerial C
+template</a>.</p>
+</blockquote>
 <p>This is very interesting, but we don't really have any confirmation or
 visualization. So let us visualize it with <a href="https://github.com/matplotlib/matplotlib">pyplot</a>.</p>
 <pre><code class="language-python">import matplotlib.pyplot as plt
@@ -1366,21 +1415,22 @@ def optimized_calculate_correlation_coefficients(subkey, subkey_index):
 </code></pre>
 <p><strong>WIP:</strong> <a href="aes/./aes.html">The AES chapter here has a first draft though</a></p>
 <h1 id="assignment"><a class="header" href="#assignment">Assignment</a></h1>
-<p>As a final assignment for this topic, there should detailed report on some
+<p>As a final assignment for this walkthrough, there should detailed report on some
 component of power analysis including a demonstration and what effect it has on
 possible attack vectors. A few categories of what we can look at along with some
 example topics:</p>
 <ul>
 <li>Breaking an encryption algorithm which is not discussed in this walkthrough.
-Possibly combined with some protections against power analysis. Some examples
-are:
+Possibly combined with some protections against power analysis. Have a look at
+the <a href="./preparing/toolchains.html">Compiling your own algorithms</a> instructions.
+Some examples of interesting algorithms are:
 <ul>
 <li>Breaking the <a href="https://en.wikipedia.org/wiki/Curve25519">Ed25519</a>
 algorithm and providing some protections against power analysis. (Have a look
-at the <a href="">following implementation TODO</a>)</li>
+at the <a href="https://github.com/orlp/ed25519">following implementation</a>)</li>
 <li>Breaking <a href="https://en.wikipedia.org/wiki/Salsa20">ChaCha</a> stream ciphers and
 providing some protections against power analysis. (Have a look at the
-<a href="">following implementation TODO</a>)</li>
+<a href="https://www.oryx-embedded.com/doc/chacha_8c_source.html">following implementation</a>)</li>
 </ul>
 </li>
 <li>Providing multiple protections on RSA or AES along with analysis of their
@@ -1404,7 +1454,32 @@ analysis</strong>.</p>
 <p>There are a few important topics to which is going to be payed attention whilst
 grading.</p>
 <h3 id="complexity-and-creativity-of-method"><a class="header" href="#complexity-and-creativity-of-method">Complexity and creativity of method</a></h3>
-<p>How difficult and </p>
+<p>Most important is the complexity and creativity of your method. These are best
+formulated by the following two questions:</p>
+<ol>
+<li>What level of difficulty is your attack vector or method of execution?</li>
+<li>How much of this method was already predone by other people?</li>
+</ol>
+<p>This second point also lead to the point that <strong>it is very important to cite
+sources for your attacks.</strong> Any found plagarism will <strong>not</strong> be tolerated. If
+one uses a piece of text, code or method (almost) directly copied or cited from
+a source, cite that (primary) source. If one adapts a piece of text, code or
+method from a source, cite as <code>Adapted from ...</code>.</p>
+<h3 id="level-of-explanation-and-writing"><a class="header" href="#level-of-explanation-and-writing">Level of explanation and writing</a></h3>
+<p>Apart from having a great and creative method, it is also very important to make
+clear why and why your method was so great and creative. Go into depth on the
+steps of your method and why those reach the desired result. You can assume that
+the reader has also followed this walkthrough and albeit has some preliminary
+knowledge.</p>
+<h3 id="reproducability"><a class="header" href="#reproducability">Reproducability</a></h3>
+<p>The final important part of your little research is going to be reproducability.
+How easy is it for the people checking your assignment to reproduce your
+method(/results). Is your code readable? Is there some clear documentation on
+compiling code, executing an attack or installing dependencies? It is not needed
+to write step by step instructions yourself for most of these steps, but it is
+important to write an overview on installing dependencies (linking to the
+installation guide of that dependency), compiling instructions (when needed) and
+attack execution instructions.</p>
 
                     </main>
 

@@ -245,6 +245,16 @@ plain_text = bytearray('a' * 16, 'ascii')
 # Capture the actual trace
 trace = cw.capture_trace(scope, target, plain_text, key)
 </code></pre>
+<blockquote>
+<p><strong>NOTE:</strong> Within the SimpleSerial protocol — which is used under the
+hood by the ChipWhisperer devices — the <code>capture_trace</code> function
+corresponds with a couple of steps (arming the chipwhisperer, sending the
+key/plaintext and retrieving the trace data, etc.). This can become important
+when implementating your own algorithms. There it may be important to replace
+w this one function with its individual steps to get more control over the
+commands send. This can be seen in the <em>Python</em> code of the <a href="https://github.com/coastalwhite/simpleserial-c-template">SimpleSerial C
+template</a>.</p>
+</blockquote>
 <p>This is very interesting, but we don't really have any confirmation or
 visualization. So let us visualize it with <a href="https://github.com/matplotlib/matplotlib">pyplot</a>.</p>
 <pre><code class="language-python">import matplotlib.pyplot as plt
