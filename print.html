@@ -418,25 +418,159 @@ It turns out that we can interpret this as repeated multiplication and squaring.
 This is how that works.</p>
 <p>If we are given a number \( x \) and we are tasked with the raising it to the
 13th power, we might to it as follows:</p>
-<p>\[ x^{13} = x \cdot x^{12} = x \cdot (x^6)^2 = x \cdot ((x^3)^2)^2 = x \cdot
-((x \cdot x^2)^2)^2 \]</p>
-<p>Which means that, if we go from inwards to outwards, we can in some Python
-pseudo code which calculates the power 13 of any number:</p>
-<pre><code class="language-python"># Raise to the power 13 by repeated squaring and multiplication
-function to_power_13(n):
-    step_value = n
+<p>\[ x^{13} = x^8 \cdot x^4 \cdot x^1 \]</p>
+<p>Noticing the clear ties with powers of 2 here — and thus with binary
+—, we might write a custom power function in python as the following.</p>
+<pre><code class="language-python"># Custom implementation of pow(x, y)
+def custom_pow(x, y):
+    res = 1
 
-    step_value = pow(step_value, 2) #           x^2
-    step_value = n * step_value     #       x * x^2
-    step_value = pow(step_value, 2) #      (x * x^2)^2
-    step_value = pow(step_value, 2) #     ((x * x^2)^2)^2
-    step_value = n * step_value     # x * ((x * x^2)^2)^2
+    # Until we have reached the highest power
+    while (y &gt; 0):
+        # If the last byte is a one
+        if (y &amp; 0x01):
+            res *= x
 
-    return step_value
+        # Move on to the next byte
+        y &gt;&gt;= 1
+        x *= x
+
+    return res
 </code></pre>
-<p>We also might notice that has very close ties to binary. For example, the </p>
-<p><strong>WIP:</strong> <a href="rsa/./aes.html">The AES chapter here has a first draft though</a></p>
-<p><strong>WIP:</strong> <a href="rsa/./aes.html">The AES chapter here has a first draft though</a></p>
+<p>If we add a modulo into our function, we have essentially created a function to
+do RSA encryption. This is also often how the pseudocode for lower level
+implementation looks like.</p>
+<pre><code class="language-python"># Custom implementation of pow(x, y) % p
+# With p &gt;= 2
+def custom_pow_mod(x, y, p):
+    res = 1
+
+    # Until we have reached the highest power
+    while (y &gt; 0):
+        # If the last byte is a one
+        if (y &amp; 0x01):
+            res *= x
+            res %= p # Make sure we stay modulo p
+
+        # Move on to the next byte
+        y &gt;&gt;= 1
+        x *= x
+        x %= p # Make sure we stay modulo p
+
+    return res
+</code></pre>
+<p>If you are already a small bit familiar with Side-Channel Analysis and Power
+Analysis, you might immediately see what is going wrong here. If not let us go
+through it together.</p>
+<p>When we do <em>Power Analysis</em>, we get the power consumption of a computer for a
+set time. Let us say we would we have a computer purely executing the
+computation for <code>custom_pow_mod(3, 5, 15)</code>. The steps that are taken in this
+computation are done noted below. Take a look at that the computation and
+verify it in your head.</p>
+<pre><code class="language-python">custom_pow_mod(3, 5, 15):
+
+res := 1
+
+# Round 1
+
+# [A]
+y &gt; 0 = 5 &gt; 0 is true, thus:
+    y &amp; 0x01 = 5 &amp; 0x01 is 1, which equals true, thus:
+        # [B]
+        res := res * x = 1 * 5 = 5
+        res := res % 15 = 5 % 15 = 5
+
+    # [C]
+    y := y &gt;&gt; 1 = 5 &gt;&gt; 1 = 2
+    x := x * x = 3 * 3 = 9
+    x := x % 15 = 9 % 15 = 9
+
+
+# Round 2
+
+# [D]
+y &gt; 0 = 2 &gt; 0 is true, thus:
+    y &amp; 0x01 = 2 &amp; 0x01 is 0, which equals false
+
+    # [E]
+    y := y &gt;&gt; 1 = 2 &gt;&gt; 1 = 1
+    x := x * x = 9 * 9 = 81
+    x := x % 15 = 81 % 15 = 6
+
+# Round 3
+
+# [F]
+y &gt; 0 = 1 &gt; 0 is true, thus:
+    y &amp; 0x01 = 1 &amp; 0x01 is 1, which equals true, thus:
+        # [G]
+        res := res * x = 5 * 6 = 30
+        res := res % 15 = 30 % 15 = 0
+
+    # [H]
+    y := y &gt;&gt; 1 = 1 &gt;&gt; 1 = 0
+    x := x * x = 6 * 6 = 36
+    x := x % 15 = 36 % 15 = 6
+
+# Round 4
+
+# [I]
+y &gt; 0 = 0 &gt; 0 is false.
+
+# [J]
+Result: 0
+</code></pre>
+<p>One might notice that every round contains a differing amount of steps, and
+thus, we might imagine that the power consumption of our machine looks similar
+to <em>Figure 1</em>.</p>
+<p><img src="rsa/../assets/estimate-power-consumption-rsa.jpg" alt="Estimate of RSA power consumption" /></p>
+<p><em>Figure 1: A projected power trace for the</em> <code>custom_pow_mod(3, 5, 15)</code> <em>function call.</em></p>
+<blockquote>
+<p><strong>NOTE:</strong> This sketch uses the estimate that conditionals and loops (<code>if</code> and
+<code>while</code>) are less power consuming than normal numerical calculations (<code>&gt;&gt;</code>,
+<code>*</code> and <code>%</code>), which isn't trivially necessarily true, but for the sake of
+argument we are going to assume it is true.</p>
+</blockquote>
+<p>You might notice that given this sketch, we can reconstruct some information
+about the argument <code>y</code> provided to the <code>custom_pow_mod</code> function. We start with
+a long spike, thus, the binary number representation of <code>y</code> starts with a <code>1</code>.
+This is followed by a short spike, which indicates a <code>0</code>. And lastly, we see a
+long spike again. Therefore, we end with an <code>1</code>. And we get the binary number
+<code>101</code> for our <code>y</code>. This equals 5 in decimal, which is correct.</p>
+<p>Let us do another one, now without knowing the answer before hand. Take a look
+at <em>Figure 2</em>.</p>
+<p><img src="rsa/../assets/rsa-key-42.jpg" alt="RSA key 42" /></p>
+<p><em>Figure 2: A projected power trace for the</em> <code>custom_pow_mod</code> <em>function.</em></p>
+<p>We start with two short spikes, and thus we start with two zeros. Then we
+alternate a long spike with a short spike three times. This means we get
+<code>00101010</code>. This is equal to decimal 42. And thus the <code>y</code> we started with is 42.</p>
+<h2 id="what-does-this-tell-us"><a class="header" href="#what-does-this-tell-us">What does this tell us?</a></h2>
+<p>The previous code example may seem cherry picked. In fact, it is. It indicates
+this concept very nicely and is therefore an extremely good visual example of
+how to break a RSA implementation. However, code following the same principle or
+even this exact algorithm is extremely common. This means that whilst this exact
+method may not be applicable everywhere, the underlaying idea still is.</p>
+<p>So whilst this method specifically is interesting, we are more interested in
+looking into an algorithm and seeing if we can tell something about data used
+from the patterns in a power trace. Specifically for this chapter for (part of)
+the RSA encryption algorithm.</p>
+<h1 id="deciphering-a-trace"><a class="header" href="#deciphering-a-trace">Deciphering a trace</a></h1>
+<blockquote>
+<ul>
+<li>Recap on capturing a dataset / Link to datasets</li>
+<li>How does this look</li>
+<li>How do we process it to readable</li>
+<li>How do we read it</li>
+</ul>
+</blockquote>
+<h1 id="exercises"><a class="header" href="#exercises">Exercises</a></h1>
+<blockquote>
+<ul>
+<li>Crack the following 3 pictures.</li>
+<li>Crack the following 4 datasets</li>
+<li>Think of simple adjustment that can be made</li>
+<li>Try to crack a protected dataset</li>
+</ul>
+</blockquote>
 <h1 id="breaking-aes"><a class="header" href="#breaking-aes">Breaking AES</a></h1>
 <p><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> or the
 <strong>Advanced Encryption Standard</strong>, is one of the most popular symmetric encryption
@@ -1413,7 +1547,14 @@ def optimized_calculate_correlation_coefficients(subkey, subkey_index):
 
     return point_correlation
 </code></pre>
-<p><strong>WIP:</strong> <a href="aes/./aes.html">The AES chapter here has a first draft though</a></p>
+<h1 id="exercises-1"><a class="header" href="#exercises-1">Exercises</a></h1>
+<blockquote>
+<ul>
+<li>Crack the following 3 AES datasets.</li>
+<li>Think of a simple change to make it more difficult to crack AES.</li>
+<li>Crack the following example (how many traces to you need?).</li>
+</ul>
+</blockquote>
 <h1 id="assignment"><a class="header" href="#assignment">Assignment</a></h1>
 <p>As a final assignment for this walkthrough, there should detailed report on some
 component of power analysis including a demonstration and what effect it has on
