@@ -1,2 +1,6 @@
+# Exercises
 
-__WIP:__ [The AES chapter here has a first draft though](./aes.md)
+> * Crack the following 3 pictures.
+> * Crack the following 4 datasets
+> * Think of simple adjustment that can be made
+> * Try to crack a protected dataset
