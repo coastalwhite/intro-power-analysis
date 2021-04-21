@@ -8,3 +8,4 @@
    it not work?
 3. Crack the secret key used for the following ChaCha power trace. The source
    code of which can be found [here](https://githu.com/coastalwhite/cw-chacha).
+   **TODO: HAS TO BE ADDED**
