@@ -27,13 +27,13 @@ from tqdm import trange
 # Define the key used for the encryption
 # This key has to be 128 bits = 16 bytes
 # = 16 ascii characters in length
-key_str = 'H4ck3rm4n-l33t42'
+key_str = 'bruteforcing????'
 
 # Convert the key to a byte array
 key = bytearray(key_str, 'ascii')
 
 # Define the constant for the amount of traces
-N = 100
+N = 5
 
 textins = []
 traces = []

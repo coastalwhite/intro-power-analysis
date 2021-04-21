@@ -76,6 +76,7 @@ textins = np.load('output/textins.npy')
 
 num_traces = np.shape(traces)[0]
 num_points = np.shape(traces)[1]
+
 # ANCHOR_END: load_data
 ########################################
 # ANCHOR_END: all

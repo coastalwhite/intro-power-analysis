@@ -98,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="../preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> Breaking RSA</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rsa/capture.html"><strong aria-hidden="true">3.1.</strong> Capturing your first trace</a></li><li class="chapter-item expanded "><a href="../rsa/workings.html"><strong aria-hidden="true">3.2.</strong> A deeper look at RSA</a></li><li class="chapter-item expanded "><a href="../rsa/deciphering.html"><strong aria-hidden="true">3.3.</strong> Deciphering a trace</a></li><li class="chapter-item expanded "><a href="../rsa/exercises.html"><strong aria-hidden="true">3.4.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/capture.html" class="active"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/manual-analysis.html"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="../aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="../aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="../preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/capture.html" class="active"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/manual-analysis.html"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="../aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="../aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -218,7 +218,7 @@ program = STM32FProgrammer
 # Get the path to the current folder
 # Adjust accordingly
 aes_firmware_dir = os.path.dirname(os.path.realpath(__file__))
-aes_hex_path = os.path.join(aes_firmware_dir, r&quot;simpleserial-aes-CWLITEARM.hex&quot;)
+aes_hex_path = os.path.join(aes_firmware_dir, r&quot;hexfiles/simpleserial-aes-CWLITEARM.hex&quot;)
 
 # Apply the program to the actual target
 # This allows us to run the hex code on the microcontroller
@@ -290,13 +290,13 @@ def random_string(length):
 # Define the key used for the encryption
 # This key has to be 128 bits = 16 bytes
 # = 16 ascii characters in length
-key_str = 'H4ck3rm4n-l33t42'
+key_str = 'bruteforcing????'
 
 # Convert the key to a byte array
 key = bytearray(key_str, 'ascii')
 
 # Define the constant for the amount of traces
-N = 100
+N = 5
 
 textins = []
 traces = []

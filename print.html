@@ -100,7 +100,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="rsa.html"><strong aria-hidden="true">3.</strong> Breaking RSA</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rsa/capture.html"><strong aria-hidden="true">3.1.</strong> Capturing your first trace</a></li><li class="chapter-item expanded "><a href="rsa/workings.html"><strong aria-hidden="true">3.2.</strong> A deeper look at RSA</a></li><li class="chapter-item expanded "><a href="rsa/deciphering.html"><strong aria-hidden="true">3.3.</strong> Deciphering a trace</a></li><li class="chapter-item expanded "><a href="rsa/exercises.html"><strong aria-hidden="true">3.4.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="aes/capture.html"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="aes/manual-analysis.html"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="aes/capture.html"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="aes/manual-analysis.html"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -393,20 +393,21 @@ communicating between the host machine (e.g. a laptop) and the target. Some
 documentation on it can be found
 <a href="https://chipwhisperer.readthedocs.io/en/latest/simpleserial.html">here</a>.</p>
 </blockquote>
-<p><strong>WIP:</strong> <a href="./aes.html">The AES chapter here has a first draft though</a></p>
-<p><strong>WIP:</strong> <a href="rsa/./aes.html">The AES chapter here has a first draft though</a></p>
-<h1 id="a-deeper-look-at-rsa"><a class="header" href="#a-deeper-look-at-rsa">A deeper look at RSA</a></h1>
-<p>RSA is quite an simple algorithm, but to understand how and why we can crack RSA
-using power traces. It is important to understand the method RSA uses in quite
-some depth. In the chapter on AES, we will go a bit deeper into cache based
-side-channel attacks and why they work exactly, but here we will do a few
-assumptions to focus on the important bits.</p>
+<h1 id="a-case-study-rsa"><a class="header" href="#a-case-study-rsa">A case study: RSA</a></h1>
+<p>RSA is an encryption algorithm that is used in a lot of places. That little
+padlock in your browser; it is powered by RSA. Programming RSA is reasonably
+simply, but the mathematics behind it can prove to be really though. Luckily,
+there is no need to dive into too much depth to crack RSA using Simple Power
+Analysis. In the chapter on AES, we will go a bit deeper into cache based
+side-channel attacks, why they work exactly and how to perform them on the
+ChipWhisperer. This chapter is going to skip over a few of the specifics to
+create a better overview of our method and goals.</p>
 <h2 id="what-is-rsa"><a class="header" href="#what-is-rsa">What is RSA?</a></h2>
-<p>RSA is used to do asymmetric encryption. This means we have two keys. Most of
-the time this means we have one to encrypt plain text to cipher text, one to
-decrypt cipher text back to plain text. It is common to have one of these keys
-be public and the other be private and secret. Thus, they might also be called
-to the public and private key.</p>
+<p>RSA is an algorithm used to do asymmetric encryption. This means we have two
+distinct keys. Most of the time this means we have one to encrypt plain text to
+cipher text, one to decrypt cipher text back to plain text. It is common to have
+one of these keys be public and the other be private and secret. Thus, they
+might also be called to the public and private key.</p>
 <p>RSA uses one simple principle. For encryption with public key \( e \), for
 every byte of our plain text \(b_i\) we have encrypted byte \( c_i=b_i^e \)
 modulo some integer \( N \). For decryption with private key \( d \), for
@@ -522,12 +523,12 @@ Result: 0
 <p>One might notice that every round contains a differing amount of steps, and
 thus, we might imagine that the power consumption of our machine looks similar
 to <em>Figure 1</em>.</p>
-<p><img src="rsa/../assets/estimate-power-consumption-rsa.jpg" alt="Estimate of RSA power consumption" /></p>
+<p><img src="../assets/estimate-power-consumption-rsa.jpg" alt="Estimate of RSA power consumption" /></p>
 <p><em>Figure 1: A projected power trace for the</em> <code>custom_pow_mod(3, 5, 15)</code> <em>function call.</em></p>
 <blockquote>
 <p><strong>NOTE:</strong> This sketch uses the estimate that conditionals and loops (<code>if</code> and
 <code>while</code>) are less power consuming than normal numerical calculations (<code>&gt;&gt;</code>,
-<code>*</code> and <code>%</code>), which isn't trivially necessarily true, but for the sake of
+<code>*</code> and <code>%</code>), which isn't trivially true, but for the sake of
 argument we are going to assume it is true.</p>
 </blockquote>
 <p>You might notice that given this sketch, we can reconstruct some information
@@ -538,7 +539,7 @@ long spike again. Therefore, we end with an <code>1</code>. And we get the binar
 <code>101</code> for our <code>y</code>. This equals 5 in decimal, which is correct.</p>
 <p>Let us do another one, now without knowing the answer before hand. Take a look
 at <em>Figure 2</em>.</p>
-<p><img src="rsa/../assets/rsa-key-42.jpg" alt="RSA key 42" /></p>
+<p><img src="../assets/rsa-key-42.jpg" alt="RSA key 42" /></p>
 <p><em>Figure 2: A projected power trace for the</em> <code>custom_pow_mod</code> <em>function.</em></p>
 <p>We start with two short spikes, and thus we start with two zeros. Then we
 alternate a long spike with a short spike three times. This means we get
@@ -548,29 +549,11 @@ alternate a long spike with a short spike three times. This means we get
 this concept very nicely and is therefore an extremely good visual example of
 how to break a RSA implementation. However, code following the same principle or
 even this exact algorithm is extremely common. This means that whilst this exact
-method may not be applicable everywhere, the underlaying idea still is.</p>
+method may not be applicable everywhere, the underlying idea still is.</p>
 <p>So whilst this method specifically is interesting, we are more interested in
-looking into an algorithm and seeing if we can tell something about data used
-from the patterns in a power trace. Specifically for this chapter for (part of)
-the RSA encryption algorithm.</p>
-<h1 id="deciphering-a-trace"><a class="header" href="#deciphering-a-trace">Deciphering a trace</a></h1>
-<blockquote>
-<ul>
-<li>Recap on capturing a dataset / Link to datasets</li>
-<li>How does this look</li>
-<li>How do we process it to readable</li>
-<li>How do we read it</li>
-</ul>
-</blockquote>
-<h1 id="exercises"><a class="header" href="#exercises">Exercises</a></h1>
-<blockquote>
-<ul>
-<li>Crack the following 3 pictures.</li>
-<li>Crack the following 4 datasets</li>
-<li>Think of simple adjustment that can be made</li>
-<li>Try to crack a protected dataset</li>
-</ul>
-</blockquote>
+whether looking into an algorithm and deciding if we can tell something about
+data used from the patterns in a power trace. In the next chapter, we are going
+to have go through how this can be done with AES.</p>
 <h1 id="breaking-aes"><a class="header" href="#breaking-aes">Breaking AES</a></h1>
 <p><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> or the
 <strong>Advanced Encryption Standard</strong>, is one of the most popular symmetric encryption
@@ -812,7 +795,7 @@ program = STM32FProgrammer
 # Get the path to the current folder
 # Adjust accordingly
 aes_firmware_dir = os.path.dirname(os.path.realpath(__file__))
-aes_hex_path = os.path.join(aes_firmware_dir, r&quot;simpleserial-aes-CWLITEARM.hex&quot;)
+aes_hex_path = os.path.join(aes_firmware_dir, r&quot;hexfiles/simpleserial-aes-CWLITEARM.hex&quot;)
 
 # Apply the program to the actual target
 # This allows us to run the hex code on the microcontroller
@@ -884,13 +867,13 @@ def random_string(length):
 # Define the key used for the encryption
 # This key has to be 128 bits = 16 bytes
 # = 16 ascii characters in length
-key_str = 'H4ck3rm4n-l33t42'
+key_str = 'bruteforcing????'
 
 # Convert the key to a byte array
 key = bytearray(key_str, 'ascii')
 
 # Define the constant for the amount of traces
-N = 100
+N = 5
 
 textins = []
 traces = []
@@ -1088,6 +1071,7 @@ textins = np.load('output/textins.npy')
 
 num_traces = np.shape(traces)[0]
 num_points = np.shape(traces)[1]
+
 </code></pre>
 <h2 id="are-we-data-scientists-yet"><a class="header" href="#are-we-data-scientists-yet">Are we data-scientists yet?</a></h2>
 <p>We want to change the data in such a way that it makes it easier to identify
@@ -1333,6 +1317,7 @@ textins = np.load('output/textins.npy')
 
 num_traces = np.shape(traces)[0]
 num_points = np.shape(traces)[1]
+
 ########################################
 
 # Pearson correlation
@@ -1547,14 +1532,17 @@ def optimized_calculate_correlation_coefficients(subkey, subkey_index):
 
     return point_correlation
 </code></pre>
-<h1 id="exercises-1"><a class="header" href="#exercises-1">Exercises</a></h1>
-<blockquote>
-<ul>
-<li>Crack the following 3 AES datasets.</li>
-<li>Think of a simple change to make it more difficult to crack AES.</li>
-<li>Crack the following example (how many traces to you need?).</li>
-</ul>
-</blockquote>
+<h1 id="exercises"><a class="header" href="#exercises">Exercises</a></h1>
+<ol>
+<li>At the following
+<a href="https://github.com/coastalwhite/intro-power-analysis/datasets/aes">location</a>
+you can find 3 sets of power traces, can you crack their keys used?</li>
+<li>Does the method of statistical analysis apply to the <a href="https://en.wikipedia.org/wiki/Salsa20">ChaCha
+ciphers</a>. Why does it work? Why does
+it not work?</li>
+<li>Crack the secret key used for the following ChaCha power trace. The source
+code of which can be found <a href="https://githu.com/coastalwhite/cw-chacha">here</a>.</li>
+</ol>
 <h1 id="assignment"><a class="header" href="#assignment">Assignment</a></h1>
 <p>As a final assignment for this walkthrough, there should detailed report on some
 component of power analysis including a demonstration and what effect it has on
