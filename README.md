@@ -3,7 +3,7 @@
 An introductory walkthrough into the concepts and workings of Power Analysis
 using the [ChipWhisperer](https://github.com/newaetech/chipwhisperer) framework.
 Will take one through breaking the
-[RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem\)) and
+[RSA](https://en.wikipedia.org/wiki/RSA_\(cryptosystem\)) and
 [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) algorithms
 with Power Analysis, and provide exercises to practice.
 

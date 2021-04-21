@@ -32,7 +32,7 @@ program = STM32FProgrammer
 # Get the path to the current folder
 # Adjust accordingly
 aes_firmware_dir = os.path.dirname(os.path.realpath(__file__))
-aes_hex_path = os.path.join(aes_firmware_dir, r"simpleserial-aes-CWLITEARM.hex")
+aes_hex_path = os.path.join(aes_firmware_dir, r"hexfiles/simpleserial-aes-CWLITEARM.hex")
 
 # Apply the program to the actual target
 # This allows us to run the hex code on the microcontroller

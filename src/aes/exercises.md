@@ -1,5 +1,10 @@
 # Exercises
 
-> * Crack the following 3 AES datasets.
-> * Think of a simple change to make it more difficult to crack AES.
-> * Crack the following example (how many traces to you need?).
+1. At the following
+   [location](https://github.com/coastalwhite/intro-power-analysis/datasets/aes)
+   you can find 3 sets of power traces, can you crack their keys used?
+2. Does the method of statistical analysis apply to the [ChaCha
+   ciphers](https://en.wikipedia.org/wiki/Salsa20). Why does it work? Why does
+   it not work?
+3. Crack the secret key used for the following ChaCha power trace. The source
+   code of which can be found [here](https://githu.com/coastalwhite/cw-chacha).
