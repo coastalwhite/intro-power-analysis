@@ -171,24 +171,28 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="breaking-aes"><a class="header" href="#breaking-aes">Breaking AES</a></h1>
-<p><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> or the
-<strong>Advanced Encryption Standard</strong>, is one of the most popular symmetric encryption
-algorithms in today's world. It is used for most encrypted conversations between
-computers or applications. It is used by your chat apps and by your password
-manager. AES has the advantage of being relatively fast and easy to understand.</p>
-<p>Since AES is very widely used, any found vulnerability should be taken extremely
-serious. It is widely considered that AES is mathematically secure and
+<p><a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> or the <em>Advanced Encryption Standard</em>, is one of the most used
+symmetric encryption algorithms in today's world. It is used for most encrypted
+conversations between computers or applications. It is used by your chat apps
+and by your password manager. <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> has the advantage of being relatively fast and
+easy to understand.</p>
+<p>Since <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> is very widely used, any found vulnerability should be taken extremely
+serious. It is widely considered that <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> is mathematically secure and
 therefore <em>perfect implementations</em> of the algorithms should not be vulnerable to
-most standard attacks. You can see a caveat here:</p>
+most standard attacks. You may see a caveat here:</p>
 <p><strong>Have we created perfect implementations of the AES algorithm?</strong></p>
-<p>Although there are some AES implementations that have existed for over 2
-decades. There are still regular updates to these libraries, because from time to
-time people find new mistakes in the implementation of these
-algorithms. Code is messy, people make mistakes or are ignorant. Side-channel
-analysis is a attack-vector that is often overlooked or ignored since it
+<p>Although there are some <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> implementations that have existed for over 2
+decades<sup class="footnote-reference"><a href="#openssl">1</a></sup>. There are still regular updates to these libraries, because
+from time to time people find new mistakes in the implementation of these
+algorithms. Code is messy, people make mistakes or are ignorant. <a href="https://en.wikipedia.org/wiki/Side-channel_attack">Side-Channel
+analysis</a> is a attack-vector that is often overlooked or ignored since it
 requires physical access to the device.</p>
-<p>In this section we will have a look at how AES works, a naive implementation of
-the algorithm and how power analysis can be used to expose the key used.</p>
+<p>In this section we will have a look at how <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> works, cracking a naive
+implementation of the algorithm and see how <a href="https://en.wikipedia.org/wiki/Power_analysis">Power Analysis</a> can be used to
+expose the key used.</p>
+<div class="footnote-definition" id="openssl"><sup class="footnote-definition-label">1</sup>
+<p>OpenSSL has been copyrighted since 1999 — <a href="https://www.openssl.org/">https://www.openssl.org/</a></p>
+</div>
 
                     </main>
 

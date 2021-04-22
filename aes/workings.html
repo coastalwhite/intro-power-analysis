@@ -171,57 +171,57 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="how-aes-works"><a class="header" href="#how-aes-works">How AES Works</a></h1>
-<p>In order to do break <em>AES</em> with power analysis, we need a reasonably detailed
-understanding of how <em>AES</em> works. So let us do a refresher.</p>
-<p>The <em>AES</em> algorithm is a subset of the <strong>Rijndael block cipher</strong> algorithm and
-has basically become synonymous with it. As the name <strong>Rijndael block cipher</strong>
+<p>In order to do break <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> with power analysis, we need a reasonably detailed
+understanding of how <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> works. So let us do a crash course.</p>
+<p>The <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm is a subset of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">Rijndael block cipher</a> algorithm and
+has basically become synonymous with it. As the name <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">Rijndael block cipher</a>
 implies, we apply the encryption to fixed-size blocks of plain text. With the
 size of the blocks being equal to the key size. The encryption is based on
-alternating <em>XOR</em> operations and shuffling the bytes of the blocks. Let dive
-into each individual component.</p>
+alternating <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> operations and shuffling the bytes of the blocks. Let dive
+into each individual component of the algorithm.</p>
 <h2 id="the-plan"><a class="header" href="#the-plan">The Plan</a></h2>
-<p>As said previously, the <em>AES</em> algorithm works by alternating <em>XOR</em> operations
+<p>As said previously, the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm works by alternating <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> operations
 with the shuffling of the bytes of the blocks. The algorithm specifies that this
-is done in rounds. Since <em>AES</em> has 3 different key sizes (128, 192 and 256
+is done in rounds. Since <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> has 3 different key sizes (128, 192 and 256
 bits), each different key size also has a different number of rounds. The amount
 of rounds are 10, 12, and 14, respectively.</p>
 <p>How does a round look like? Although the first round and the last round have
 small differences to the rest we can divide all the rounds up into two sections the
-shuffling of bytes and the <em>XOR</em> operation. Let us first have a look at the
-<em>XOR</em> operations.</p>
+shuffling of bytes and the <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> operation. Let us first have a look at the
+<a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> operations.</p>
 <h2 id="xor-operations"><a class="header" href="#xor-operations">XOR operations</a></h2>
-<p>The <em>XOR</em> operation is essentially the adding of the key and is what makes the
-running of the <em>AES</em> algorithm different depending on what key is used. Firstly,
+<p>The <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> operation is essentially the mixing in of the key and is what makes the
+running of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm different depending on what key is used. Firstly,
 in order to make reversal even more different, we <strong>create multiple new keys from
 the original key</strong>. This is called the
 <a href="https://en.wikipedia.org/wiki/AES_key_schedule">AES key schedule</a>. This
 walkthrough will not go into detail on how this key-expansion works, but if
-interested one can look up details. The part which is import to this walkthrough
+interested one can look up details. The part which is important to this walkthrough
 is that after this expansion we have as many new keys as we have rounds. We will
-number all the from \(k_0\) to \(k_{10}\) (assuming 128 bit <em>AES</em>).
+number all the from \(k_0\) to \(k_{10}\) (assuming we are using 128 bit <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>).
 Here \(k_0\) is the original key and \(k_1\) till \(k_{10}\) are
 the expanded keys.</p>
 <p><img src="../assets/AES_Key_Schedule.svg" alt="AES Key Schedule" /></p>
 <p><em>Figure 1: The AES Key Schedule</em></p>
-<p>With these keys we performs a <em>XOR</em> on a block. The <em>XOR</em> operation is a
+<p>With these keys we performs a <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> on a block. The <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> operation is a
 notorious one way operation. This is due to the lack of information the output
-shares about the input. When we do a one bit <em>XOR</em> operation and we receive 1 as
+shares about the input. When we do a one bit <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> operation and we receive 1 as
 an output, the input could have been (0,1) or (1,0). We also have two options
 when we get 0 as output. In the case of one bit, this is not that useful.
-However, when we a lot of bits the <em>XOR</em> operator is impossible to instantly
+However, when we a lot of bits the <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> operator is impossible to instantly
 reverse for every output and brute forcing time is equal to trying every option
-divided by two. Mathematically this caused by the <em>XOR</em> operation being
-non-injective. Furthermore, the other argument is incredibly easy to find when
-we have one of the arguments. These two properties make it ideal for a lot of
-encryption algorithms.</p>
+divided by two. Mathematically this caused by the <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> operation being
+non-<a href="https://en.wikipedia.org/wiki/Injective_function">injective</a>. When we have
+the outcome and one of the inputs however, this step is extremely easy to
+reverse. These two properties make it ideal for a lot of encryption algorithms.</p>
 <p><img src="../assets/XOR_NonInjectivity.svg" alt="XOR Non Injective" /></p>
-<p><em>Figure 2: The non injective nature of the XOR operation</em></p>
+<p><em>Figure 2: The non <a href="https://en.wikipedia.org/wiki/Injective_function">injective</a> nature of the <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> operation</em></p>
 <h2 id="shuffling-of-bytes"><a class="header" href="#shuffling-of-bytes">Shuffling of bytes</a></h2>
 <p>Next let us have a look at the other parts of each round. The shuffling of
-the block bytes. Rijndael block ciphers have 3 distinct shuffling techniques:
+the block bytes. <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">Rijndael block cipher</a>s have 3 distinct shuffling techniques:
 <strong>substitution, shifting, and mixing</strong>. We are going to have a look at all three
-of these shuffling techniques, but let us first have a look at how Rijndael
-block ciphers view each block.</p>
+of these shuffling techniques, but let us first have a look at how <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">Rijndael
+block cipher</a>s view each block.</p>
 <h3 id="block-of-blocks"><a class="header" href="#block-of-blocks">Block-of-blocks?</a></h3>
 <p>Rijndael looks at blocks as a matrix of bytes. For the key sizes of key sizes of
 128, 192 and 256 bits, we have 4 by 4, 6 by 6 and 8 by 8 matrices, respectively.
@@ -238,7 +238,7 @@ Turning a long string of bytes into a matrix allows for matrix operations, which
 are common operations for computers. This provides both clarity and speed.</p>
 <h3 id="substitution"><a class="header" href="#substitution">Substitution</a></h3>
 <p>Now comes one of the most genius but strange parts of the Rijndael block
-cipher. This is the substitution box. A substitution block is basically a lookup
+cipher. This is the substitution box. A substitution box is basically a lookup
 table to replace (or substitute) a byte with the one from the lookup table. Some
 demands for such a lookup table (when used in encryption algorithms) may be:</p>
 <ul>
@@ -253,11 +253,11 @@ linear function.</li>
 data, we want to output to have a fixed bit size (preferably the same as the
 input).</li>
 </ul>
-<p>The <a href="https://en.wikipedia.org/wiki/Rijndael_S-box">Rijndael S-Box</a> does all
-these things. Since it has all of these properties, how it specifically looks is
-not important. Every implementation of <em>AES</em> can save the Substitution-Box and
-its inverse in static memory since it is public knowledge.</p>
-<p>Here is the Rijndael S-Box as a python array.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Rijndael_S-box">Rijndael S-Box</a> does all these things. Since it has all of these
+properties, how it specifically looks is not important. Every implementation of
+<a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> can save the Substitution-Box and its inverse in static memory since it is
+public knowledge.</p>
+<p>Here is the <a href="https://en.wikipedia.org/wiki/Rijndael_S-box">Rijndael S-Box</a> as a <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> array.</p>
 <pre><code class="language-python"># Rijndael Substitution box
 SBox = [
     # 0    1    2    3    4    5    6    7    8    9    a    b    c    d    e    f
@@ -284,50 +284,47 @@ SBox = [
 This step prevents the columns (4 consecutive bytes in the case of the 128 bit
 variant) from being <strong>encrypted and decrypted separately</strong>. The step consists of
 shifting the first row of the matrix by zero, the second by one, the third by
-two and the fourth by three spaces. This looks as follows:</p>
+two and the fourth by three spaces. This is depicted in <em>Figure 3</em>.</p>
 <p><img src="../assets/Shift_Rows.svg" alt="Shift Rows" /></p>
-<p><em>Figure 3: Rijndael block cipher's Shift Row</em></p>
+<p><em>Figure 3: <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">Rijndael block cipher</a>'s Shift Row</em></p>
 <h3 id="mixing"><a class="header" href="#mixing">Mixing</a></h3>
 <p>The last shuffling step mixes the columns in order create <a href="https://en.wikipedia.org/wiki/Confusion_and_diffusion">cryptographic
 diffusion</a>, which makes
-it <strong>resistant to statistical analysis attacks</strong>. The step works by multiplying each
-column with the following inversable matrix (multiplication meaning modulo
-multiplication and addition meaning <em>XOR</em>): \[
-\begin{bmatrix}
-2 &amp; 3 &amp; 1 &amp; 1 \\
-1 &amp; 2 &amp; 3 &amp; 1 \\
-1 &amp; 1 &amp; 2 &amp; 3 \\
-3 &amp; 1 &amp; 1 &amp; 2
-\end{bmatrix}
-\]</p>
+it <strong>resistant to <a href="https://en.wikipedia.org/wiki/Frequency_analysis">statistical analysis
+attacks</a></strong>. The step works by
+multiplying each column with the following inversable matrix (multiplication
+meaning modulo multiplication and addition meaning <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a>): \[ \begin{bmatrix} 2
+&amp; 3 &amp; 1 &amp; 1 \\ 1 &amp; 2 &amp; 3 &amp; 1 \\ 1 &amp; 1 &amp; 2 &amp; 3 \\ 3 &amp; 1 &amp; 1 &amp; 2
+\end{bmatrix} \]</p>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>Let us now provide a overview for how a typical <em>AES</em> encryption looks. One can
+<p>Let us now provide a overview for how a typical <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> encryption looks. One can
 imagine that the decryption is just the inverse of these actions we will
 therefore gloss over that part.</p>
-<p>As said before, the <em>AES</em> encryption process works in rounds. With every round
+<p>As said before, the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> encryption process works in rounds. With every round
 needing a separate expanded key. Therefore the first step is to create these key
 expansions as described in <a href="#xor-operations">XOR Operations</a>. Immediately
-following this we that the initial round key \(k_0\) and apply the <em>XOR</em> with
+following this we that the initial round key \(k_0\) and apply the <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> with
 it to each block.</p>
 <p>After the summation with the initial round key we will start applying rounds (9,
 11 and 13 rounds for key sizes 128, 192 and 256 bits, respectively). These
-rounds apply the following order attacks: Firstly, we do a <a href="#substitution">substitution with the
+rounds apply steps in the following order: Firstly, we do a <a href="#substitution">substitution with the
 Rijndael S-Box</a>. Secondly, we <a href="#shifting">shift the rows of the
 matrix</a>. Thirdly, we <a href="#mixing">mix the columns of the matrix up</a>.
 Lastly, we <a href="#xor-operations">add the round key for that round</a>.</p>
 <p>If you are counting along, you will notice that the final round is missing. This
-is because the final round has a small difference. We <strong>skip the mixing of
-columns</strong> step, since it provides nothing in last round.</p>
+is because the final round is a little bit different. The only difference being
+that we <strong>skip the <a href="#mixing">mixing of
+columns</a></strong> step, since it serves no purpose in last round.</p>
 <p>This all results in the following process:</p>
 <ol>
 <li><a href="#xor-operations">Key Expansion</a></li>
-<li><a href="#xor-operations">Apply \(k_0\) by <em>XOR</em></a></li>
+<li><a href="#xor-operations">Apply \(k_0\) by XOR</a></li>
 <li>Apply 9, 11, or 13 rounds
 <ol>
 <li><a href="#substitution">Substitution with the Rijndael S-Box</a></li>
 <li><a href="#shifting">Shift the rows</a></li>
 <li><a href="#mixing">Mix the columns</a></li>
-<li><a href="#xor-operations">Apply \(k_n\) by <em>XOR</em> with \(n\) being the round
+<li><a href="#xor-operations">Apply \(k_n\) by XOR with \(n\) being the round
 number</a></li>
 </ol>
 </li>
@@ -335,14 +332,14 @@ number</a></li>
 <ol>
 <li><a href="#substitution">Substitution with the Rijndael S-Box</a></li>
 <li><a href="#shifting">Shift the rows</a></li>
-<li><a href="#xor-operations">Apply \(k_n\) by <em>XOR</em> with \(n\) being the round
+<li><a href="#xor-operations">Apply \(k_n\) by XOR with \(n\) being the round
 number</a></li>
 </ol>
 </li>
 </ol>
-<p>After reading this one should have a basic overview and understanding of how
-<em>AES</em> works, which you will need for your power analysis. If you want a more
-visual explanation, you should watch <a href="https://www.youtube.com/watch?v=O4xNJsjtN6E">AES Explained by
+<p>After reading this section should have a basic overview and understanding of how
+<a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> works, which you will need for your <a href="https://en.wikipedia.org/wiki/Power_analysis">Power analysis</a>. If you want a more
+visual explanation, you could watch <a href="https://www.youtube.com/watch?v=O4xNJsjtN6E">AES Explained by
 Computerphile</a>.</p>
 
                     </main>

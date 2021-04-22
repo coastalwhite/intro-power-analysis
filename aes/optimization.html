@@ -172,20 +172,20 @@
                     <main>
                         <h1 id="sidenote-optimizing-our-algorithm"><a class="header" href="#sidenote-optimizing-our-algorithm">Sidenote: Optimizing our algorithm</a></h1>
 <p>As you may have noticed our algorithm is now really slow. This is due to the
-calculation of Pearson Correlation Coefficients. We can speed this up by a lot
+calculation of <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson Correlation Coefficient</a>s. We can speed this up by a lot
 if we notice a couple of things.</p>
 <ol>
 <li>\(\sqrt{a}\sqrt{b}=\sqrt{a b}\). Since square rooting is a very expensive
 operation, we can optimize the calculation of \(\sigma_x \sigma_y\) from
 two square root calculations to one.</li>
 <li>We are recalculating a lot of averages and standard deviations. We can
-precompute these averages and standard deviations and them fetch them instead
+precompute these averages and <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>s and them fetch them instead
 of recomputing them.</li>
-<li>Since we only care about the maximum correlation coefficient and have no
+<li>Since we only care about the maximum <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a> and have no
 interest in the value itself, we can stop doing any factorization.</li>
 </ol>
 <p>In the following code we have created a function which applies these three
-optimized functions when calculating the correlation coefficients.</p>
+optimized functions when calculating the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a>s.</p>
 <pre><code class="language-python">point_means = np.mean(traces, axis=0, dtype=np.float64)
 point_mean_diff = traces - point_means
 

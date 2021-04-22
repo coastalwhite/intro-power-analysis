@@ -227,7 +227,7 @@ def hypothetical_power_usage(subkey, plain_text_char):
     ]
 </code></pre>
 <p>In order to load the data we created with our trace we can add the follow few
-lines which will load in the numpy arrays.</p>
+lines which will load in the <a href="https://numpy.org/">numpy</a> arrays.</p>
 <pre><code class="language-python">import numpy as np
 
 traces = np.load('output/traces.npy')
@@ -240,47 +240,46 @@ num_points = np.shape(traces)[1]
 <h2 id="are-we-data-scientists-yet"><a class="header" href="#are-we-data-scientists-yet">Are we data-scientists yet?</a></h2>
 <p>We want to change the data in such a way that it makes it easier to identify
 whether a our <strong>modeled power usage is similar to the actual power usage</strong>. We
-need multiple power traces for this. The most important of which is the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson
-correlation coefficient</a>.</p>
+need multiple power traces for this. The most important processing of data is
+going to be using <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation coefficient</a>s.</p>
 <h3 id="pearson-correlation-coefficient"><a class="header" href="#pearson-correlation-coefficient">Pearson correlation coefficient</a></h3>
 <p>We have an difficult task here. Again, we want to know how likely it is that our
 modeled power usage has a similar pattern to the actual power usage. In
 statistics this is known as the modeled power usage and the actual power usage
-having a high <strong>correlation</strong>. If two functions are in perfect correlation,
+having a high <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>. If two functions are in perfect correlation,
 one function should always rise when the other rises and one function
 should always decline when the other declines.</p>
-<p>This is what the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation
-coefficient</a>
-indicates. We provide it with two functions and it will give us a value between
-\(-1\) and \(1\), indicating whether the two functions correlate. \(1\)
-meaning (unrealistic) levels of correlation, \(0\) meaning no correlation and
-\(-1\) meaning a inverse correlation. How the Pearson correlation coefficient
-manages to do this is not as important for us, but reading the Wikipedia page
-can be very interesting. What is important for us is the formula so we can use
-it in our code.</p>
+<p>This is what the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation coefficient</a> indicates. We provide it with
+two functions or arrays and it will give us a value between \(-1\) and
+\(1\), indicating whether the two functions <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlate</a>. \(1\) meaning
+extreme but almost unrealistic levels of <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>, \(0\) meaning no
+<a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> and \(-1\) meaning a inverse <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>. How the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson
+correlation coefficient</a> manages to do this is not as important for us, but
+reading the Wikipedia page can be very interesting. What is important for us is
+the formula so we can use it in our code.</p>
 <p>\[
 \rho_{X,Y} = \frac{\text{cov}(X,Y)}{\sigma_X \sigma_Y}
 \]</p>
 <p>This may not be entirely clear to most people without knowledge of
 statistics. So let us break it down.</p>
 <ul>
-<li>\(\rho\) is the letter commonly used to represent the Pearson correlation
-coefficient.</li>
+<li>\(\rho\) is the letter commonly used to represent the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation
+coefficient</a>.</li>
 <li>\(X\) and \(Y\) are our functions and can actually be represented as a
 finite list of numbers in our case. This means \(X = { x_0, \ldots, x_n }\) and
 \(Y = { y_0, \ldots, y_n }\) with \(n\) being an integers greater or
 equal to zero.</li>
-<li>\(\text{cov}(X,Y)\) is the covariance of \(X\) and \(Y\). This can be
+<li>\(\text{cov}(X,Y)\) is the <a href="https://en.wikipedia.org/wiki/Covariance">covariance</a> of \(X\) and \(Y\). This can be
 calculated with \(\text{cov}(X,Y)=\mathbb{E}[(X - \mu_X)(Y - \mu_Y)] =
 \frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)(y_i - \mu_Y) \), with
-\(\mu_X\) and \(\mu_Y\) being the mean of \(X\) and \(Y\),
+\(\mu_X\) and \(\mu_Y\) being the <a href="https://en.wikipedia.org/wiki/Mean">mean</a> of \(X\) and \(Y\),
 respectively.</li>
-<li>\(\sigma_X\) and \(\sigma_Y\) being the standard deviation of \(X\) and
-\(Y\), respectively. The standard deviation can be calculated with
+<li>\(\sigma_X\) and \(\sigma_Y\) being the <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> of \(X\) and
+\(Y\), respectively. The <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> can be calculated with
 \(\sigma_X = \sqrt{\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)^2}\) with
-\(\mu_X\) being the mean of \(X\).</li>
+\(\mu_X\) being the <a href="https://en.wikipedia.org/wiki/Mean">mean</a> of \(X\).</li>
 </ul>
-<p>Let us move these formulas to python.</p>
+<p>Let us move these formulas to <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>.</p>
 <pre><code class="language-python">def covariance(X, Y):
     if len(X) != len(Y):
         print(&quot;Lengths are unequal, quiting...&quot;)
@@ -306,19 +305,20 @@ def pearson_correlation_coefficient(X, Y):
     return cov / ( sd_x * sd_y ) 
 </code></pre>
 <p>Although this code is very inefficient, and does a lot of unnecessary and double
-calculations, it will serve well for now.</p>
+calculations, it will serve well for now. We are going to be optimizing this
+code in <a href="./optimization.html">Sidenote: optimizing our algorithm</a>.</p>
 <h3 id="cracking-a-single-byte"><a class="header" href="#cracking-a-single-byte">Cracking a single byte</a></h3>
-<p>As explained in <a href="./modeling.html">Modeling AES</a>, we can — using power analysis —
-<strong>crack the <em>AES</em> key byte by byte</strong>. So let us start with a single one. We are
+<p>As explained in <a href="./modeling.html">Modeling AES</a>, we can — using <a href="https://en.wikipedia.org/wiki/Power_analysis">power analysis</a> —
+<strong>crack the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> key byte by byte</strong>. So let us start with a single one. We are
 going to go through every possibility and see which byte one provides the
-highest correlation coefficient between the actual power trace and our modeled
-power usage. The important realisation here is that we are doing a correlation
-between all individual power trace points and the hypothetical power
-consumption and we will select the maximum correlation coefficient for all
-subkey guesses. This is because we still have no idea where the first round
-actually takes place. If we look at all points of each power trace, the location
-where the first round takes place should have the highest correlation. We will
-demonstrate this later on.</p>
+highest <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a> between the actual power trace and our modeled
+power usage. The important realization here is that we are doing a correlation
+between all individual power trace points and the hypothetical power consumption
+and we will select the maximum correlation coefficient for all sub-key guesses.
+This is because we still have no idea where within the power trace the first
+round actually takes place. If we look at all points of each power trace, the
+location where the first round takes place should have the highest correlation.
+We will demonstrate this later on.</p>
 <pre><code class="language-python">from tqdm import trange
 
 def calculate_correlation_coefficients(subkey, subkey_index):
@@ -355,7 +355,7 @@ for subkey in trange(0xff + 1, desc=&quot;Attack Subkey&quot;):
         calculate_correlation_coefficients(subkey, 0)
     ))
 </code></pre>
-<p>This will determine the maximum correlation coefficients for all subkey guesses.
+<p>This will determine the maximum [correlation coefficients] for all sub-key guesses.
 If we plot this we get the following graph.</p>
 <pre><code class="language-python">import matplotlib.pyplot as plt
 
@@ -363,12 +363,12 @@ plt.plot(max_correlation_coefficients)
 plt.show()
 </code></pre>
 <p><img src="../assets/aes_max_correlation_coefficients.png" alt="Maximum Correlation Coefficients AES" /></p>
-<p><em>Figure 1: The AES Correlation Coefficients for the first subkey values</em></p>
+<p><em>Figure 1: The <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> Correlation Coefficients for the first sub-key values</em></p>
 <p>Remember I used the key <code>H4ck3rm4n-l33t42</code>, where <code>H</code> or ASCII 72 is the first
-subkey byte. If you used a different key, your plot will most probably look
+sub-key byte. If you used a different key, your plot will most probably look
 different and there will be a high spike at the ASCII value of your first
-subkey.</p>
-<p>Well done! We have cracked our first subkey!</p>
+sub-key.</p>
+<p>Well done! We have cracked our first sub-key!</p>
 
                     </main>
 

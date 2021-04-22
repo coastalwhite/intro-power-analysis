@@ -171,26 +171,27 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="modeling-aes"><a class="header" href="#modeling-aes">Modeling AES</a></h1>
-<p>In order to make sensible statements about the power usage of <em>AES</em>, it can be
-handy to make a model of the <em>AES</em> algorithm. To do this, we need some
-understanding about how computers use power and how the <em>AES</em> algorithm
-functions. The first we will discuss here and the second is discussed in the
-chapter <a href="./workings.html">How AES Works</a>.</p>
+<p>In order to make sensible statements about the power usage of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>, it can be
+handy to make a model of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm. To do this, we need some
+understanding about how computers use power and how the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm
+functions. The first of which we will discuss here and the second is discussed
+in the chapter <a href="./workings.html">How AES Works</a>.</p>
 <h2 id="hamming-distance-and-hamming-weight"><a class="header" href="#hamming-distance-and-hamming-weight">Hamming Distance and Hamming Weight</a></h2>
 <p>Remember that computers are just emergent properties that we get when we have a
-ton of transitors, capacitors, wires, etc. in the correct setup. This means that
-if we look at the capacitors level, there should be some capacitors that
-represents the state of a bit. Here mainly the internal state of memory. Since,
-we know that capacitors represents a binary 1 with a certain amount of charge
-and a binary 0 with (almost) no charge. We can ask ourselves the question, does
-it cost more power to set or maintain memory which involves more binary 1's than
-0's. In fact, it indeed does. This gives us two models for looking at the power
-usage of memory. <strong>Looking at how much power it would take to set memory, which is
-known as the Hamming Distance model. Or we can look at how much power it would
-take to maintain memory, which is known as the Hamming Weight model.</strong> Hamming
-Distance meaning the amount of bitflips needed to turn one memory state into
-another, and Hamming Distance meaning the amount of 1's in a certain memory
-state.</p>
+ton of <a href="https://en.wikipedia.org/wiki/Transistor">transistors</a>,
+<a href="https://en.wikipedia.org/wiki/Capacitor">capacitors</a>, wires, etc. in the
+correct setup. This means that if we look at the capacitors level, there should
+be some capacitors that represents the state of a bit. Here mainly our interest
+falls on the internal state of memory. Since, we know that capacitors represents
+a binary 1 with a certain amount of charge and a binary 0 with close to no
+charge. We can ask ourselves the question, does it cost more power to set or
+maintain memory which involves more binary 1's than 0's. In fact, it indeed
+does. This gives us two models for looking at the power usage of memory.
+<strong>Looking at how much power it would take to set memory, which is known as the
+Hamming Distance model. Or we can look at how much power it would take to
+maintain memory, which is known as the Hamming Weight model.</strong> Hamming Distance
+meaning the amount of bitflips needed to turn one memory state into another, and
+Hamming Distance meaning the amount of 1's in a certain memory state.</p>
 <p>We can easily create a python function, which would identify the Hamming weight
 or Hamming distance.</p>
 <pre><code class="language-python"># Hamming Weight
@@ -213,10 +214,10 @@ HammingDistance = [
 <h2 id="making-a-statement-about-aess-memory-state"><a class="header" href="#making-a-statement-about-aess-memory-state">Making a statement about AES's memory state</a></h2>
 <p>Suppose we have an input block \(Input\) and an output block \(Output\),
 which is a reasonably common situation. If we would want to check whether a
-supposed key is valid, we could run through the entire algorithm to check
-whether \(\text{AES}(Input, Key) = Output\). This is quite inefficient and is
-no better than brute forcing the key. Knowing what we now about the memory state
-of <em>AES</em> we can however do two extreme optimizations.</p>
+supposed \(Key\) is the key used, we could run through the entire algorithm to
+check whether \(\text{AES}(Input, Key) = Output\). This is quite inefficient
+and is no better than brute forcing the key. Knowing what we now about the
+memory state of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> we can however do two extreme optimizations.</p>
 <h3 id="shortcutting-calculations"><a class="header" href="#shortcutting-calculations">Shortcutting calculations</a></h3>
 <p>The first optimization we can do has to do with identifying the first memory state
 where the key and the \(Input\) are combined. If we can identify this memory
@@ -233,21 +234,22 @@ still have to brute force through every key option.</p>
 <h3 id="limiting-the-amount-of-keys"><a class="header" href="#limiting-the-amount-of-keys">Limiting the amount of keys</a></h3>
 <p>If we have done the first optimization, there is another optimization which
 would lower the amount of possible keys. For the 128 (\(2^{128}\) different
-keys), 192 (\(2^{192}\) different
-keys) and 256 (\(2^{256}\) different
-keys) bits key
-variants, this leaves just \(2^{12}\), \((3 \cdot 2^{11})\) and \(2^{13}\)
-key possibilities left, respectively. These are massive differences, which will
-allow us to break <em>AES</em> in just a few seconds.</p>
+keys), 192 (\(2^{192}\) different keys) and 256 (\(2^{256}\) different keys)
+bits key variants, this leaves just \(2^{12}\), \((3 \cdot 2^{11})\) and
+\(2^{13}\) key possibilities left, respectively. These are massive
+differences, which will allow us to break <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> in just a few seconds.</p>
 <p>How does it work? Please read back <a href="./workings.html#shifting">How AES Works -
 Shifting</a> for one second and see if you find what we can
 exploit, when have a value before this step happens. As it mentions this, step
 is needed to prevent <strong>attacking each column individually</strong>. Since we can now
 produce a value before this step is done. We can attempt to break parts of the
 key one at the time. The parts of this key are called sub-keys and they are 1
-byte in size.</p>
+byte in size. This means we can take sum of different values for the sub-keys
+instead of the product.</p>
 <h2 id="putting-this-together"><a class="header" href="#putting-this-together">Putting this together</a></h2>
-<p>Let us make a model of the memory states power usage.</p>
+<p>Let us make a model of the memory states power usage. This model should provide
+us with a number that should <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlate</a> with the power traces at the point of
+which this first <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> step is done.</p>
 <pre><code class="language-python">def hypothetical_power_usage(subkey, plain_text_char):
 
     # Use the Hamming Weight power usage model

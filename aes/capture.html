@@ -171,17 +171,17 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="capturing-multiple-traces"><a class="header" href="#capturing-multiple-traces">Capturing multiple traces</a></h1>
-<p>AES is a lot more complex than RSA. Although looking at one trace of RSA can
-give you a lot of information about the key used, with AES it is a lot more
-common to take multiple traces and average them out. Here we are gonna have a
-look at how we can upload the <em>AES</em> source code to the chipwhisperer, and then
-capture multiple power traces.</p>
+<p><a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> is a lot more complex than <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>. Although looking at one trace of <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>
+can give you a lot of information about the key used, with <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> it is a lot
+more common to take multiple traces and average them out. Here we are gonna have
+a look at how we can upload the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> source code to the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> target
+board, and then capture multiple power traces.</p>
 <h2 id="base-setup"><a class="header" href="#base-setup">Base setup</a></h2>
-<p>Assuming that you have <a href="../preparing.html">setup your environment</a>, we first have
-to connect to the scope and the target. The scope being the measuring device and
-the target being the microprocessor, which is going to run the encryption
-algorithm. In order to connect to the scope and the target, we need the
-following code.</p>
+<p>Assuming that you have correctly <a href="../preparing.html">setup your environment</a>, we
+first have to connect to the <em>scope</em> and the <em>target</em>. The scope being the
+measuring device and the target being the microprocessor, which is going to run
+the encryption algorithm. In order to connect to the scope and the target, we
+need the following code.</p>
 <pre><code class="language-python">import chipwhisperer as cw
 
 # Setup a connection with the CW board
@@ -200,13 +200,15 @@ target = cw.target(scope)
 target.dis()
 </code></pre>
 <h2 id="flashing-the-source-code"><a class="header" href="#flashing-the-source-code">Flashing the source code</a></h2>
-<p>Depending on what target we are using, we need different software. We can compile
-this ourselves, but most compiled code can also be found online. I suggest
-looking at <a href="http://github.com/coastalwhite">this repository TODO INSERT LINK
-HERE</a>.</p>
-<p>Assuming we are using the Chipwhisperer Lite 32-bit addition, we can the
-CWLITEARM hex file. in order to upload the program to the target, we can use
-the following python code.</p>
+<p>Depending on what target we are using, we need different software. We can
+compile this ourselves, but most compiled code can also be found online. The
+compiled code for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> can be found
+<a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-aes">here</a>.</p>
+<p>We always have the flash the source code onto the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">CW Lite ARM</a> using the <a href="https://en.wikipedia.org/wiki/Intel_HEX">Intel
+Hex format</a>. Therefore, assuming we are
+using the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> Lite 32-bit ARM-edition, we can the <code>CWLITEARM</code> hex file.
+in order to upload the program to the target, we can use the following <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>
+code.</p>
 <pre><code class="language-python">from chipwhisperer.capture.api.programmers import STM32FProgrammer
 import os
 
@@ -226,7 +228,7 @@ cw.program_target(scope, program, aes_hex_path)
 </code></pre>
 <h2 id="capturing-a-trace"><a class="header" href="#capturing-a-trace">Capturing a trace</a></h2>
 <p>In order to run our first trace, we need a key and some plain text. The program
-we are using is based on <strong>128 bit AES</strong> and therefore we should provide a
+we are using is based on <em>128 bit AES</em> and therefore we should provide a
 128 bit key and a multiple or 128 bits for our plain text. We can quite easily
 create our first trace, with the following code.</p>
 <pre><code class="language-python"># Define the key used for the encryption
@@ -246,17 +248,19 @@ plain_text = bytearray('a' * 16, 'ascii')
 trace = cw.capture_trace(scope, target, plain_text, key)
 </code></pre>
 <blockquote>
-<p><strong>NOTE:</strong> Within the SimpleSerial protocol — which is used under the
-hood by the ChipWhisperer devices — the <code>capture_trace</code> function
-corresponds with a couple of steps (arming the chipwhisperer, sending the
-key/plaintext and retrieving the trace data, etc.). This can become important
-when implementating your own algorithms. There it may be important to replace
-w this one function with its individual steps to get more control over the
-commands send. This can be seen in the <em>Python</em> code of the <a href="https://github.com/coastalwhite/simpleserial-c-template">SimpleSerial C
+<p><strong>NOTE:</strong> Within the <a href="https://chipwhisperer.readthedocs.io/en/latest/simpleserial.html">SimpleSerial</a> protocol — which is used under the
+hood by the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> devices — the
+<a href="https://chipwhisperer.readthedocs.io/en/latest/api.html?highlight=capture_trace#chipwhisperer.capture_trace"><code>capture_trace</code></a>
+function corresponds with a couple of steps (arming the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>,
+sending the key/plaintext and retrieving the trace data, etc.). This can
+become important when implementing your own algorithms. There it may be
+important to replace w this one function with its individual steps to get more
+control over the commands send. This can be seen in the <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> code of the
+<a href="https://github.com/coastalwhite/simpleserial-c-template">SimpleSerial C
 template</a>.</p>
 </blockquote>
 <p>This is very interesting, but we don't really have any confirmation or
-visualization. So let us visualize it with <a href="https://github.com/matplotlib/matplotlib">pyplot</a>.</p>
+visualization. So let us visualize it with <a href="https://matplotlib.org/">matplotlib</a>.</p>
 <pre><code class="language-python">import matplotlib.pyplot as plt
 
 plt.plot(trace.wave)
@@ -264,13 +268,13 @@ plt.show()
 </code></pre>
 <p>This should look something like <em>Figure 1</em>.</p>
 <p><img src="../assets/aes_single_trace_plot.png" alt="AES Single Power Trace" /></p>
-<p><em>Figure 1: AES Single Power Trace</em></p>
+<p><em>Figure 1: <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> Single Power Trace</em></p>
 <h2 id="capturing-more-than-one-trace"><a class="header" href="#capturing-more-than-one-trace">Capturing more than one trace</a></h2>
 <p>We can turn this into multiple traces with a simple <code>for</code> loop. Here we are
-going to be using the <a href="https://github.com/tqdm/tqdm">tqdm library</a>, to have a
-nice progress bar. So let us create 100 traces with random input text and save
-all relevant data into a <a href="https://github.com/numpy/numpy">numpy</a> arrays.
-This way we can save the eventual traces and plain texts to a file.</p>
+going to be using the <a href="https://github.com/tqdm/tqdm">TQDM</a> library to have a nice progress bar. So let us
+create 100 traces with random input text and save all relevant data into a
+<a href="https://numpy.org/">numpy</a> arrays.  This way we can save the eventual traces and plain texts to a
+file.</p>
 <p>First we define a function for creating random plain text strings.</p>
 <pre><code class="language-python">import string
 import random
@@ -290,7 +294,7 @@ def random_string(length):
 # Define the key used for the encryption
 # This key has to be 128 bits = 16 bytes
 # = 16 ascii characters in length
-key_str = 'bruteforcing????'
+key_str = 'H4ck3rm4n-l33t42'
 
 # Convert the key to a byte array
 key = bytearray(key_str, 'ascii')
@@ -329,7 +333,7 @@ np.save('output/textins.npy', np_textins)
 </code></pre>
 <p>This way we can later load it.</p>
 <blockquote>
-<p>For more information on how to do scripting with the ChipWhisperer python
+<p>For more information on how to do scripting with the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> python
 module have a look over <a href="https://wiki.newae.com/Making_Scripts">here</a>.
 <strong>Disclaimer:</strong> This is quite heavy.</p>
 </blockquote>

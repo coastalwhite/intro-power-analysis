@@ -172,50 +172,55 @@
                     <main>
                         <h1 id="power-analysis-introductory-walkthrough"><a class="header" href="#power-analysis-introductory-walkthrough">Power Analysis Introductory Walkthrough</a></h1>
 <p>IT Security has many fields and layers, all of which aim to investigate how to
-break and protect the cores principles of information security which are confidentiality,
-integrity and availability. One of these fields is Hardware Security. Here the
-focus lies on the how the physical parts of our electronics handle these
-principles and what we can do to break and protect them.</p>
-<p>One of the techniques within hardware security which aims break confidentiality
-is power analysis. Power analysis looks at the power consumption of hardware in
-order to make statements about the calculations done within a computer. Some
-calculations require a higher wattage then other calculations.</p>
+break and protect the core principles of information security. These principles
+are confidentiality, integrity and availability<sup class="footnote-reference"><a href="#tenets">1</a></sup>. One of these fields is
+<a href="https://en.wikipedia.org/wiki/Side-channel_attack">Side-Channel analysis</a>. Here the focus lies on how technology interacts with the
+world around it, and what analysis those interacts can tell us about
+calculations or operations done by the technology.</p>
+<p>One of the techniques within <a href="https://en.wikipedia.org/wiki/Side-channel_attack">Side-Channel analysis</a> which aims break
+confidentiality is <a href="https://en.wikipedia.org/wiki/Power_analysis">Power analysis</a>. <a href="https://en.wikipedia.org/wiki/Power_analysis">Power analysis</a> looks at the power
+consumption of hardware in order to make statements about the specific
+calculations done within a computer. Some calculations require a higher amount
+of power than other calculations.</p>
 <p>Take a look at the following picture. If we know that the following <em>Figure 1</em>
 records the a sequence of two different computations - namely, squaring and
 taking a product - and we also know that squaring takes marginally less time
-than taking a product in this case. You could maybe identify where the power
-trace is taking a product and where the trace is squaring a number.</p>
+than taking a product in this case. You could hypothesize where the power trace
+is taking a product and where the trace is squaring a number.</p>
 <p><img src="./assets/power_analysis.png" alt="Power Analysis of RSA" /></p>
-<p><em>Figure 1: Power Trace of a RSA encryption by
+<p><em>Figure 1: Power Trace of a <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> encryption by
 <a href="https://en.wikipedia.org/wiki/Power_analysis#/media/File:Power_attack_full.png">Audriusa</a>
 (GPFL)</em></p>
-<h2 id="what-do-you-need-for-this-walkthrough"><a class="header" href="#what-do-you-need-for-this-walkthrough">What do you need for this walkthrough</a></h2>
-<p>This walkthrough is meant to be a introduction into both power analysis and
-using the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> framework.
-It expects you to have some basic knowledge of Python (and probably C or Rust).
-It also helps to be comfortable with the terminal/shell. This walkthrough is
-not about programming or the shell, however, and most of what is discussed could
-be followed along with, even if you have very little programming experience.</p>
+<h2 id="purpose-of-this-walkthrough"><a class="header" href="#purpose-of-this-walkthrough">Purpose of this walkthrough</a></h2>
+<p>This walkthrough is meant to be an introduction into both power analysis and
+using the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> framework.  It expects you to have some basic
+knowledge of <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> and probably <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">C</a>.  It also helps to be comfortable with a
+terminal and the shell. This walkthrough is not about programming or the shell,
+however, and most of what is discussed could be followed along with, even if you
+have very little programming experience. There is, however, a lot of pseudocode.</p>
 <p>Furthermore, if you plan on doing your own traces, you will need a
-<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board. This
-walkthrough will provide predefined data sets, so you can do analysis without
-doing the traces yourself. This could save you from buying a ChipWhisperer
-board. It is, however, highly recommended to do some traces yourself. If you are
-looking at buying a ChipWhisperer board and don't know what to use, this
-walkthrough is based on the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">CW Lite
-ARM</a> variant. It is a relatively
-cheap all-in-one solution.</p>
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> capturing board. This walkthrough will provide predefined data
+sets so you can do some of the analysis without doing the traces yourself. This
+could save you from buying a <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> capturing board. It is, however,
+highly recommended to do some traces yourself. If you are looking at buying a
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> capturing board and don't know what to use, this walkthrough is
+created using on the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">CW Lite ARM</a> variant. It is a relatively cheap all-in-one
+solution.</p>
 <h2 id="chipwhisperer"><a class="header" href="#chipwhisperer">ChipWhisperer</a></h2>
-<p>Normally, to make these measurements, you need a lot of expensive equipment.
-Equipment such as multimeters, oscilloscopes, different microcontrollers,
-connectors, etc. This is where the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer
-framework</a> comes in. The
-ChipWhisperer framework provides microcontrollers to test and run you
-algorithms on, which are referred to as <strong>targets</strong>. But also provides
+<p>Normally, to make these power measurements on microprocesors, you need a lot of
+expensive equipment.  Equipment such as multimeters, oscilloscopes, different
+microcontrollers, connectors, etc. This is where the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> comes in.
+The <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> framework provides microcontrollers to test and run you
+algorithms on, which are referred to as <em>targets</em>. But also provides
 measurement devices, which when put together with a target is referred to as a
-<strong>scope</strong>. The ChipWhisperer goes further than a playground and can be used in
+<em>scope</em>. <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> goes further than a playground and can be used in
 real world environments, which makes an ideal framework to learn power analysis
-with.</p>
+with. Partially because scopes can also be connected to other unrelated
+microprocesors in order to do power measurements on those.</p>
+<div class="footnote-definition" id="tenets"><sup class="footnote-definition-label">1</sup>
+<p><a href="https://www.lbmc.com/blog/three-tenets-of-information-security/">Three Tenets of Information Security by Mark
+Burnette</a></p>
+</div>
 
                     </main>
 

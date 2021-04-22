@@ -176,7 +176,7 @@ component of power analysis including a demonstration and what effect it has on
 possible attack vectors. A few categories of what we can look at along with some
 example topics:</p>
 <ul>
-<li>Breaking an encryption algorithm which is not discussed in this walkthrough.
+<li>Breaking an encryption algorithm which is not demonstrated in this walkthrough.
 Possibly combined with some protections against power analysis. Have a look at
 the <a href="./preparing/toolchains.html">Compiling your own algorithms</a> instructions.
 Some examples of interesting algorithms are:
@@ -189,7 +189,7 @@ providing some protections against power analysis. (Have a look at the
 <a href="https://www.oryx-embedded.com/doc/chacha_8c_source.html">following implementation</a>)</li>
 </ul>
 </li>
-<li>Providing multiple protections on RSA or AES along with analysis of their
+<li>Providing multiple protections on <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> or <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> along with analysis of their
 effectiveness and remaining attack vectors.</li>
 <li>Breaking algorithms by using the data power analysis provides us in new ways.
 <ul>
@@ -202,10 +202,9 @@ algorithm? Can this be improved in some way?</li>
 </li>
 </ul>
 <p>These are just a few examples within the many possible topics. If another
-creative idea pops up, feel free to give it a shot. The only requirements are
-within the report are a <strong>reproducible demonstration and explanation of your
-method</strong> and a <strong>description of (remaining) attack vectors through power
-analysis</strong>.</p>
+creative idea pops up, feel free to give it a shot. The only requirements of the
+report are a <strong>reproducible demonstration and explanation of your method</strong> and a
+<strong>description of (remaining) attack vectors through power analysis</strong>.</p>
 <h2 id="grading--what-will-be-looked-at"><a class="header" href="#grading--what-will-be-looked-at">Grading / What will be looked at</a></h2>
 <p>There are a few important topics to which is going to be payed attention whilst
 grading.</p>
@@ -214,28 +213,29 @@ grading.</p>
 formulated by the following two questions:</p>
 <ol>
 <li>What level of difficulty is your attack vector or method of execution?</li>
-<li>How much of this method was already predone by other people?</li>
+<li>How much of this method was already pre-done by other people?</li>
 </ol>
-<p>This second point also lead to the point that <strong>it is very important to cite
-sources for your attacks.</strong> Any found plagarism will <strong>not</strong> be tolerated. If
-one uses a piece of text, code or method (almost) directly copied or cited from
-a source, cite that (primary) source. If one adapts a piece of text, code or
-method from a source, cite as <code>Adapted from ...</code>.</p>
+<p>This also leads to the point that <strong>it is very important to cite sources for
+your attacks.</strong> Any found plagiarism will <strong>not</strong> be tolerated. If one uses a
+piece of text, code or method (almost) directly copied or cited from a source,
+cite that (primary) source. If one adapts a piece of text, code or method from a
+source, cite as <code>Adapted from ...</code>.</p>
 <h3 id="level-of-explanation-and-writing"><a class="header" href="#level-of-explanation-and-writing">Level of explanation and writing</a></h3>
 <p>Apart from having a great and creative method, it is also very important to make
 clear why and why your method was so great and creative. Go into depth on the
-steps of your method and why those reach the desired result. You can assume that
-the reader has also followed this walkthrough and albeit has some preliminary
-knowledge.</p>
-<h3 id="reproducability"><a class="header" href="#reproducability">Reproducability</a></h3>
-<p>The final important part of your little research is going to be reproducability.
-How easy is it for the people checking your assignment to reproduce your
-method(/results). Is your code readable? Is there some clear documentation on
-compiling code, executing an attack or installing dependencies? It is not needed
-to write step by step instructions yourself for most of these steps, but it is
-important to write an overview on installing dependencies (linking to the
-installation guide of that dependency), compiling instructions (when needed) and
-attack execution instructions.</p>
+steps of your method and why those steps help reach the desired result. You can
+assume that the reader has also followed this walkthrough and albeit has some
+preliminary knowledge.</p>
+<h3 id="reproducibility"><a class="header" href="#reproducibility">Reproducibility</a></h3>
+<p>The final important part of your assignment on <a href="https://en.wikipedia.org/wiki/Power_analysis">power analysis</a> is going to be
+reproducibility.  How easy is it for the people checking your assignment to
+reproduce your method(/results). Is your code readable? Is there some clear
+documentation on compiling code, executing an attack or installing dependencies?
+It is not needed to write step by step instructions yourself for most of these
+steps, but it is important to write an overview on installing dependencies
+(linking to the installation guide of that dependency), compiling instructions
+(when needed) and attack execution instructions.</p>
+<p>Good luck and have fun!</p>
 
                     </main>
 

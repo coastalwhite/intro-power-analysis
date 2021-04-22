@@ -175,11 +175,11 @@
 Analysis</a> chapter to make the process automatic and work
 on the entire key. Most of what is discussed in this chapter is quite trivial.
 If you feel quite comfortable with what was discussed in the previous chapters,
-by all means skip this chapter and attempt implement it yourself. If you get
+by all means skip this chapter and attempt to implement it yourself. If you get
 stuck, you can always come here to get a hint.</p>
 <h2 id="where-were-we"><a class="header" href="#where-were-we">Where were we?</a></h2>
-<p>At the moment we have code for modeling the <em>AES</em> memory based power state,
-creating correlation coefficients and a piece to plot the results.</p>
+<p>At the moment we have code for modeling the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> memory based power state,
+creating <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a>s and a piece to plot the results.</p>
 <pre><code class="language-python">import numpy as np
 from tqdm import trange
 
@@ -327,27 +327,31 @@ plt.show()
 ########################################
 </code></pre>
 <h2 id="automatically-picking-the-best-subkey-guess"><a class="header" href="#automatically-picking-the-best-subkey-guess">Automatically picking the best subkey guess</a></h2>
-<p>At the moment we plot the graph of the maximum correlation coefficients and we
+<p>At the moment we plot the graph of the maximum <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a>s and we
 determine from there what is the correct option. We can easily automate this
-using the observation that the correct option has the highest correlation
-coefficient. For this we can use the numpy <code>argmax</code> function.</p>
+using the observation that the correct option has the highest <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation
+coefficient</a>. For this we can use the <a href="https://numpy.org/doc/stable/reference/generated/numpy.argmax.html">numpy
+<code>argmax</code></a>
+function.</p>
 <p>Replace the code for plotting with the following code.</p>
 <pre><code class="language-python"># Select the element with the highest correlation
 best_guess = np.argmax(max_correlation_coefficients)
 
-# Print both the hex file and the ASCII character
+# Print both the hex value and the ASCII character
 print(&quot;Best guess: {:02x} or '{}'&quot;.format(best_guess, chr(best_guess)))
 </code></pre>
 <p>Now the code will automatically print out the option with the highest
-correlation coefficient.</p>
+<a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a>.</p>
 <blockquote>
-<p><strong>Note:</strong> If we have done only a few traces and our correlation coefficients
-are a bit less reliable, we can use <code>np.argsort(...)[::-1]</code> to select multiple
-options. With this we can, for example, try to brute force with the top 5.</p>
+<p><em>Note:</em> If we have done only a few traces and our correlation coefficients are
+a bit less reliable, we can use
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.argsort.html?highlight=argsort#numpy.argsort"><code>np.argsort(...)[::-1]</code></a>
+to select multiple options. With this we can, for example, try to brute force
+with the top 5.</p>
 </blockquote>
 <h2 id="cracking-an-entire-key"><a class="header" href="#cracking-an-entire-key">Cracking an entire key</a></h2>
 <p>In order for us to crack the entire key, we can just add another <code>for</code> loop.
-This loop will go through all subkeys.</p>
+This loop will go through all sub-keys.</p>
 <p>This will turn the first following code into the second piece of code.</p>
 <pre><code class="language-python"># Looping through all possible bytes
 ########################################
@@ -366,7 +370,7 @@ for subkey in trange(0xff + 1, desc=&quot;Attack Subkey&quot;):
 # Select the element with the highest correlation
 best_guess = np.argmax(max_correlation_coefficients)
 
-# Print both the hex file and the ASCII character
+# Print both the hex value and the ASCII character
 print(&quot;Best guess: {:02x} or '{}'&quot;.format(best_guess, chr(best_guess)))
 ########################################
 </code></pre>
@@ -400,7 +404,7 @@ print(&quot;&quot;)
 ########################################
 </code></pre>
 <blockquote>
-<p><strong>Note:</strong> Our code is not very efficient and thus is might take quite a
+<p><em>Note:</em> Our code is not very efficient and thus is might take quite a
 bit of time for it to crack entire key.</p>
 </blockquote>
 <p>This should output the following.</p>

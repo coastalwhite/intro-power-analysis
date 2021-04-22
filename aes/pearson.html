@@ -173,9 +173,9 @@
                         <h1 id="pearson-correlation"><a class="header" href="#pearson-correlation">Pearson correlation</a></h1>
 <p>You might ask yourself, how did it do that? It looks a bit magical with all
 these correlations. So let us try to visualize what is actually happening.</p>
-<p>We are calculating all the correlation coefficients for all the points within
+<p>We are calculating all the [correlation coefficients] for all the points within
 all traces. So let us compare the result of this calculation between the correct
-and a wrong subkey. Again, for me the first subkey is <code>H</code> (ASCII 72 or hex
+and a wrong sub-key. Again, for me the first sub-key is <code>H</code> (ASCII 72 or hex
 <code>0x48</code>). If you chose a different key, you should adjust this in the following
 code.</p>
 <pre><code class="language-python">plt.plot(
@@ -192,16 +192,16 @@ plt.show()
 </code></pre>
 <p>This will show the following graph.</p>
 <p><img src="../assets/aes_correlation_visualization.png" alt="AES Pearson Correlation Explaination" /></p>
-<p><em>Figure 1: A visualization of Pearson Correlation Coefficient for AES</em></p>
-<p>So what does this graph show? This has the correlation between our modeling
-power consumption on the y-axis and the different power traces on the x-axis.
-You can see that correlation coefficient remains reasonably consistant for the
-wrong subkey. It never goes above \(\sim 0.4\). The correct follows the same
+<p><em>Figure 1: A visualization of <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson Correlation Coefficient</a> for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a></em></p>
+<p>So what does this graph show? This has the <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> between our modeling
+power consumption on the <em>y-axis</em> and the different power traces on the <em>x-axis</em>.
+You can see that correlation coefficient remains reasonably consistent for the
+wrong sub-key. It never goes above \(\sim 0.4\). The correct follows the same
 pattern — never really reaching above \(\sim 0.4\) — except for one or two
 spikes. At these spikes apparently our model matches the actual power
 consumption very closely.</p>
 <p>These spikes are what we are interested in. We assume that at the highest of
-these spikes the microprocessor was executing the the first round of the <em>AES</em>
+these spikes the microprocessor was executing the the first round of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>
 algorithm. The memory state based power model we created should match the
 pattern of the actual power consumption at that specific point.</p>
 <p>Just looking at the results, our assumption was most probably correct.</p>

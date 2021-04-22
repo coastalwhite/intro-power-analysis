@@ -175,43 +175,42 @@
 in order to do some of the provided exercises and do some experimentation
 yourself, you might want to compile some algorithm. To do this, there are two
 things we need. The toolchain to compile to our specific microprocessor
-architecture and the source code to compile.</p>
+architecture and the low-level source code to compile.</p>
 <h2 id="toolchains"><a class="header" href="#toolchains">Toolchains</a></h2>
 <p>In order to compile code which is usable for our specific microprocessor
 architecture, we need to toolchain for that architecture. As said in the
-<a href="../intro.html">introduction chapter</a>, this walkthrough is using the CW Lite Arm
-variant and therefore here we will show how to install the ARM toolchain. For
+<a href="../intro.html">introduction chapter</a>, this walkthrough is using the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">CW Lite Arm</a>
+variant and therefore here we will show how to install the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">ARM toolchain</a>. For
 other toolchains, have a look at the <a href="https://chipwhisperer.readthedocs.io/en/latest/prerequisites.html#compilers">ChipWhisperer
 documentation</a>.</p>
 <h2 id="installing-the-arm-toolchain"><a class="header" href="#installing-the-arm-toolchain">Installing the ARM toolchain</a></h2>
 <p>Information on the ARM can be found
 <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">here</a>.</p>
 <h3 id="windows-and-macos"><a class="header" href="#windows-and-macos">Windows and macOS</a></h3>
-<p>For Windows and macOS, the installer on the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">ARM developer
+<p>por <em>Windows</em> and <em>macOS</em>, the installer on the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">ARM developer
 website</a>
 should be enough to install the ARM embedded toolchain.</p>
 <h3 id="gnulinux"><a class="header" href="#gnulinux">GNU/Linux</a></h3>
-<p>For <strong>Debian</strong> based systems, including Ubuntu, we can use the following command
+<p>For <a href="https://en.wikipedia.org/wiki/Debian">Debian</a> based systems, including <a href="https://en.wikipedia.org/wiki/Ubuntu">Ubuntu</a>, we can use the following command
 to install the ARM embedded toolchain.</p>
 <pre><code class="language-bash">sudo apt install gcc-arm-none-eabi
 </code></pre>
-<p>For <strong>ArchLinux</strong> based systems, including Manjaro, we can use the following
+<p>For <a href="https://en.wikipedia.org/wiki/Arch_Linux">ArchLinux</a> based systems, including <a href="https://en.wikipedia.org/wiki/Manjaro">Manjaro</a>, we can use the following
 command to install the ARM embedded toolchain.</p>
 <pre><code class="language-bash">sudo pacman -S arm-none-eabi-gcc
 </code></pre>
 <h2 id="compiling-binaries"><a class="header" href="#compiling-binaries">Compiling binaries</a></h2>
-<p>With the proper toolchain installed, we can compile binaries to be used on our
-ChipWhisperer targets. Take a look at <a href="https://github.com/coastalwhite/simpleserial-c-template">Simpleserial
-Template</a> on how to
-create and compile your own binaries. Or have a look at <a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware">the ChipWhisperer
-GitHub
+<p>With the proper toolchain installed, we can compile binaries which are going to
+used on the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> <em>targets</em>. Take a look at <a href="https://github.com/coastalwhite/simpleserial-c-template">Simpleserial C Template</a>.
+It explains how to create and compile your own binaries. Or have a look at <a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware">the
+ChipWhisperer GitHub
 repository</a>
-for some examples.</p>
+for some examples of prewritten algorithms.</p>
 <blockquote>
-<p><strong>Note:</strong> SimpleSerial is the protocol ChipWhisperer has defined to describe
-communicating between the host machine (e.g. a laptop) and the target. Some
-documentation on it can be found
-<a href="https://chipwhisperer.readthedocs.io/en/latest/simpleserial.html">here</a>.</p>
+<p><em>Note:</em> <a href="https://chipwhisperer.readthedocs.io/en/latest/simpleserial.html">SimpleSerial</a> is the protocol <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> utilizes to describe p
+communicating between the host machine (e.g. a laptop), through the <em>scope</em>,
+and the <em>target</em>. Some documentation on the <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">C</a> library on it can be found
+<a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial">here</a>.</p>
 </blockquote>
 
                     </main>
