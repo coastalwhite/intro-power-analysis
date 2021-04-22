@@ -56,6 +56,13 @@ real world environments, which makes an ideal framework to learn power analysis
 with. Partially because scopes can also be connected to other unrelated
 microprocesors in order to do power measurements on those.
 
+## Errors and contributing
+
+This walkthrough along with all the content made for it can be found on
+[GitHub](https://github.com/coastalwhite/intro-power-analysis). If you find any
+errors or feel like something is unclear/left untouched, don't hesitate to
+create an issue or pull request on the page there.
+
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [RSA]: https://en.wikipedia.org/wiki/RSA_(cryptosystem)
