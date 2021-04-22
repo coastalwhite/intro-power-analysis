@@ -34,7 +34,7 @@ plt.show()
 ########################################
 # ANCHOR_END: manual_analysis
 
-# Plotting the correlation explaination
+# Plotting the correlation explanation
 ########################################
 # ANCHOR: plot_pearson_expl
 plt.plot(
@@ -58,7 +58,7 @@ plt.show()
 # Select the element with the highest correlation
 best_guess = np.argmax(max_correlation_coefficients)
 
-# Print both the hex file and the ASCII character
+# Print both the hex value and the ASCII character
 print("Best guess: {:02x} or '{}'".format(best_guess, chr(best_guess)))
 # ANCHOR_END: auto_best 
 ########################################

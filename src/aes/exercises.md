@@ -1,5 +1,7 @@
 # Exercises
 
+> *Note:* These are not yet fininished.
+
 1. At the following
    [location](https://github.com/coastalwhite/intro-power-analysis/tree/main/datasets/aes)
    you can find 3 sets of power traces, can you crack their keys used? You will

@@ -1,40 +1,46 @@
 # A case study: RSA
 
-RSA is an encryption algorithm that is used in a lot of places. That little
-padlock in your browser; it is powered by RSA. Programming RSA is reasonably
-simply, but the mathematics behind it can prove to be really though. Luckily,
-there is no need to dive into too much depth to crack RSA using Simple Power
-Analysis. In the chapter on AES, we will go a bit deeper into cache based
-side-channel attacks, why they work exactly and how to perform them on the
-ChipWhisperer. This chapter is going to skip over a few of the specifics to
-create a better overview of our method and goals.
+[RSA] is an encryption algorithm that is used all over the place. That little
+padlock in your browser; it is powered by [RSA]. Coding an implementation of
+[RSA] is reasonably simple, but the mathematics behind it can prove to be really
+though. Luckily, there is no need to dive too much into the mathematics to crack
+[RSA] using [Simple Power analysis]. In the chapter on [AES], we will go a bit
+deeper into cache-based [Power analysis] attacks, why they work exactly and how
+to perform them on the [ChipWhisperer]. This chapter is going to skip over a few
+of the specifics to create a better overview of our method and goals.
 
 ## What is RSA?
 
-RSA is an algorithm used to do asymmetric encryption. This means we have two
-distinct keys. Most of the time this means we have one to encrypt plain text to
-cipher text, one to decrypt cipher text back to plain text. It is common to have
-one of these keys be public and the other be private and secret. Thus, they
-might also be called to the public and private key.
+[RSA] is an algorithm used to do [asymmetric
+encryption](https://en.wikipedia.org/wiki/Public-key_cryptography). This means
+we have two distinct keys. Most of the time this means we have one key to
+encrypt plain text to cipher text, one key to decrypt cipher text back to plain
+text. It is common to have one of these keys be publicly available while the
+other is kept extremely private. Because of this, it is also called the public
+and private key cryptography.
 
-RSA uses one simple principle. For encryption with public key \\( e \\), for
+[RSA] uses one simple principle. For encryption with public key \\( e \\), for
 every byte of our plain text \\(b_i\\) we have encrypted byte \\( c_i=b_i^e \\)
 modulo some integer \\( N \\). For decryption with private key \\( d \\), for
 every byte of our cipher text \\(c_i\\) we have encrypted byte \\( b_i=c_i^d \\)
-modulo some integer \\( N \\). The relationship between these numbers is not as
+modulo some integer \\( N \\). The specific relationship between these numbers is not as
 important for now.
 
-One might wonder how these computations are actually done on the bare hardware.
-It turns out that we can interpret this as repeated multiplication and squaring.
-This is how that works.
+When one learns that usually the minimum key length for the private key is *1024
+bits*, one might wonder how these computations are actually done on the bare
+hardware. It turns out that we can interpret modulo taking a of power as
+repeated multiplication and squaring alternated with modulo division. This is
+how that works.
 
-If we are given a number \\( x \\) and we are tasked with the raising it to the
-13th power, we might to it as follows:
+If we are given a enormous number \\( x \\) and we are tasked with the raising
+it to the 13th power, we might do it as follows:
 
 \\[ x^{13} = x^8 \cdot x^4 \cdot x^1 \\]
 
-Noticing the clear ties with powers of 2 here &mdash; and thus with binary
-&mdash;, we might write a custom power function in python as the following.
+This is part of the method of [Modular
+Exponentiation](https://en.wikipedia.org/wiki/Modular_exponentiation). Notice
+that \\((13)_{10} = (1101)_2\\). There are some ties with powers of 2 here.
+Thus, we might write a custom power function in [Python] as the following.
 
 ```python
 {{#include rsa-code/custom_pow.py:function_def}}
@@ -48,15 +54,19 @@ implementation looks like.
 {{#include rsa-code/custom_pow.py:mod_function_def}}
 ```
 
-If you are already a small bit familiar with Side-Channel Analysis and Power
-Analysis, you might immediately see what is going wrong here. If not let us go
-through it together.
+> *Note:* This is in fact also how most arbitrary precision library implement
+> raising to the power. This is due the (relatively) low maximum complexity of
+> this calculation.
 
-When we do _Power Analysis_, we get the power consumption of a computer for a
-set time. Let us say we would we have a computer purely executing the
-computation for `custom_pow_mod(3, 5, 15)`. The steps that are taken in this
-computation are done noted below. Take a look at that the computation and
-verify it in your head.
+If you are already a small bit familiar with [Side-Channel Analysis] and [Power
+Analysis], you might immediately see what is going wrong here. If you don't see
+it immediately, let us go through it together.
+
+When we do [Power Analysis], we get the power consumption of a microprocessor
+for a given amount of time. Let us say we would we have a computer purely
+executing the computation for `custom_pow_mod(3, 5, 15)`. The steps that are
+taken in this computation are done noted below. Take a look at that the
+computation and verify it in your head.
 
 ```python
 custom_pow_mod(3, 5, 15):
@@ -112,19 +122,20 @@ y > 0 = 0 > 0 is false.
 Result: 0
 ```
 
-One might notice that every round contains a differing amount of steps, and
+One might notice that not every round contains the same amount of steps, and
 thus, we might imagine that the power consumption of our machine looks similar
 to *Figure 1*.
 
 ![Estimate of RSA power
 consumption](../assets/estimate-power-consumption-rsa.jpg)
 
-*Figure 1: A projected power trace for the* `custom_pow_mod(3, 5, 15)` *function call.*
+*Figure 1: A projected power trace for the* `custom_pow_mod(3, 5, 15)` *function
+call.*
 
-> **NOTE:** This sketch uses the estimate that conditionals and loops (`if` and
+> *Note:* This sketch uses the estimate that conditionals and loops (`if` and
 > `while`) are less power consuming than normal numerical calculations (`>>`,
 > `*` and `%`), which isn't trivially true, but for the sake of
-> argument we are going to assume it is true.
+> simplicity we are going to assume it is true.
 
 You might notice that given this sketch, we can reconstruct some information
 about the argument `y` provided to the `custom_pow_mod` function. We start with
@@ -146,13 +157,39 @@ alternate a long spike with a short spike three times. This means we get
 
 ## What does this tell us?
 
-The previous code example may seem cherry picked. In fact, it is. It indicates
-this concept very nicely and is therefore an extremely good visual example of
-how to break a RSA implementation. However, code following the same principle or
-even this exact algorithm is extremely common. This means that whilst this exact
-method may not be applicable everywhere, the underlying idea still is.
+The previous code example may seem cherry picked. In fact, it is not. This code
+snippet does, however, indicate the concept of [Power analysis] very nicely and
+is therefore an extremely good visual example of how to break a [RSA]
+implementation. Code following the same principle or even this exact algorithm
+is extremely common. This means that whilst this exact method may not be
+applicable everywhere, the underlying idea still is.
 
 So whilst this method specifically is interesting, we are more interested in
-whether looking into an algorithm and deciding if we can tell something about
-data used from the patterns in a power trace. In the next chapter, we are going
-to have go through how this can be done with AES.
+whether looking into an algorithm can tell us something about data used from the
+patterns in a power trace. In the next chapter, we are going to have go through
+how this can be done with [AES].
+
+[Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
+[C]: https://en.wikipedia.org/wiki/Python_(programming_language)
+[RSA]: https://en.wikipedia.org/wiki/RSA_(cryptosystem)
+[AES]: https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard
+[Power analysis]: https://en.wikipedia.org/wiki/Power_analysis
+[ChipWhisperer]: https://github.com/newaetech/chipwhisperer
+[Side-Channel analysis]: https://en.wikipedia.org/wiki/Side-channel_attack
+[TQDM]: https://github.com/tqdm/tqdm
+[NumPy]: https://numpy.org/
+[Ubuntu]: https://en.wikipedia.org/wiki/Ubuntu
+[Debian]: https://en.wikipedia.org/wiki/Debian
+[ArchLinux]: https://en.wikipedia.org/wiki/Arch_Linux
+[Manjaro]: https://en.wikipedia.org/wiki/Manjaro
+[matplotlib]: https://matplotlib.org/
+[pip]: https://pypi.org/project/pip/
+[make]: https://en.wikipedia.org/wiki/Make_(software)
+[libusb]: https://en.wikipedia.org/wiki/Libusb
+[SimpleSerial C Template]: https://github.com/coastalwhite/simpleserial-c-template
+[SimpleSerial]: https://chipwhisperer.readthedocs.io/en/latest/simpleserial.html
+[CW Lite ARM]: https://www.newae.com/products/NAE-CWLITE-ARM
+[ARM toolchain]: https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
+[Simple Power analysis]: https://en.wikipedia.org/wiki/Power_analysis#Simple_power_analysis
+[Differential Power analysis]: https://en.wikipedia.org/wiki/Power_analysis#Differential_power_analysis
+
