@@ -127,7 +127,7 @@ thus, we might imagine that the power consumption of our machine looks similar
 to *Figure 1*.
 
 ![Estimate of RSA power
-consumption](../assets/estimate-power-consumption-rsa.jpg)
+consumption](./assets/estimate-power-consumption-rsa.jpg)
 
 *Figure 1: A projected power trace for the* `custom_pow_mod(3, 5, 15)` *function
 call.*
@@ -147,7 +147,7 @@ long spike again. Therefore, we end with an `1`. And we get the binary number
 Let us do another one, now without knowing the answer before hand. Take a look
 at *Figure 2*.
 
-![RSA key 42](../assets/rsa-key-42.jpg)
+![RSA key 42](./assets/rsa-key-42.jpg)
 
 *Figure 2: A projected power trace for the* `custom_pow_mod` *function.*
 
