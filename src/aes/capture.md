@@ -1,5 +1,12 @@
 # Capture multiple traces
 
+> **What will this section cover?**
+>
+> * Setting up our ChipWhisperer scope and target
+> * Running AES on our ChipWhisperer target
+> * Doing a power trace of a run of our algorithm
+> * Saving multiple power traces to a file
+
 [AES] is a lot more complex than [RSA]. Although looking at one trace of [RSA]
 can give you a lot of information about the key used, with [AES] it is a lot
 more common to take multiple traces and average them out. Here we are gonna have
