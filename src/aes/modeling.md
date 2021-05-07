@@ -1,31 +1,27 @@
 # Modeling AES
 
-In order to make sensible statements about the power usage of [AES], it can be
-handy to make a model of the [AES] algorithm. To do this, we need some
-understanding about how computers use power and how the [AES] algorithm
-functions. The first of which we will discuss here and the second is discussed
-in the chapter [How AES Works](./workings.md).
+> **What will this section cover?**
+>
+> * Creating a leakage model for AES
+> * Implementing a leakage model for AES in Python
+
+In order to make sensible statements about the power usage of [AES], we are
+going to make a [leakage model] of the [AES] algorithm.
+To do this, we need some to determine the optimal memory state to target. When
+we determined that we are going to implement that [leakage model] in [Python]
 
 ## Hamming Distance and Hamming Weight
 
-Remember that computers are just emergent properties that we get when we have a
-ton of [transistors](https://en.wikipedia.org/wiki/Transistor),
-[capacitors](https://en.wikipedia.org/wiki/Capacitor), wires, etc. in the
-correct setup. This means that if we look at the capacitors level, there should
-be some capacitors that represents the state of a bit. Here mainly our interest
-falls on the internal state of memory. Since, we know that capacitors represents
-a binary 1 with a certain amount of charge and a binary 0 with close to no
-charge. We can ask ourselves the question, does it cost more power to set or
-maintain memory which involves more binary 1's than 0's. In fact, it indeed
-does. This gives us two models for looking at the power usage of memory.
-__Looking at how much power it would take to set memory, which is known as the
-Hamming Distance model. Or we can look at how much power it would take to
-maintain memory, which is known as the Hamming Weight model.__ Hamming Distance
-meaning the amount of bitflips needed to turn one memory state into another, and
-Hamming Distance meaning the amount of 1's in a certain memory state.
+Remember that we covered both the [Hamming Distance] and [Hamming Weight] hypotheses
+of looking that [memory-based leakage model in Correlation Power
+Analysis][leakage models]. In this walkthrough, we are going to go
+through a software implementation of [AES]. The `.hex` file of the algorithm for
+ChipWhisperer targets can be found
+[here](https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-aes).
+Since we are using a software implementation, this walkthrough is going to focus
+on the [Hamming Weight-based leakage model](./cpa.md#hamming-weight).
 
-We can easily create a python function, which would identify the Hamming weight
-or Hamming distance.
+We can easily calculate [Hamming Weight] with the following lambda function.
 
 ```python
 {{#include code/common.py:hamming_fns}}
@@ -38,10 +34,7 @@ later on.
 {{#include code/common.py:hamming_precompute}}
 ```
 
-Although both models work for power usage, mainly to avoid repetition, from
-__here on out we will be using the Hamming Weight model__.
-
-## Making a statement about AES's memory state
+## Finding a memory state
 
 Suppose we have an input block \\(Input\\) and an output block \\(Output\\),
 which is a reasonably common situation. If we would want to check whether a
@@ -87,7 +80,12 @@ instead of the product.
 
 Let us make a model of the memory states power usage. This model should provide
 us with a number that should [correlate] with the power traces at the point of
-which this first [XOR] step is done.
+which this first [SBox](./workings.md#substitution) step is done. This leaves us
+with a longstanding memory state which is dependant on both the key and the
+input string. Two items we both preferred for our [leakage model] as explained in
+[Memory-based models](./cpa.md#memory-based-models). The [Python] code for
+performing our model on a single byte input string using a single byte from the
+key (also called a subkey) is the following.
 
 ```python
 {{#include code/common.py:hyp_fn}}
@@ -121,3 +119,9 @@ which this first [XOR] step is done.
 [injective]: https://en.wikipedia.org/wiki/Injective_function
 [Rijndael S-Box]: https://en.wikipedia.org/wiki/Rijndael_S-box
 [correlate]: https://en.wikipedia.org/wiki/Correlation_and_dependence
+[RAM]: https://en.wikipedia.org/wiki/Random-access_me,mory
+[Hamming Distance]: https://en.wikipedia.org/wiki/Hamming_distance
+[Hamming Weight]: https://en.wikipedia.org/wiki/Hamming_weight
+[Sum of absolute differences]: https://en.wikipedia.org/wiki/Sum_of_absolute_differences
+[Absolute]: https://en.wikipedia.org/wiki/Absolute_value
+[Leakage Model]: ./cpa.md#leakage-models

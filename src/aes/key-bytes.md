@@ -25,45 +25,6 @@ going to be using [Pearson correlation coefficient]s.
 
 ### Pearson correlation coefficient
 
-We have an difficult task here. Again, we want to know how likely it is that our
-modeled power usage has a similar pattern to the actual power usage. In
-statistics this is known as the modeled power usage and the actual power usage
-having a high [correlation]. If two functions are in perfect correlation,
-one function should always rise when the other rises and one function
-should always decline when the other declines.
-
-This is what the [Pearson correlation coefficient] indicates. We provide it with
-two functions or arrays and it will give us a value between \\(-1\\) and
-\\(1\\), indicating whether the two functions [correlate]. \\(1\\) meaning
-extreme but almost unrealistic levels of [correlation], \\(0\\) meaning no
-[correlation] and \\(-1\\) meaning a inverse [correlation]. How the [Pearson
-correlation coefficient] manages to do this is not as important for us, but
-reading the Wikipedia page can be very interesting. What is important for us is
-the formula so we can use it in our code.
-
-\\[
-\rho_{X,Y} = \frac{\text{cov}(X,Y)}{\sigma_X \sigma_Y}
-\\]
-
-This may not be entirely clear to most people without knowledge of
-statistics. So let us break it down.
-
-- \\(\rho\\) is the letter commonly used to represent the [Pearson correlation
-  coefficient].
-- \\(X\\) and \\(Y\\) are our functions and can actually be represented as a
-  finite list of numbers in our case. This means \\(X = { x_0, \ldots, x_n }\\) and
-  \\(Y = { y_0, \ldots, y_n }\\) with \\(n\\) being an integers greater or
-  equal to zero.
-- \\(\text{cov}(X,Y)\\) is the [covariance] of \\(X\\) and \\(Y\\). This can be
-  calculated with \\(\text{cov}(X,Y)=\mathbb{E}[(X - \mu_X)(Y - \mu_Y)] =
-  \frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)(y_i - \mu_Y) \\), with
-  \\(\mu_X\\) and \\(\mu_Y\\) being the [mean] of \\(X\\) and \\(Y\\),
-  respectively.
-- \\(\sigma_X\\) and \\(\sigma_Y\\) being the [standard deviation] of \\(X\\) and
-  \\(Y\\), respectively. The [standard deviation] can be calculated with
-  \\(\sigma_X = \sqrt{\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)^2}\\) with
-  \\(\mu_X\\) being the [mean] of \\(X\\).
-
 Let us move these formulas to [Python].
 
 ```python
