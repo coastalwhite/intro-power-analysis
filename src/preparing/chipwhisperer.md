@@ -1,5 +1,13 @@
 # ChipWhisperer
 
+> **What will this section cover?**
+>
+> * Installing the ChipWhisperer Python Library for different Operating Systems
+>   * [Windows](#windows)
+>   * [macOS](#macos)
+>   * [GNU/Linux](#gnulinux)
+> * [Verifying that the installation was successful](#verifying-installation)
+
 The [ChipWhisperer] framework has a [Python] library to interact with its
 devices.  This library is definitely a necessity if you plan on doing your own
 traces.

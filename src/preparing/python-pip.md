@@ -1,4 +1,11 @@
-# Python and Pip
+# Python and PIP
+
+> **What will this section cover?**
+>
+> * Installing [Python](#installing-python)
+> * Installing [PIP](#installing-pip)
+> * Installing mandatory dependencies: [NumPy](#numpy)
+> * Installing optional dependencies: [PyPlot](#pyplot) & [TQDM](#tqdm)
 
 We are going to be heavily relying on [Python] to do most of our measurements.
 We are also going to do some data analysis using [Python]. Because of this heavy
