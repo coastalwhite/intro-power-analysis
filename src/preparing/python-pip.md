@@ -10,8 +10,8 @@
 We are going to be heavily relying on [Python] to do most of our measurements.
 We are also going to do some data analysis using [Python]. Because of this heavy
 reliance on [Python], we need to install [Python] along with some packages for it.
-Two will be manditory: [NumPy] and the [ChipWhisperer] library (which will be
-covered in [ChipWhisper](./chipwhisperer.md)) and two are optional but very
+Two will be mandatory: [NumPy] and the [ChipWhisperer] library (which will be
+covered in [ChipWhisperer](./chipwhisperer.md)) and two are optional but very
 useful: [matplotlib] which is used for data plotting and [TQDM] which is used
 for visual feedback whilst cracking.
 

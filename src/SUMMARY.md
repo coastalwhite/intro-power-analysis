@@ -2,7 +2,7 @@
 
 - [Introduction](./intro.md)
 - [Preparing your environment](./preparing.md)
-  - [Python and Pip](./preparing/python-pip.md)
+  - [Python and PIP](./preparing/python-pip.md)
   - [ChipWhisperer](./preparing/chipwhisperer.md)
 - [A case study: RSA](./rsa.md)
 - [Breaking AES](./aes.md)
