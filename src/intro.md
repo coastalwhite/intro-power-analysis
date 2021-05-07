@@ -33,7 +33,7 @@ is taking a product and where the trace is squaring a number.
 
 _Figure 1: Power Trace of a [RSA] encryption by
 [Audriusa](https://en.wikipedia.org/wiki/Power_analysis#/media/File:Power_attack_full.png)
-(GPFL)_
+(GPFL)
 
 ## Purpose of this walkthrough
 
