@@ -1,5 +1,16 @@
 # Breaking AES
 
+> **What will this chapter cover?**
+>
+> * Describe what [Correlation Power Analysis](./aes/cpa.md) is
+> * Explain in full detail [how AES works](./aes/workings.md)
+> * Explain [Modeling AES](./aes/modeling.md) in full detail.
+> * Cover how to [Capture multiple traces](./aes/capture.md) with the
+>   ChipWhisperer framework.
+> * Explain how to [crack individual key-bytes](./aes/key-bytes.md)
+> * Describe in which way we can [automate the cracking
+>   process](./aes/automate.md)
+
 [AES] or the _Advanced Encryption Standard_, is one of the most used
 symmetric encryption algorithms in today's world. It is used for most encrypted
 conversations between computers or applications. It is used by your chat apps

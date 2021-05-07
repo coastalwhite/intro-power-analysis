@@ -1,5 +1,11 @@
 # A case study: RSA
 
+> **What will this section cover?**
+>
+> * What is *Simple Power Analysis*?
+> * What is the *RSA* algorithm?
+> * How can you break implementations of *RSA* using *Simple Power Analysis*?
+
 [RSA] is an encryption algorithm that is used all over the place. That little
 padlock in your browser; it is powered by [RSA]. Coding an implementation of
 [RSA] is reasonably simple, but the mathematics behind it can prove to be really
