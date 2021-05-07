@@ -7,11 +7,14 @@
 > * Doing a power trace of a run of our algorithm
 > * Saving multiple power traces to a file
 
-[AES] is a lot more complex than [RSA]. Although looking at one trace of [RSA]
-can give you a lot of information about the key used, with [AES] it is a lot
-more common to take multiple traces and average them out. Here we are gonna have
-a look at how we can upload the [AES] source code to the [ChipWhisperer] target
-board, and then capture multiple power traces.
+Cracking the key used by [AES] with [Power Analysis] is a lot more complex than
+was the case with [RSA]. Looking at one trace of a [RSA] decryption can
+potentially give you all the information you need to crack the private key.
+With [AES] and, more generally, with [Correlation Power Analysis], it is
+necessary to take multiple traces and average those power traces out. In this
+chapter we are going to have a look at how we can set up a [ChipWhisperer] to
+measure power traces. Afterwards, we are going to do some traces and learn how
+to save them so we can later do more detailed analysis on them.
 
 ## Base setup
 
@@ -148,3 +151,4 @@ This way we can later load it.
 [Differential Power analysis]: https://en.wikipedia.org/wiki/Power_analysis#Differential_power_analysis
 [injective]: https://en.wikipedia.org/wiki/Injective_function
 [Rijndael S-Box]: https://en.wikipedia.org/wiki/Rijndael_S-box
+[Correlation Power Analysis]: ./cpa.md
