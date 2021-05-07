@@ -1,4 +1,4 @@
-# Capturing multiple traces
+# Capture multiple traces
 
 [AES] is a lot more complex than [RSA]. Although looking at one trace of [RSA]
 can give you a lot of information about the key used, with [AES] it is a lot
