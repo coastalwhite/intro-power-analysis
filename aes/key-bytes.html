@@ -237,7 +237,7 @@ this script from our shell using <code>python3 crack.py</code>.</p>
 <p>In order to load the power traces we created in the <a href="./capture.html">previous
 section</a>, we can add the follow few lines which will load in the
 <a href="https://numpy.org/">NumPy</a> arrays. The traces here are put into a subfolder called <code>output</code>. If for
-any reason making power traces did not work out or you don't own a
+any reason making power traces did not work out, or you don't own a
 <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board, but you still want to continue, you can download some
 pre-made traces from
 <a href="https://github.com/coastalwhite/intro-power-analysis/tree/main/datasets/aes/premade">here</a>.</p>
@@ -290,12 +290,12 @@ code in <a href="./optimization.html">Sidenote: optimizing our code</a>.</p>
 going to go through every possibility and see which byte one provides the
 highest <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a> between the actual power trace and our modeled
 power usage. The important realization here is that we are doing a correlation
-between all individual power trace points and the hypothetical power consumption
-and we will select the maximum correlation coefficient for all sub-key guesses.
-This is because we still have no idea where within the power trace the first
-round actually takes place. If we look at all points of each power trace, the
-location where the first round takes place should have the highest correlation.
-We will demonstrate this later on.</p>
+between all individual power trace points and the hypothetical power
+consumption, and we will select the maximum correlation coefficient for all
+sub-key guesses.  This is because we still have no idea where within the power
+trace the first round actually takes place. If we look at all points of each
+power trace, the location where the first round takes place should have the
+highest correlation.  We will demonstrate this later on.</p>
 <pre><code class="language-python">from tqdm import trange
 
 def calculate_correlation_coefficients(subkey, subkey_index):
@@ -346,7 +346,7 @@ sub-key byte. If you used a different key, your plot will most probably look
 different and there will be a high spike at the ASCII value of your first
 sub-key.</p>
 <p>Well done! We have cracked our first sub-key! Now that we know how to load in
-our power traces and we have successfully cracked one of the bytes of the
+our power traces, and we have successfully cracked one of the bytes of the
 encryption key, we can move on to cracking the entire key.</p>
 
                     </main>

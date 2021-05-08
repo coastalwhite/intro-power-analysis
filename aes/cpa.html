@@ -184,13 +184,13 @@
 byte shuffles and substitution boxes, which have the same amount of
 processor-instructions for every possible key. Still however, there is a way to
 crack the keys used by these algorithms using power analysis. The method does
-not depend on differing instructions, however. Instead this method focuses on
+not depend on differing instructions, however. Instead, this method focuses on
 the power used by the memory and registers.</p>
 <h2 id="leakage-models"><a class="header" href="#leakage-models">Leakage Models</a></h2>
 <p><a href="https://en.wikipedia.org/wiki/Power_analysis">Power analysis</a> depends on leakage models. These are models which predict how
 much power is going to be used depending on some task a
 microprocessor-controlled device performs. In the case of <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> this leakage
-model was based on the processor instructions. There are other leakage models
+model was based on the processor instructions. There are other leakage models,
 however. <a href="https://wiki.newae.com/Correlation_Power_Analysis">Correlation Power Analysis</a> is a technique which (most of the time) is
 memory-based. Within this technique, we try to find out whether there is a
 connection between our leakage model — and its hypothetical key —
@@ -237,7 +237,7 @@ look for different memory values. Instead of just searching for the same
 derivative of the key memory value.</li>
 <li>Preferably, the <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a>/<a href="https://en.wikipedia.org/wiki/Hamming_distance">Distance</a> value holds for
 a longer time. With <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a>, for example, a memory state just before
-shifting bytes around works better, because transpositions don't effect the
+shifting bytes around works better, because transpositions don't affect the
 <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a>.</li>
 </ol>
 <h2 id="correlations"><a class="header" href="#correlations">Correlations</a></h2>
@@ -246,9 +246,9 @@ the power consumption, we are going to be determining whether there is a
 <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> between that leakage model and the power trace at every point in
 time. This means we are going to need multiple <em>power traces</em>: multiple power
 consumption values for each point in time. This assumes we have already
-(roughly) <a href="https://en.wikipedia.org/wiki/Sum_of_absolute_differences">synchronized</a> our power traces. This is
-done on the instruction level with our compiled algorithms on the
-<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>, so we don't have to worry about it too much.</p>
+(roughly) <a href="https://en.wikipedia.org/wiki/Sum_of_absolute_differences">synchronized</a> our power traces. On the
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>, this done on the instruction level with our compiled
+algorithms, so we don't have to worry about it too much.</p>
 <h3 id="pearson-correlation-coefficients"><a class="header" href="#pearson-correlation-coefficients">Pearson Correlation Coefficients</a></h3>
 <p>Now, however, we are also tasked with determining how well our set of power
 traces correlates with our leakage model. Just to summarize, we want to know how
@@ -257,7 +257,7 @@ power usage.  In statistics this is known as the modeled power usage and the
 actual power usage having a high <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>. If two functions are in perfect
 correlation, both functions rise and fall at the same time.</p>
 <p>This is what the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation coefficient</a> indicates. We provide it with
-two functions or arrays and it will give us a value between \(-1\) and
+two functions or arrays, and it will give us a value between \(-1\) and
 \(1\), indicating whether the two functions <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlate</a>. \(1\) meaning
 extreme but almost unrealistic levels of <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>, \(0\) meaning no
 <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> and \(-1\) meaning an inverse <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>. How the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson
@@ -300,7 +300,7 @@ axis is the <a href="https://en.wikipedia.org/wiki/Absolute_value">absolute</a> 
 represented by \(5000\) power measurements.</p>
 <p><img src="../assets/aes_correlation_visualization.png" alt="AES Pearson Correlation Explanation" /></p>
 <p><em>Figure 1: A visualization of <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson Correlation Coefficient</a> for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a></em></p>
-<p>So what does this graph show? You can see that <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a> remains reasonably consistent for the wrong key.  It
+<p>So what does this graph show? You can see that the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a> remains reasonably consistent for the wrong key.  It
 never goes above \(\sim 0.4\). The graph of the correct key follows the same
 pattern — never really reaching above \(\sim 0.4\) — except for one or two
 spikes. At these spikes apparently our model matches the actual power

@@ -328,9 +328,9 @@ plt.plot(max_correlation_coefficients)
 plt.show()
 ########################################
 </code></pre>
-<h2 id="automatically-picking-the-best-subkey-guess"><a class="header" href="#automatically-picking-the-best-subkey-guess">Automatically picking the best subkey guess</a></h2>
+<h2 id="automatically-picking-the-best-sub-key-guess"><a class="header" href="#automatically-picking-the-best-sub-key-guess">Automatically picking the best sub-key guess</a></h2>
 <p>Currently, we plot the graph of the maximum <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation
-coefficients</a> and we determine from there what the
+coefficients</a>, and we determine from there what the
 correct option is. We can easily automate this process from the observation that
 the correct option has the highest <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a>. To select this
 option, we can use the <a href="https://numpy.org/doc/stable/reference/generated/numpy.argmax.html">numpy
@@ -354,7 +354,7 @@ brute force our key with the top 5 best options.</p>
 </blockquote>
 <h2 id="cracking-the-entire-key"><a class="header" href="#cracking-the-entire-key">Cracking the entire key</a></h2>
 <p>Cracking the entire key is as easy as adding another <code>for</code> loop.  This loop will
-go through all sub-keys and pick an best guess for each sub-key.</p>
+go through all sub-keys and pick the best guess for each sub-key.</p>
 <p>This will turn the first piece of code into the second piece of code.</p>
 <pre><code class="language-python"># Looping through all possible bytes
 ########################################
@@ -408,7 +408,7 @@ print(&quot;&quot;)
 </code></pre>
 <blockquote>
 <p><strong>Note:</strong> Currently, our code is not very efficient and thus is might take
-quite a bit of time for it to crack entire key. This will be optimized in
+quite a bit of time for it to crack the entire key. This will be optimized in
 <a href="./optimization.html">Sidenote: optimizing our code</a>.</p>
 </blockquote>
 <p>This should output the following.</p>
@@ -416,7 +416,7 @@ quite a bit of time for it to crack entire key. This will be optimized in
 48 34 63 6b 33 72 6d 34 6e 2d 6c 33 33 74 34 32
 H4ck3rm4n-l33t42
 </code></pre>
-<p>This was indeed the key we used to produce our power traces!</p>
+<p>Correct! This was indeed the key we used to produce our power traces!</p>
 <p>We have now successfully cracked the full encryption key from an implementation
 of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>. We can calculate the best suiting sub-key for each byte of the key and
 then combine them all together into one by looping over the bytes. Good job!</p>

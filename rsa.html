@@ -216,10 +216,10 @@ modulo some integer \( N \). The specific relationship between these numbers is 
 important for now.</p>
 <p>When one learns that usually the minimum key length for the private key is <em>1024
 bits</em>, one might wonder how these computations are actually done on the bare
-hardware. It turns out that we can interpret modulo taking a of power as
+hardware. It turns out that we can interpret modulo exponentiation as
 repeated multiplication and squaring alternated with modulo division. This is
 how that works.</p>
-<p>If we are given a enormous number \( x \) and we are tasked with the raising
+<p>If we are given an enormous number \( x \), and we are tasked with the raising
 it to the 13th power, we might do it as follows:</p>
 <p>\[ x^{13} = x^8 \cdot x^4 \cdot x^1 \]</p>
 <p>This is part of the method of <a href="https://en.wikipedia.org/wiki/Modular_exponentiation">Modular
@@ -266,14 +266,14 @@ def custom_pow_mod(x, y, p):
 </code></pre>
 <blockquote>
 <p><strong>Note:</strong> This is in fact also how most arbitrary precision library implement
-raising to the power. This is due the (relatively) low maximum complexity of
+raising to the power. This is due to the (relatively) low maximum complexity of
 this calculation.</p>
 </blockquote>
 <p>If you are already a small bit familiar with <a href="https://en.wikipedia.org/wiki/Side-channel_attack">Side-Channel Analysis</a> and <a href="https://en.wikipedia.org/wiki/Power_analysis">Power
 Analysis</a>, you might immediately see what is going wrong here. If you don't see
 it immediately, let us go through it together.</p>
 <p>When we do <a href="https://en.wikipedia.org/wiki/Power_analysis">Power Analysis</a>, we get the power consumption of a microprocessor
-for a given amount of time. Let us say we would we have a computer purely
+for a given amount of time. Let us say we would have a computer which purely
 executing the computation for <code>custom_pow_mod(3, 5, 15)</code>. The steps that are
 taken in this computation are done noted below. Take a look at that the
 computation and verify it in your head.</p>
@@ -347,7 +347,7 @@ a long spike, thus, the binary number representation of <code>y</code> starts wi
 This is followed by a short spike, which indicates a <code>0</code>. And lastly, we see a
 long spike again. Therefore, we end with an <code>1</code>. And we get the binary number
 <code>101</code> for our <code>y</code>. This equals 5 in decimal, which is correct.</p>
-<p>Let us do another one, now without knowing the answer before hand. Take a look
+<p>Let us do another one, now without knowing the answer beforehand. Take a look
 at <em>Figure 2</em>.</p>
 <p><img src="./assets/rsa-key-42.jpg" alt="RSA key 42" /></p>
 <p><em>Figure 2: A projected power trace for the</em> <code>custom_pow_mod</code> <em>function.</em></p>
@@ -355,16 +355,16 @@ at <em>Figure 2</em>.</p>
 alternate a long spike with a short spike three times. This means we get
 <code>00101010</code>. This is equal to decimal 42. And thus the <code>y</code> we started with is 42.</p>
 <h2 id="what-does-this-tell-us"><a class="header" href="#what-does-this-tell-us">What does this tell us?</a></h2>
-<p>The previous code example may seem cherry picked. In fact, it is not. This code
+<p>The previous code example may seem cherry-picked. In fact, it is not. This code
 snippet does, however, indicate the concept of <a href="https://en.wikipedia.org/wiki/Power_analysis">Power analysis</a> very nicely and
-is therefore an extremely good visual example of how to break a <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>
+is therefore a fantastic visual example of how to break an <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>
 implementation. Code following the same principle or even this exact algorithm
 is extremely common. This means that whilst this exact method may not be
 applicable everywhere, the underlying idea still is.</p>
 <p>So whilst this method specifically is interesting, we are more interested in
 whether looking into an algorithm can tell us something about data used from the
-patterns in a power trace. In the next chapter, we are going to have go through
-how this can be done with <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>.</p>
+patterns in a power trace. In the next chapter, we are going through how this
+can be done with <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>.</p>
 
                     </main>
 

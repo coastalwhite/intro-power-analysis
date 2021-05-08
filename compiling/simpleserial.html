@@ -183,9 +183,9 @@
 code. The <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> framework mostly uses <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">C</a> as the language for the
 source code of encryption algorithms. This means that any existing <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">C</a>
 implementation of an encryption algorithms can (most of the time) easily be used
-on the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> targets. There are a few things to take into account
+on the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> targets. There are a few things to take into account,
 however. The protocol to send data back and forth between the capture board and
-the target board, some of the recommendations when writing or choosing software,
+the target board, some recommendations when writing or choosing software,
 and how to start and stop power traces. These will all be covered here.</p>
 <h2 id="the-simpleserial-protocol"><a class="header" href="#the-simpleserial-protocol">The SimpleSerial Protocol</a></h2>
 <p>In order to send data back and forth between the capture board and the target
@@ -206,7 +206,7 @@ you almost don't need to worry about the specifics.</p>
 either not use the heap or use it sparingly. Most of the boards used as targets
 by <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> don't have a lot of RAM and thus using it sparingly is
 preferred.</p>
-<p>Also when selecting existing implementations, it is recommended to use
+<p>Also, when selecting existing implementations, it is recommended to use
 embedded hardware or heapless implementations.
 <a href="https://github.com/ARMmbed/mbedtls">MBedTLS</a> contains some of the more used
 encryption algorithms.</p>
