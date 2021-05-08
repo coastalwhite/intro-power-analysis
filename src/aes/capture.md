@@ -16,6 +16,10 @@ chapter we are going to have a look at how we can set up a [ChipWhisperer] to
 measure power traces. Afterwards, we are going to do some traces and learn how
 to save them so we can later do more detailed analysis on them.
 
+> **Note:** If you just want to move on with the analysis or don't have a
+> [ChipWhisperer] board at hand, you can download a pre-made power trace
+> over [here](https://github.com/coastalwhite/intro-power-analysis/tree/main/datasets/aes/premade).
+
 ## Setting up our ChipWhisperer board
 
 Assuming that you have correctly [setup your software
