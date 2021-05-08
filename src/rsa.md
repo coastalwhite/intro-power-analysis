@@ -18,17 +18,18 @@ of the specifics to create a better overview of our method and goals.
 ## What is Simple Power Analysis
 
 [Simple Power Analysis] (also known as SPA) is a way of leaking information from
-power measurements of a microprocessor. One can imagine that a power measurement
-of a microprocessor in idle will use less power than a power measurement of a
-microprocessor running instructions at maximum speed.  Similarly, some processor
-instructions use more power than others or use power at different intervals. If
-we take a series of power measurements of a microprocessor performing an
-algorithm we use therefore possible say something about the instructions that
-processors performed.
+power measurements of a microprocessor. One can imagine that a microprocessor in
+idle will use less power than a microprocessor running instructions at maximum
+speed. Similarly, some processor instructions use more power than others or use
+power at different intervals. If we take a series of power measurements of a
+microprocessor performing an algorithm, we use therefore possible say something
+about the instructions that processors performed. The technique of looking at
+such power measurements and leaking information from them is called [Simple
+Power Analysis].
 
-We are going to exploit this with an encryption algorithm called [RSA]. In some
-software implementations of [RSA], we can leak secret information just by
-looking at power measurements of the microprocessor.
+We are going to exploit this technique with an encryption algorithm called
+[RSA]. In some software implementations of [RSA], we can leak secret information
+just by looking at power measurements of the microprocessor.
 
 ## What is RSA?
 
