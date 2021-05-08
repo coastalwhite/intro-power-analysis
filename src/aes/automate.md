@@ -1,16 +1,24 @@
-# Automatically cracking an entire key
+# Automate the cracking process
 
-In this chapter we are going to expand upon the [Manual
-Analysis](./manual-analysis.md) chapter to make the process automatic and work
-on the entire key. Most of what is discussed in this chapter is quite trivial.
-If you feel quite comfortable with what was discussed in the previous chapters,
-by all means skip this chapter and attempt to implement it yourself. If you get
-stuck, you can always come here to get a hint.
+> **What will this section cover?**
+>
+> * Automatically selecting which sub-key fits best
+> * Cracking the entire key
+
+In this section, we are going to expand upon the [previous
+section](./key-bytes.md) by automating the cracking process for single bytes and
+then making the process work on the entire key. Most of what is discussed in
+this section is quite trivial. If you feel quite comfortable with what was
+discussed in the previous sections, by all means skip this section and attempt
+to implement these behaviors yourself. If you get stuck, you can always come
+back here for a hint.
 
 ## Where were we?
 
-At the moment we have code for modeling the [AES] memory based power state,
-creating [correlation coefficient]s and a piece to plot the results.
+At the moment, we have code for modeling the [AES] memory state based power
+consumption, calculating [correlation coefficients][correlation coefficient]
+between our leakage model and the power traces and a piece of code to plot our
+results. This is how that all looks together.
 
 ```python
 {{#include code/unoptimized_common.py:additional_imports}}
@@ -25,10 +33,11 @@ creating [correlation coefficient]s and a piece to plot the results.
 
 ## Automatically picking the best subkey guess
 
-At the moment we plot the graph of the maximum [correlation coefficient]s and we
-determine from there what is the correct option. We can easily automate this
-using the observation that the correct option has the highest [correlation
-coefficient]. For this we can use the [numpy
+Currently, we plot the graph of the maximum [correlation
+coefficients][correlation coefficient] and we determine from there what the
+correct option is. We can easily automate this process from the observation that
+the correct option has the highest [correlation coefficient]. To select this
+option, we can use the [numpy
 `argmax`](https://numpy.org/doc/stable/reference/generated/numpy.argmax.html)
 function.
 
@@ -41,18 +50,18 @@ Replace the code for plotting with the following code.
 Now the code will automatically print out the option with the highest
 [correlation coefficient].
 
-> _Note:_ If we have done only a few traces and our correlation coefficients are
-> a bit less reliable, we can use
+> **Note:** If we have done only a few traces and our [correlation
+> coefficients][correlation coefficient] are a bit less reliable, we can use
 > [`np.argsort(...)[::-1]`](https://numpy.org/doc/stable/reference/generated/numpy.argsort.html?highlight=argsort#numpy.argsort)
-> to select multiple options. With this we can, for example, try to brute force
-> with the top 5.
+> multiple good options. With these options we can then, for example, try to
+> brute force our key with the top 5 best options.
 
-## Cracking an entire key
+## Cracking the entire key
 
-In order for us to crack the entire key, we can just add another `for` loop.
-This loop will go through all sub-keys.
+Cracking the entire key is as easy as adding another `for` loop.  This loop will
+go through all sub-keys and pick an best guess for each sub-key.
 
-This will turn the first following code into the second piece of code.
+This will turn the first piece of code into the second piece of code.
 
 ```python
 {{#include code/single_byte.py:loop_single_byte_wrapped}}
@@ -64,8 +73,9 @@ This will turn the first following code into the second piece of code.
 {{#include code/multiple_bytes.py:extra_loop}}
 ```
 
-> _Note:_ Our code is not very efficient and thus is might take quite a
-> bit of time for it to crack entire key.
+> **Note:** Currently, our code is not very efficient and thus is might take
+> quite a bit of time for it to crack entire key. This will be optimized in
+> [Sidenote: optimizing our code](./optimization.md).
 
 This should output the following.
 
@@ -74,6 +84,12 @@ Best guess:
 48 34 63 6b 33 72 6d 34 6e 2d 6c 33 33 74 34 32
 H4ck3rm4n-l33t42
 ```
+
+This was indeed the key we used to produce our power traces!
+
+We have now successfully cracked the full encryption key from an implementation
+of [AES]. We can calculate the best suiting sub-key for each byte of the key and
+then combine them all together into one by looping over the bytes. Good job!
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)

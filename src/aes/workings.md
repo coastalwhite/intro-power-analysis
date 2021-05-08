@@ -1,5 +1,14 @@
 # How AES Works
 
+> **What will this section cover?**
+>
+> * The inner workings of the AES algorithm.
+> * Different operations utilized by Rijndael block ciphers:
+>   * [XOR operations](#xor-operations)
+>   * [Byte subtitutions and S-Boxes](#substitution)
+>   * [Shifting of Rows](#shifting)
+>   * [Mixing of Rows](#shifting)
+
 In order to do break [AES] with power analysis, we need a reasonably detailed
 understanding of how [AES] works. So let us do a crash course.
 
@@ -87,14 +96,14 @@ Now comes one of the most genius but strange parts of the Rijndael block
 cipher. This is the substitution box. A substitution box is basically a lookup
 table to replace (or substitute) a byte with the one from the lookup table. Some
 demands for such a lookup table (when used in encryption algorithms) may be:
-- __Reverseable__: In order to find back the original byte, we want to be able
+* __Reverseable__: In order to find back the original byte, we want to be able
    to reverse the process.
-- __Non-Linear__: In order to make resistant to
+* __Non-Linear__: In order to make resistant to
    [linear](https://en.wikipedia.org/wiki/Linear_cryptanalysis) and
    [differential](https://en.wikipedia.org/wiki/Differential_cryptanalysis)
    cryptanalysis, the lookup should be very difficult to approximate with a
    linear function.
-- __Fixed Output Sizing__: In order to reduce the complexity and loss of excess
+* __Fixed Output Sizing__: In order to reduce the complexity and loss of excess
    data, we want to output to have a fixed bit size (preferably the same as the
    input).
 
@@ -169,12 +178,12 @@ This all results in the following process:
 4. Final round
     1. [Substitution with the Rijndael S-Box](#substitution)
     2. [Shift the rows](#shifting)
-    4. [Apply \\(k_n\\) by XOR with \\(n\\) being the round
+    3. [Apply \\(k_n\\) by XOR with \\(n\\) being the round
        number](#xor-operations)
 
 After reading this section should have a basic overview and understanding of how
 [AES] works, which you will need for your [Power analysis]. If you want a more
-visual explanation, you could watch [AES Explained by
+visual explanation of the [AES] algorithm, you could watch [AES Explained by
 Computerphile](https://www.youtube.com/watch?v=O4xNJsjtN6E).
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)

@@ -1,12 +1,16 @@
 # Preparing your environment
 
-> **Preliminaries**
+> **What will this chapter cover?**
 >
-> This chapter expects the reader to have a personal computer
-> (running a modern version of *Windows*, *macOS* or a commonly used *GNU/Linux*
-> distribution) to which one has root/administrator permissions. Furthermore,
-> especially for *macOS* and *GNU/Linux*, a basic understanding of the shell is
-> recommended.
+> * How to install [Python] and [PIP]
+> * How to install dependencies for the [ChipWhisperer] Python library
+> * How to install the [ChipWhisperer] Python library
+
+This chapter expects the reader to have a personal computer
+(running a modern version of *Windows*, *macOS* or a commonly used *GNU/Linux*
+distribution) to which one has root/administrator permissions. Furthermore,
+especially for *macOS* and *GNU/Linux*, a basic understanding of the shell is
+recommended.
 
 Although working with the [ChipWhisperer] requires little setup, it has some
 prerequisites. Apart from from the usual text editor and [Python], we need to

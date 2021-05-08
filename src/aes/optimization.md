@@ -1,4 +1,8 @@
-# Sidenote: Optimizing our algorithm
+# Sidenote: Optimizing our code
+
+> **What will this section cover?**
+>
+> * Optimizing the [Pearson Correlation Coefficient] calculations
 
 As you may have noticed our algorithm is now really slow. This is due to the
 calculation of [Pearson Correlation Coefficient]s. We can speed this up by a lot
@@ -8,17 +12,22 @@ if we notice a couple of things.
    operation, we can optimize the calculation of \\(\sigma_x \sigma_y\\) from
    two square root calculations to one.
 2. We are recalculating a lot of averages and standard deviations. We can
-   precompute these averages and [standard deviation]s and them fetch them instead
+   pre-compute these averages and [standard deviation]s and them fetch them instead
    of recomputing them.
 3. Since we only care about the maximum [correlation coefficient] and have no
    interest in the value itself, we can stop doing any factorization.
 
 In the following code we have created a function which applies these three
-optimized functions when calculating the [correlation coefficient]s.
+optimized functions when calculating the [correlation coefficients][correlation
+coefficient].
 
 ```python
 {{#include code/optimized_common.py:optimized_calc_correlations}}
 ```
+
+After optimizing the calculations of the [Pearson correlation
+coefficients][correlation coefficient], our `crack.py` script should run a lot
+faster.
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)

@@ -1,5 +1,11 @@
 # A case study: RSA
 
+> **What will this section cover?**
+>
+> * What is *Simple Power Analysis*?
+> * What is the *RSA* algorithm?
+> * How can you break implementations of *RSA* using *Simple Power Analysis*?
+
 [RSA] is an encryption algorithm that is used all over the place. That little
 padlock in your browser; it is powered by [RSA]. Coding an implementation of
 [RSA] is reasonably simple, but the mathematics behind it can prove to be really
@@ -8,6 +14,22 @@ though. Luckily, there is no need to dive too much into the mathematics to crack
 deeper into cache-based [Power analysis] attacks, why they work exactly and how
 to perform them on the [ChipWhisperer]. This chapter is going to skip over a few
 of the specifics to create a better overview of our method and goals.
+
+## What is Simple Power Analysis
+
+[Simple Power Analysis] (also known as SPA) is a way of leaking information from
+power measurements of a microprocessor. One can imagine that a microprocessor in
+idle will use less power than a microprocessor running instructions at maximum
+speed. Similarly, some processor instructions use more power than others or use
+power at different intervals. If we take a series of power measurements of a
+microprocessor performing an algorithm, we use therefore possible say something
+about the instructions that processors performed. The technique of looking at
+such power measurements and leaking information from them is called [Simple
+Power Analysis].
+
+We are going to exploit this technique with an encryption algorithm called
+[RSA]. In some software implementations of [RSA], we can leak secret information
+just by looking at power measurements of the microprocessor.
 
 ## What is RSA?
 
@@ -54,7 +76,7 @@ implementation looks like.
 {{#include rsa-code/custom_pow.py:mod_function_def}}
 ```
 
-> *Note:* This is in fact also how most arbitrary precision library implement
+> **Note:** This is in fact also how most arbitrary precision library implement
 > raising to the power. This is due the (relatively) low maximum complexity of
 > this calculation.
 

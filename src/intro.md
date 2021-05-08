@@ -1,5 +1,15 @@
 # Power Analysis Introductory Walkthrough
 
+> **What will this course cover?**
+>
+> * [Chapter 2](./preparing.md) - Installing and configuring capture and
+>   analysis tools
+> * [Chapter 3](./rsa.md) - Explain *Simple Power Analysis* by looking at the
+>   RSA algorithm
+> * [Chapter 4](./aes.md) - Explain *Correlation Power Analysis* by looking at
+>   the AES algorithm
+> * [Chapter 5](./compiling.md) - Setting up tools to compile custom algorithms
+
 IT Security has many fields and layers, all of which aim to investigate how to
 break and protect the core principles of information security. These principles
 are confidentiality, integrity and availability[^tenets]. One of these fields is
@@ -23,7 +33,7 @@ is taking a product and where the trace is squaring a number.
 
 _Figure 1: Power Trace of a [RSA] encryption by
 [Audriusa](https://en.wikipedia.org/wiki/Power_analysis#/media/File:Power_attack_full.png)
-(GPFL)_
+(GPFL)
 
 ## Purpose of this walkthrough
 

@@ -1,70 +1,51 @@
-# Manual Analysis
+# Crack individual key-byte
 
-With the power usage model we described in the previous chapter, we can now
-start to do some analysis of our power traces.
+> **What will this section cover?**
+>
+> * Loading our saved power traces
+> * Calculating [Pearson correlation
+>   coefficients][PCC CPA] in [Python]
+> * Finding the highest [Pearson correlation
+>   coefficient][PCC CPA] for a byte of the key used
 
-Let look what we have up until now.
+After creating files containing multiple power traces in the [previous
+section](./capture.md), we can now start analyzing our traces and attempt to
+crack some bytes with the leakage model we defined in [Modeling
+AES](./modeling.md).
+
+So what did we have for our leakage model up until now?
 
 ```python
 {{#include code/common.py:start}}
 ```
 
-In order to load the data we created with our trace we can add the follow few
-lines which will load in the [numpy] arrays.
+We are going to take this as a starting point of a new [Python] script. This
+walkthrough is will refer to that [Python] file as `crack.py`. We can thus run
+this script from our shell using `python3 crack.py`.
+
+## Loading back in our traces
+
+In order to load the power traces we created in the [previous
+section](./capture.md), we can add the follow few lines which will load in the
+[NumPy] arrays. The traces here are put into a subfolder called `output`. If for
+any reason making power traces did not work out or you don't own a
+[ChipWhisperer] board, but you still want to continue, you can download some
+pre-made traces from
+[here](https://github.com/coastalwhite/intro-power-analysis/tree/main/datasets/aes/premade).
 
 ```python
 {{#include code/common.py:load_data}}
 ```
 
-## Are we data-scientists yet?
+Now we can use our from the `traces` variable, we know how many traces we have
+(`num_traces`), and how many points in time we have per trace (`num_points`).
 
-We want to change the data in such a way that it makes it easier to identify
-whether a our __modeled power usage is similar to the actual power usage__. We
-need multiple power traces for this. The most important processing of data is
-going to be using [Pearson correlation coefficient]s.
+## Implementing Pearson Correlation Coefficients
 
-### Pearson correlation coefficient
-
-We have an difficult task here. Again, we want to know how likely it is that our
-modeled power usage has a similar pattern to the actual power usage. In
-statistics this is known as the modeled power usage and the actual power usage
-having a high [correlation]. If two functions are in perfect correlation,
-one function should always rise when the other rises and one function
-should always decline when the other declines.
-
-This is what the [Pearson correlation coefficient] indicates. We provide it with
-two functions or arrays and it will give us a value between \\(-1\\) and
-\\(1\\), indicating whether the two functions [correlate]. \\(1\\) meaning
-extreme but almost unrealistic levels of [correlation], \\(0\\) meaning no
-[correlation] and \\(-1\\) meaning a inverse [correlation]. How the [Pearson
-correlation coefficient] manages to do this is not as important for us, but
-reading the Wikipedia page can be very interesting. What is important for us is
-the formula so we can use it in our code.
-
-\\[
-\rho_{X,Y} = \frac{\text{cov}(X,Y)}{\sigma_X \sigma_Y}
-\\]
-
-This may not be entirely clear to most people without knowledge of
-statistics. So let us break it down.
-
-- \\(\rho\\) is the letter commonly used to represent the [Pearson correlation
-  coefficient].
-- \\(X\\) and \\(Y\\) are our functions and can actually be represented as a
-  finite list of numbers in our case. This means \\(X = { x_0, \ldots, x_n }\\) and
-  \\(Y = { y_0, \ldots, y_n }\\) with \\(n\\) being an integers greater or
-  equal to zero.
-- \\(\text{cov}(X,Y)\\) is the [covariance] of \\(X\\) and \\(Y\\). This can be
-  calculated with \\(\text{cov}(X,Y)=\mathbb{E}[(X - \mu_X)(Y - \mu_Y)] =
-  \frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)(y_i - \mu_Y) \\), with
-  \\(\mu_X\\) and \\(\mu_Y\\) being the [mean] of \\(X\\) and \\(Y\\),
-  respectively.
-- \\(\sigma_X\\) and \\(\sigma_Y\\) being the [standard deviation] of \\(X\\) and
-  \\(Y\\), respectively. The [standard deviation] can be calculated with
-  \\(\sigma_X = \sqrt{\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)^2}\\) with
-  \\(\mu_X\\) being the [mean] of \\(X\\).
-
-Let us move these formulas to [Python].
+As explained in the section on [Correlation Power Analysis](./cpa.md), we are
+going to be using [Pearson Correlation Coefficients][PCC CPA] to detect whether
+our power trace is similar to our leakage model. So let us implement [Pearson
+Correlation Coefficients][PCC CPA] in [Python].
 
 ```python
 {{#include code/unoptimized_common.py:pearson_basic}}
@@ -72,9 +53,9 @@ Let us move these formulas to [Python].
 
 Although this code is very inefficient, and does a lot of unnecessary and double
 calculations, it will serve well for now. We are going to be optimizing this
-code in [Sidenote: optimizing our algorithm](./optimization.md).
+code in [Sidenote: optimizing our code](./optimization.md).
 
-### Cracking a single byte
+## Cracking a single byte of the key
 
 As explained in [Modeling AES](./modeling.md), we can — using [power analysis] —
 __crack the [AES] key byte by byte__. So let us start with a single one. We are
@@ -113,7 +94,9 @@ sub-key byte. If you used a different key, your plot will most probably look
 different and there will be a high spike at the ASCII value of your first
 sub-key.
 
-Well done! We have cracked our first sub-key!
+Well done! We have cracked our first sub-key! Now that we know how to load in
+our power traces and we have successfully cracked one of the bytes of the
+encryption key, we can move on to cracking the entire key.
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)
@@ -149,3 +132,4 @@ Well done! We have cracked our first sub-key!
 [covariance]: https://en.wikipedia.org/wiki/Covariance
 [standard deviation]: https://en.wikipedia.org/wiki/Standard_deviation
 [mean]: https://en.wikipedia.org/wiki/Mean
+[PCC CPA]: ./cpa.md#pearson-correlation-coefficients

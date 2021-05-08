@@ -1,10 +1,17 @@
-# Python and Pip
+# Python and PIP
+
+> **What will this section cover?**
+>
+> * Installing [Python](#installing-python)
+> * Installing [PIP](#installing-pip)
+> * Installing mandatory dependencies: [NumPy](#numpy)
+> * Installing optional dependencies: [PyPlot](#pyplot) & [TQDM](#tqdm)
 
 We are going to be heavily relying on [Python] to do most of our measurements.
 We are also going to do some data analysis using [Python]. Because of this heavy
 reliance on [Python], we need to install [Python] along with some packages for it.
-Two will be manditory: [NumPy] and the [ChipWhisperer] library (which will be
-covered in [ChipWhisper](./chipwhisperer.md)) and two are optional but very
+Two will be mandatory: [NumPy] and the [ChipWhisperer] library (which will be
+covered in [ChipWhisperer](./chipwhisperer.md)) and two are optional but very
 useful: [matplotlib] which is used for data plotting and [TQDM] which is used
 for visual feedback whilst cracking.
 
@@ -104,6 +111,23 @@ This is also optional, but indeed very handy. Installation can be done via [pip]
 ```bash
 pip install tqdm
 ```
+
+## Verifying installation of packages
+
+Go into the [Python] interpreter by running `python3` in your shell. We can
+verify the installation of all the packages by running the following few
+commands:
+
+```python
+import numpy
+import matplotlib
+import tqdm
+```
+
+If none of those three returned an error, everything is installed correctly!
+
+We have now installed [Python], [PIP] and some packages used throughout this
+walkthrough. We have also verified that everything is properly installed.
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)

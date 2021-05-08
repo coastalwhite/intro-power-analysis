@@ -1,28 +1,26 @@
-# Compiling your own algorithms
+# Installing Toolchains
 
-This walkthrough provides most of the precompiled code you might need. However,
-in order to do some of the provided exercises and do some experimentation
-yourself, you might want to compile some algorithm. To do this, there are two
-things we need. The toolchain to compile to our specific microprocessor
-architecture and the low-level source code to compile.
-
-## Toolchains
+> **What will this section cover?**
+>
+> * Installing the ARM toolchain
+> * Compiling code
 
 In order to compile code which is usable for our specific microprocessor
-architecture, we need to toolchain for that architecture. As said in the
-[introduction chapter](../intro.md), this walkthrough is using the [CW Lite Arm]
-variant and therefore here we will show how to install the [ARM toolchain]. For
-other toolchains, have a look at the [ChipWhisperer
+architecture, we need the toolchain for that specific architecture. As said in
+the [introduction chapter](../intro.md), this walkthrough is using the
+[ChipWhisperer Lite ARM][CW LITE ARM] board. Therefore, this section will show
+how to install the [ARM toolchain]. For other toolchains, have a look at the
+[ChipWhisperer
 documentation](https://chipwhisperer.readthedocs.io/en/latest/prerequisites.html#compilers).
 
 ## Installing the ARM toolchain
 
-Information on the ARM can be found
+Information on the ARM toolchain can be found
 [here](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads).
 
 ### Windows and macOS
 
-por *Windows* and *macOS*, the installer on the [ARM developer
+For *Windows* and *macOS*, the installer on the [ARM developer
 website](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
 should be enough to install the ARM embedded toolchain.
 
@@ -45,16 +43,24 @@ sudo pacman -S arm-none-eabi-gcc
 ## Compiling binaries
 
 With the proper toolchain installed, we can compile binaries which are going to
-used on the [ChipWhisperer] *targets*. Take a look at [Simpleserial C Template].
-It explains how to create and compile your own binaries. Or have a look at [the
-ChipWhisperer GitHub
-repository](https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware)
-for some examples of prewritten algorithms.
+used on [ChipWhisperer] *targets*. All SimpleSerial resources mentioned in the
+the [Existing resources](./resources.md) section contain a *Makefile* in their
+root directory. This file provides the computer instructions on how to compile
+source code. In order to create `.hex` files &mdash; which is the format used to
+program [ChipWhisperer] targets &mdash; from our source, we can simply run the
+following command from the root directory of our project, replacing `<PLATFORM>`
+with the [proper
+platform](https://raw.githubusercontent.com/coastalwhite/simpleserial-c-template/main/PLATFORMS.md).
 
-> _Note:_ [SimpleSerial] is the protocol [ChipWhisperer] utilizes to describe p
-> communicating between the host machine (e.g. a laptop), through the *scope*,
-> and the *target*. Some documentation on the [C] library on it can be found
-> [here](https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial).
+```bash
+PLATFORM=<PLATFORM> make
+```
+
+This should create the `.hex` file in the root directory.
+
+We have now installed the proper toolchain and learned how to compile our own
+source code. Next up, we want to know how to properly write our source code, so
+we can best do our measurements.
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)
