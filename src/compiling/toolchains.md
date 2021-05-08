@@ -6,15 +6,16 @@
 > * Compiling code
 
 In order to compile code which is usable for our specific microprocessor
-architecture, we need to toolchain for that architecture. As said in the
-[introduction chapter](../intro.md), this walkthrough is using the [CW Lite Arm]
-variant and therefore here we will show how to install the [ARM toolchain]. For
-other toolchains, have a look at the [ChipWhisperer
+architecture, we need the toolchain for that specific architecture. As said in
+the [introduction chapter](../intro.md), this walkthrough is using the
+[ChipWhisperer Lite ARM][CW LITE ARM] board. Therefore, this section will show
+how to install the [ARM toolchain]. For other toolchains, have a look at the
+[ChipWhisperer
 documentation](https://chipwhisperer.readthedocs.io/en/latest/prerequisites.html#compilers).
 
 ## Installing the ARM toolchain
 
-Information on the ARM can be found
+Information on the ARM toolchain can be found
 [here](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads).
 
 ### Windows and macOS
@@ -42,12 +43,13 @@ sudo pacman -S arm-none-eabi-gcc
 ## Compiling binaries
 
 With the proper toolchain installed, we can compile binaries which are going to
-used on the [ChipWhisperer] *targets*. All resources mentioned in the the
-[Existing resources](./resources.md) section contain a *Makefile* in their root
-directory. This file provides the computer instructions on how to compile
-binaries. In order to create `.hex` files for our binaries, we can simply run
-the following command from the root directory of our *target* project and
-replacing `<PLATFORM>` with the [proper
+used on [ChipWhisperer] *targets*. All SimpleSerial resources mentioned in the
+the [Existing resources](./resources.md) section contain a *Makefile* in their
+root directory. This file provides the computer instructions on how to compile
+source code. In order to create `.hex` files &mdash; which is the format used to
+program [ChipWhisperer] targets &mdash; from our source, we can simply run the
+following command from the root directory of our project, replacing `<PLATFORM>`
+with the [proper
 platform](https://raw.githubusercontent.com/coastalwhite/simpleserial-c-template/main/PLATFORMS.md).
 
 ```bash
