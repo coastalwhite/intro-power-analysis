@@ -12,7 +12,7 @@
   - [Capture multiple traces](./aes/capture.md)
   - [Crack individual key-bytes](./aes/key-bytes.md)
   - [Automate the cracking process](./aes/automate.md)
-  - [Sidenote: Optimizing our algorithm](./aes/optimization.md)
+  - [Sidenote: Optimizing our code](./aes/optimization.md)
   - [Exercises](./aes/exercises.md)
 - [Compiling/Creating your own algorithms](./compiling.md)
   - [Installing Toolchains](./compiling/toolchains.md)

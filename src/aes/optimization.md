@@ -1,4 +1,4 @@
-# Sidenote: Optimizing our algorithm
+# Sidenote: Optimizing our code
 
 As you may have noticed our algorithm is now really slow. This is due to the
 calculation of [Pearson Correlation Coefficient]s. We can speed this up by a lot

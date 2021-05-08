@@ -72,7 +72,8 @@ This will turn the first following code into the second piece of code.
 ```
 
 > _Note:_ Our code is not very efficient and thus is might take quite a
-> bit of time for it to crack entire key.
+> bit of time for it to crack entire key. This will be optimized in [Sidenote:
+> optimizing our code](./optimization.md).
 
 This should output the following.
 
