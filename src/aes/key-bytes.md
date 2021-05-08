@@ -1,31 +1,50 @@
-# Crack individual key-bytes
+# Crack individual key-byte
 
-With the power usage model we described in the previous chapter, we can now
-start to do some analysis of our power traces.
+> **What will this section cover?**
+>
+> * Loading our saved power traces
+> * Calculating [Pearson correlation
+>   coefficients][PCC CPA] in [Python]
+> * Finding the highest [Pearson correlation
+>   coefficient][PCC CPA] for a byte of the key used
 
-Let look what we have up until now.
+After creating files containing multiple power traces in the [previous
+section](./capture.md), we can now start analyzing our traces and attempt to
+crack some bytes with the leakage model we defined in [Modeling
+AES](./modeling.md).
+
+So what did we have for our leakage model up until now?
 
 ```python
 {{#include code/common.py:start}}
 ```
 
-In order to load the data we created with our trace we can add the follow few
-lines which will load in the [numpy] arrays.
+We are going to take this as a starting point of a new [Python] script. This
+walkthrough is will refer to that [Python] file as `crack.py`. We can thus run
+this script from our shell using `python3 crack.py`.
+
+## Loading back in our traces
+
+In order to load the power traces we created in the [previous
+section](./capture.md), we can add the follow few lines which will load in the
+[NumPy] arrays. If for any reason making power traces did not work out or you
+don't own a [ChipWhisperer] board, but you still want to continue, you can
+download some pre-made traces from
+[here](https://github.com/coastalwhite/intro-power-analysis/tree/main/datasets/aes/premade).
 
 ```python
 {{#include code/common.py:load_data}}
 ```
 
-## Are we data-scientists yet?
+Now we can use our `traces`, we know how many traces we have (`num_traces`),
+and how many points in time we have per trace (`num_points`).
 
-We want to change the data in such a way that it makes it easier to identify
-whether a our __modeled power usage is similar to the actual power usage__. We
-need multiple power traces for this. The most important processing of data is
-going to be using [Pearson correlation coefficient]s.
+## Implementing Pearson Correlation Coefficients
 
-### Pearson correlation coefficient
-
-Let us move these formulas to [Python].
+As explained in the section on [Correlation Power Analysis](./cpa.md), we are
+going to be using [Pearson Correlation Coefficients][PCC CPA] to detect whether
+our power trace is similar to our leakage model. So let us implement [Pearson
+Correlation Coefficients][PCC CPA] in [Python].
 
 ```python
 {{#include code/unoptimized_common.py:pearson_basic}}
@@ -35,7 +54,7 @@ Although this code is very inefficient, and does a lot of unnecessary and double
 calculations, it will serve well for now. We are going to be optimizing this
 code in [Sidenote: optimizing our algorithm](./optimization.md).
 
-### Cracking a single byte
+## Cracking a single byte of the key
 
 As explained in [Modeling AES](./modeling.md), we can — using [power analysis] —
 __crack the [AES] key byte by byte__. So let us start with a single one. We are
@@ -110,3 +129,4 @@ Well done! We have cracked our first sub-key!
 [covariance]: https://en.wikipedia.org/wiki/Covariance
 [standard deviation]: https://en.wikipedia.org/wiki/Standard_deviation
 [mean]: https://en.wikipedia.org/wiki/Mean
+[PCC CPA]: ./cpa.md#pearson-correlation-coefficients
