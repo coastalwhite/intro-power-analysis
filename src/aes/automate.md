@@ -2,7 +2,7 @@
 
 > **What will this section cover?**
 >
-> * Automatically selection which sub-key is optimal
+> * Automatically selecting which sub-key suits best
 > * Cracking all sub-keys
 
 In this section we are going to expand upon the [previous
