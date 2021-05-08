@@ -2,21 +2,21 @@
 
 > **What will this section cover?**
 >
-> * Creating a leakage model for AES
-> * Implementing a leakage model for AES in Python
+> * Creating a leakage model for [AES]
+> * Implementing a leakage model for [AES] in [Python]
 
 In order to make sensible statements about the power usage of [AES], we are
-going to make a [leakage model] of the [AES] algorithm.
-To do this, we need some to determine the optimal memory state to target. When
-we determined that we are going to implement that [leakage model] in [Python]
+going to make a [leakage model] of the [AES] algorithm.  To do this, we need
+some to determine the optimal memory state to target. When we have determined
+that state, we are going to implement that [leakage model] in [Python].
 
 ## Hamming Distance and Hamming Weight
 
-Remember that we covered both the [Hamming Distance] and [Hamming Weight] hypotheses
-of looking that [memory-based leakage model in Correlation Power
-Analysis][leakage models]. In this walkthrough, we are going to go
-through a software implementation of [AES]. The `.hex` file of the algorithm for
-ChipWhisperer targets can be found
+Remember that we covered both the [Hamming Distance] and [Hamming Weight]
+hypotheses of looking at [memory-based leakage model in Correlation Power
+Analysis][leakage model]. In this walkthrough, we are going to go through a
+software implementation of [AES]. The `.hex` file of the algorithm for
+[ChipWhisperer] targets can be found
 [here](https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-aes).
 Since we are using a software implementation, this walkthrough is going to focus
 on the [Hamming Weight-based leakage model](./cpa.md#hamming-weight).
@@ -36,12 +36,12 @@ later on.
 
 ## Finding a memory state
 
-Suppose we have an input block \\(Input\\) and an output block \\(Output\\),
+Suppose we have an input block *Input* and an output block *Output*,
 which is a reasonably common situation. If we would want to check whether a
-supposed \\(Key\\) is the key used, we could run through the entire algorithm to
+supposed *Key* is the key used, we could run through the entire algorithm to
 check whether \\(\text{AES}(Input, Key) = Output\\). This is quite inefficient
 and is no better than brute forcing the key. Knowing what we now about the
-memory state of [AES] we can however do two extreme optimizations.
+memory state of [AES], we can however do two extreme optimizations.
 
 ### Shortcutting calculations
 
