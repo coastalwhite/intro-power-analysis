@@ -210,6 +210,11 @@ This way we can later load it.
 > module have a look over [here](https://wiki.newae.com/Making_Scripts).
 > __Disclaimer:__ This is quite heavy.
 
+Now we can correctly set up our [ChipWhisperer] equipment, upload the source
+code of the algorithm we are using to the target, capture power traces of the
+target and save those power traces to a file on our system. Now we are ready to
+do some analysis on those power traces.
+
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [RSA]: https://en.wikipedia.org/wiki/RSA_(cryptosystem)
