@@ -1,4 +1,4 @@
-# Automatically cracking an entire key
+# Automate the cracking process
 
 In this chapter we are going to expand upon the [Manual
 Analysis](./manual-analysis.md) chapter to make the process automatic and work
