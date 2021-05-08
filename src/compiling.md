@@ -2,20 +2,21 @@
 
 > **What will this chapter cover?**
 >
-> * Installing toolchains necessary for compiling our code
+> * Installing toolchains necessary for compiling code for a [ChipWhisperer]
+>   target
 > * Getting started with the SimpleSerial protocol
-> * Some useful resources for creating source code
+> * Some useful resources for target algorithms
 
 This walkthrough provides sources for most of the precompiled code you might
 need. However, in order to some experimentation yourself, you might want to
-compile some algorithm. To do this, there are two things we need. The toolchain
-to compile to our specific microprocessor architecture and the low-level source
-code to compile.
+compile some implementation of an algorithm. To do this, there are two things we
+need: the toolchain to compile to our specific microprocessor architecture and
+the low-level source code to compile.
 
 The following section will cover how to install the toolchains for the ARM
-architecture. Following that section, there will be a section on writing source
-code for our target. Then, there will be a section on some useful resources when
-creating software for the [ChipWhisperer].
+architecture. Following that section, will some things to keep in mind when
+writing source code for our target. Then, there will be a section on some useful
+resources concerning [ChipWhisperer] and algorithms for our target.
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)
