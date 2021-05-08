@@ -154,7 +154,7 @@ create our first trace, with the following code.
 > function corresponds with a couple of steps (arming the [ChipWhisperer],
 > sending the key/plaintext and retrieving the trace data, etc.). This can
 > become important when implementing your own algorithms. There it may be
-> important to replace w this one function with its individual steps to get more
+> important to replace this one function with its individual steps to get more
 > control over the commands send. This can be seen in the [Python] code of the
 > [SimpleSerial C
 > template](https://github.com/coastalwhite/simpleserial-c-template).
