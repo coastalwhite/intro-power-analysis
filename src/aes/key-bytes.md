@@ -1,4 +1,4 @@
-# Manual Analysis
+# Crack individual key-bytes
 
 With the power usage model we described in the previous chapter, we can now
 start to do some analysis of our power traces.
