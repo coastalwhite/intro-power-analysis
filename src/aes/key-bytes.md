@@ -93,7 +93,9 @@ sub-key byte. If you used a different key, your plot will most probably look
 different and there will be a high spike at the ASCII value of your first
 sub-key.
 
-Well done! We have cracked our first sub-key!
+Well done! We have cracked our first sub-key! Now that we know how to load in
+our power traces and we have successfully cracked one of the bytes of the
+encryption key, we can move on to cracking the entire key.
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)
