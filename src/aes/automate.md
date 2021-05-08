@@ -1,16 +1,23 @@
 # Automate the cracking process
 
-In this chapter we are going to expand upon the [Manual
-Analysis](./manual-analysis.md) chapter to make the process automatic and work
-on the entire key. Most of what is discussed in this chapter is quite trivial.
-If you feel quite comfortable with what was discussed in the previous chapters,
-by all means skip this chapter and attempt to implement it yourself. If you get
-stuck, you can always come here to get a hint.
+> **What will this section cover?**
+>
+> * Automatically selection which sub-key is optimal
+> * Cracking all sub-keys
+
+In this section we are going to expand upon the [previous
+section](./key-bytes.md) by automating the cracking process for single bytes and
+then making the process work on the entire key. Most of what is discussed in
+this section is quite trivial. If you feel quite comfortable with what was
+discussed in the previous chapters, by all means skip this chapter and attempt
+to implement it yourself. If you get stuck, you can always come here to get a
+hint.
 
 ## Where were we?
 
 At the moment we have code for modeling the [AES] memory based power state,
-creating [correlation coefficient]s and a piece to plot the results.
+calculating [correlation coefficients][correlation coefficient] between our
+leakage model and the power traces and a piece of code to plot the results.
 
 ```python
 {{#include code/unoptimized_common.py:additional_imports}}
@@ -47,7 +54,7 @@ Now the code will automatically print out the option with the highest
 > to select multiple options. With this we can, for example, try to brute force
 > with the top 5.
 
-## Cracking an entire key
+## Cracking the entire key
 
 In order for us to crack the entire key, we can just add another `for` loop.
 This loop will go through all sub-keys.
