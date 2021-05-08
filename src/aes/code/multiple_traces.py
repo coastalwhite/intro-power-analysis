@@ -33,7 +33,7 @@ key_str = 'H4ck3rm4n-l33t42'
 key = bytearray(key_str, 'ascii')
 
 # Define the constant for the amount of traces
-N = 5
+N = 100
 
 textins = []
 traces = []
