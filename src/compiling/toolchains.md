@@ -43,7 +43,7 @@ sudo pacman -S arm-none-eabi-gcc
 ## Compiling binaries
 
 With the proper toolchain installed, we can compile binaries which are going to
-used on [ChipWhisperer] *targets*. All SimpleSerial resources mentioned in the
+be used on [ChipWhisperer] *targets*. All SimpleSerial resources mentioned in
 the [Existing resources](./resources.md) section contain a *Makefile* in their
 root directory. This file provides the computer instructions on how to compile
 source code. In order to create `.hex` files &mdash; which is the format used to

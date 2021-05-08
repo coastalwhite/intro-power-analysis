@@ -37,26 +37,26 @@ later on.
 ## Finding a memory state
 
 Suppose we have an input block *Input* and an output block *Output*,
-which is a reasonably common situation. If we would want to check whether a
+which is a reasonably common situation. If we wanted to check whether a
 supposed *Key* is the key used, we could run through the entire algorithm to
 check whether \\(\text{AES}(Input, Key) = Output\\). This is quite inefficient
-and is no better than brute forcing the key. Knowing what we now about the
+and is no better than brute forcing the key. Knowing what we know about the
 memory state of [AES], we can however do two extreme optimizations.
 
 ### Shortcutting calculations
 
-The first optimization we can do has to do with identifying the first memory state
-where the key and the \\(Input\\) are combined. If we can identify this memory
+The first optimization we can do has to do with identifying the first memory
+state where the key and the *Input* are combined. If we can identify this memory
 state in the power trace, we can determine a probability a certain key was used.
-There are two problems with this however. Firstly, identifying the presence or
+There are two problems with this, however. Firstly, identifying the presence or
 the location of this memory state is non-trivial. It is very difficult to
 manually look at a power trace and tell something about memory states. This is
-is mostly due to the variances in baseline power consumption but also due to
-noise and other factors. Some of these factors however can be nullified if we
-look at multiple power traces instead of one. In order to make it even easier,
-we also also look at different input blocks. This allows us to shortcut
-calculation time by a lot, since we don't have to do multiple rounds. But we
-still have to brute force through every key option.
+mostly due to the variances in baseline power consumption but also due to noise
+and other factors. Some of these factors however can be nullified if we look at
+multiple power traces instead of one. In order to make it even easier, we also
+look at different input blocks. This allows us to shortcut calculation time by a
+lot, since we don't have to do multiple rounds. But we still have to brute force
+through every key option.
 
 ### Limiting the amount of keys
 
@@ -65,27 +65,27 @@ would lower the amount of possible keys. For the 128 (\\(2^{128}\\) different
 keys), 192 (\\(2^{192}\\) different keys) and 256 (\\(2^{256}\\) different keys)
 bits key variants, this leaves just \\(2^{12}\\), \\((3 \cdot 2^{11})\\) and
 \\(2^{13}\\) key possibilities left, respectively. These are massive
-differences, which will allow us to break [AES] in just a few seconds.
+differences, which allows us to break [AES] in just a few seconds.
 
 How does it work? Please read back [How AES Works -
 Shifting](./workings.md#shifting) for one second and see if you find what we can
-exploit, when have a value before this step happens. As it mentions this, step
-is needed to prevent __attacking each column individually__. Since we can now
-produce a value before this step is done. We can attempt to break parts of the
-key one at the time. The parts of this key are called sub-keys and they are 1
-byte in size. This means we can take sum of different values for the sub-keys
-instead of the product.
+exploit, when have a value before this step happens. As it mentions this, the
+step is needed to prevent __attacking each column individually__. Since we can
+now produce a value before this step is done. We can attempt to break parts of
+the key one at the time. The parts of this key are called sub-keys, and they are
+1 byte in size. This means we can take the sum of different values for the
+sub-keys instead of the product.
 
 ## Putting this together
 
 Let us make a model of the memory states power usage. This model should provide
 us with a number that should [correlate] with the power traces at the point of
 which this first [SBox](./workings.md#substitution) step is done. This leaves us
-with a longstanding memory state which is dependant on both the key and the
+with a longstanding memory state which is dependent on both the key and the
 input string. Two items we both preferred for our [leakage model] as explained in
 [Memory-based models](./cpa.md#memory-based-models). The [Python] code for
 performing our model on a single byte input string using a single byte from the
-key (also called a subkey) is the following.
+key (also called a sub-key) is the following.
 
 ```python
 {{#include code/common.py:hyp_fn}}

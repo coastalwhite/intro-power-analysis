@@ -30,7 +30,7 @@ Although there are some [AES] implementations that have existed for over 2
 decades[^openssl]. There are still regular updates to these libraries, because
 from time to time people find new mistakes in the implementation of these
 algorithms. Code is messy, people make mistakes or are ignorant. [Side-Channel
-analysis] is a attack-vector that is often overlooked or ignored since it
+analysis] is an attack-vector that is often overlooked or ignored since it
 requires physical access to the device.
 
 In this section we will have a look at how [AES] works, cracking a naive

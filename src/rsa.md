@@ -50,11 +50,11 @@ important for now.
 
 When one learns that usually the minimum key length for the private key is *1024
 bits*, one might wonder how these computations are actually done on the bare
-hardware. It turns out that we can interpret modulo taking a of power as
+hardware. It turns out that we can interpret modulo exponentiation as
 repeated multiplication and squaring alternated with modulo division. This is
 how that works.
 
-If we are given a enormous number \\( x \\) and we are tasked with the raising
+If we are given an enormous number \\( x \\), and we are tasked with the raising
 it to the 13th power, we might do it as follows:
 
 \\[ x^{13} = x^8 \cdot x^4 \cdot x^1 \\]
@@ -77,7 +77,7 @@ implementation looks like.
 ```
 
 > **Note:** This is in fact also how most arbitrary precision library implement
-> raising to the power. This is due the (relatively) low maximum complexity of
+> raising to the power. This is due to the (relatively) low maximum complexity of
 > this calculation.
 
 If you are already a small bit familiar with [Side-Channel Analysis] and [Power
@@ -85,7 +85,7 @@ Analysis], you might immediately see what is going wrong here. If you don't see
 it immediately, let us go through it together.
 
 When we do [Power Analysis], we get the power consumption of a microprocessor
-for a given amount of time. Let us say we would we have a computer purely
+for a given amount of time. Let us say we would have a computer which purely
 executing the computation for `custom_pow_mod(3, 5, 15)`. The steps that are
 taken in this computation are done noted below. Take a look at that the
 computation and verify it in your head.
@@ -166,7 +166,7 @@ This is followed by a short spike, which indicates a `0`. And lastly, we see a
 long spike again. Therefore, we end with an `1`. And we get the binary number
 `101` for our `y`. This equals 5 in decimal, which is correct.
 
-Let us do another one, now without knowing the answer before hand. Take a look
+Let us do another one, now without knowing the answer beforehand. Take a look
 at *Figure 2*.
 
 ![RSA key 42](./assets/rsa-key-42.jpg)
@@ -179,17 +179,17 @@ alternate a long spike with a short spike three times. This means we get
 
 ## What does this tell us?
 
-The previous code example may seem cherry picked. In fact, it is not. This code
+The previous code example may seem cherry-picked. In fact, it is not. This code
 snippet does, however, indicate the concept of [Power analysis] very nicely and
-is therefore an extremely good visual example of how to break a [RSA]
+is therefore a fantastic visual example of how to break an [RSA]
 implementation. Code following the same principle or even this exact algorithm
 is extremely common. This means that whilst this exact method may not be
 applicable everywhere, the underlying idea still is.
 
 So whilst this method specifically is interesting, we are more interested in
 whether looking into an algorithm can tell us something about data used from the
-patterns in a power trace. In the next chapter, we are going to have go through
-how this can be done with [AES].
+patterns in a power trace. In the next chapter, we are going through how this
+can be done with [AES].
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)

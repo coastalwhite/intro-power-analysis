@@ -10,9 +10,9 @@ In order to run your own algorithms, they first have to be written as source
 code. The [ChipWhisperer] framework mostly uses [C] as the language for the
 source code of encryption algorithms. This means that any existing [C]
 implementation of an encryption algorithms can (most of the time) easily be used
-on the [ChipWhisperer] targets. There are a few things to take into account
+on the [ChipWhisperer] targets. There are a few things to take into account,
 however. The protocol to send data back and forth between the capture board and
-the target board, some of the recommendations when writing or choosing software,
+the target board, some recommendations when writing or choosing software,
 and how to start and stop power traces. These will all be covered here.
 
 ## The SimpleSerial Protocol
@@ -38,7 +38,7 @@ either not use the heap or use it sparingly. Most of the boards used as targets
 by [ChipWhisperer] don't have a lot of RAM and thus using it sparingly is
 preferred.
 
-Also when selecting existing implementations, it is recommended to use
+Also, when selecting existing implementations, it is recommended to use
 embedded hardware or heapless implementations.
 [MBedTLS](https://github.com/ARMmbed/mbedtls) contains some of the more used
 encryption algorithms.

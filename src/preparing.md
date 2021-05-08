@@ -13,11 +13,11 @@ especially for *macOS* and *GNU/Linux*, a basic understanding of the shell is
 recommended.
 
 Although working with the [ChipWhisperer] requires little setup, it has some
-prerequisites. Apart from from the usual text editor and [Python], we need to
-install some libraries and toolchains. What we need to install also depends on
-what we want to achieve with this walkthrough. So the next few sections are
-going to take you through some of the common necessities. Along with some of
-things that could come in handy whilst following this walkthrough.
+prerequisites. Apart from the usual text editor and [Python], we need to install
+some libraries and toolchains. What we need to install also depends on what we
+want to achieve with this walkthrough. So the next few sections are going to
+take you through some common necessities. Along with some of the things that
+could come in handy whilst following this walkthrough.
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)

@@ -64,9 +64,9 @@ pip install chipwhisperer
 
 ## Linux udev rules
 
-When we are going to start doing traces, one might run into a missing
-__permissions__ error on Linux. This has to do with the `udev` rules. How to
-solve this, refer to the [ChipWhisperer
+When we are going to start doing traces, one might run into a *missing
+permissions* error on Linux. This has to do with the `udev` rules. How to solve
+this, refer to the [ChipWhisperer
 docs](https://chipwhisperer.readthedocs.io/en/latest/prerequisites.html#hardware-drivers).
 This should solve having to run everything with `sudo`, which is not preferred.
 

@@ -31,10 +31,10 @@ results. This is how that all looks together.
 {{#include code/single_byte.py:manual_analysis}}
 ```
 
-## Automatically picking the best subkey guess
+## Automatically picking the best sub-key guess
 
 Currently, we plot the graph of the maximum [correlation
-coefficients][correlation coefficient] and we determine from there what the
+coefficients][correlation coefficient], and we determine from there what the
 correct option is. We can easily automate this process from the observation that
 the correct option has the highest [correlation coefficient]. To select this
 option, we can use the [numpy
@@ -59,7 +59,7 @@ Now the code will automatically print out the option with the highest
 ## Cracking the entire key
 
 Cracking the entire key is as easy as adding another `for` loop.  This loop will
-go through all sub-keys and pick an best guess for each sub-key.
+go through all sub-keys and pick the best guess for each sub-key.
 
 This will turn the first piece of code into the second piece of code.
 
@@ -74,7 +74,7 @@ This will turn the first piece of code into the second piece of code.
 ```
 
 > **Note:** Currently, our code is not very efficient and thus is might take
-> quite a bit of time for it to crack entire key. This will be optimized in
+> quite a bit of time for it to crack the entire key. This will be optimized in
 > [Sidenote: optimizing our code](./optimization.md).
 
 This should output the following.
@@ -85,7 +85,7 @@ Best guess:
 H4ck3rm4n-l33t42
 ```
 
-This was indeed the key we used to produce our power traces!
+Correct! This was indeed the key we used to produce our power traces!
 
 We have now successfully cracked the full encryption key from an implementation
 of [AES]. We can calculate the best suiting sub-key for each byte of the key and

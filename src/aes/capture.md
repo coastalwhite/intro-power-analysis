@@ -8,13 +8,13 @@
 > * Saving multiple power traces to a file
 
 Cracking the key used by [AES] with [Power Analysis] is a lot more complex than
-was the case with [RSA]. Looking at one trace of a [RSA] decryption can
+was the case with [RSA]. Looking at one trace of an [RSA] decryption can
 potentially give you all the information you need to crack the private key.
 With [AES] and, more generally, with [Correlation Power Analysis], it is
 necessary to perform multiple traces and average those power traces out. In this
 section, we are going to have a look at how we can set up a [ChipWhisperer] to
 measure power traces. Afterwards, we are going to do some traces and learn how
-to save them so we can later do more detailed analysis on them.
+to save them, so we can later do more detailed analysis on them.
 
 > **Note:** If you just want to move on with the analysis or don't have a
 > [ChipWhisperer] board at hand, you can download a pre-made power trace
@@ -22,7 +22,7 @@ to save them so we can later do more detailed analysis on them.
 
 ## Setting up our ChipWhisperer board
 
-Assuming that you have correctly [setup your software
+Assuming that you have correctly [set up your software
 environment](../preparing.md), we can start connecting and setting up our
 [ChipWhisperer] board. This is going to go in 2 steps:
 
@@ -47,9 +47,9 @@ import chipwhisperer as cw
 ```
 
 If one gets an error here, verify that [the ChipWhisperer Python library is
-properly installed](../preparing/chipwhisperer.md). Otherwise we can try connect
-our [ChipWhisperer] Capture board to our computer via USB and run the following
-command to connect to the Capture board.
+properly installed](../preparing/chipwhisperer.md). Otherwise, we can try to
+connect our [ChipWhisperer] Capture board to our computer via USB and run the
+following command to connect to the Capture board.
 
 ```python
 scope = cw.scope()
@@ -58,7 +58,7 @@ scope = cw.scope()
 This should connect to our capture board. On some [ChipWhisperer] capture boards
 an extra light might start flickering. If you get an error, there most probably
 is something wrong with your connection. If you are on Linux, perhaps you have
-to [setup some udev rules](../preparing/chipwhisperer.md#linux-udev-rules).
+to [set up some udev rules](../preparing/chipwhisperer.md#linux-udev-rules).
 
 Now we are going to set some settings used by the [ChipWhisperer] board(s). For
 now, we will just use the default settings. That works well enough for now, but
@@ -70,7 +70,7 @@ We can select the default settings using the following command.
 scope.default_setup()
 ```
 
-Then we have to fetch the *target* board. This is contains all the connections
+Then we have to fetch the *target* board. This is going to contain all the connections
 and settings about the microprocessor which is going to execute our algorithm.
 If you have hooked up your *target* &mdash; this is done automatically for the
 [ChipWhisperer Lite boards][CW LITE ARM] &mdash; you can use the following
@@ -80,7 +80,7 @@ command to fetch the *target* object.
 target = cw.target(scope)
 ```
 
-Now in order to safely disconnect our *target* and *capture* board and we can
+Now in order to safely disconnect our *target* and *capture* board, and we can
 use the following two commands.
 
 ```python
@@ -88,13 +88,13 @@ scope.disconnect()
 target.disconnect()
 ```
 
-Now we know the basics of how to setup and interact with the connection between
+Now we know the basics of how to set up and interact with the connection between
 our computer and the [ChipWhisperer] board.
 
 ### Scripting
 
 We know some basic commands, so we can actually start scripting. We create a
-[Python] file and put the basic commands &mdash; we just learned &mdash; into
+[Python] file, and put the basic commands &mdash; we just learned &mdash; into
 it.
 
 This is what it will look like.
@@ -147,8 +147,8 @@ start capturing traces.
 ## Capturing a trace
 
 In order to run our first trace, we need a key and some plain text. The program
-we are using is based on _128 bit AES_ and therefore we should provide a
-128 bit key and a multiple or 128 bits for our plain text. We can quite easily
+we are using is based on _128-bit AES_, and, therefore, we should provide a
+128-bit key and a multiple or 128 bits for our plain text. We can quite easily
 create our first trace, with the following code.
 
 ```python

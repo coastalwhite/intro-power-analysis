@@ -39,9 +39,9 @@ brew install python3
 ```
 
 Or you can install [Python] via the [macOS
-Installer](https://www.python.org/downloads/mac-osx/). Depending on whether on
-whether you own an Intel-based macOS device or an ARM-based macOS, you can
-select the 64-bit Intel or 64-bit universal2 installer, respectively.
+Installer](https://www.python.org/downloads/mac-osx/). Depending on whether you
+own an Intel-based macOS device or an ARM-based macOS, you can select the 64-bit
+Intel or 64-bit universal2 installer, respectively.
 
 > *Note:* [Python] on *macOS* tends to give a lot of problems. There is a big
 > chance that [Python] is already installed or that only [Python] 2 is

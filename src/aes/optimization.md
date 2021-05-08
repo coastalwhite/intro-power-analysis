@@ -12,7 +12,7 @@ if we notice a couple of things.
    operation, we can optimize the calculation of \\(\sigma_x \sigma_y\\) from
    two square root calculations to one.
 2. We are recalculating a lot of averages and standard deviations. We can
-   pre-compute these averages and [standard deviation]s and them fetch them instead
+   pre-compute these averages and [standard deviation]s and fetch them instead
    of recomputing them.
 3. Since we only care about the maximum [correlation coefficient] and have no
    interest in the value itself, we can stop doing any factorization.

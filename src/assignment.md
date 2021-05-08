@@ -1,6 +1,6 @@
 # Assignment
 
-As a final assignment for this walkthrough, there should detailed report on some
+As a final assignment for this walkthrough, there should a detailed report on some
 component of power analysis including a demonstration and what effect it has on
 possible attack vectors. A few categories of what we can look at along with some
 example topics:
@@ -20,7 +20,7 @@ example topics:
 - Breaking algorithms by using the data power analysis provides us in new ways.
   - Apply machine learning to the data provides by a power-trace of an
     encryption algorithm and determine its effectiveness.
-  - Look further into optimizing the amount traces needed to do a correlation
+  - Look further into optimizing the amount of power traces needed to do a correlation
     power analysis attack. How many traces can reliably crack a certain
     algorithm? Can this be improved in some way?
 
@@ -31,7 +31,7 @@ report are a **reproducible demonstration and explanation of your method** and a
 
 ## Grading / What will be looked at
 
-There are a few important topics to which is going to be payed attention whilst
+There are a few important topics to which is going to be paid attention whilst
 grading.
 
 ### Complexity and creativity of method
@@ -62,7 +62,7 @@ The final important part of your assignment on [power analysis] is going to be
 reproducibility.  How easy is it for the people checking your assignment to
 reproduce your method(/results). Is your code readable? Is there some clear
 documentation on compiling code, executing an attack or installing dependencies?
-It is not needed to write step by step instructions yourself for most of these
+It is not needed to write step-by-step instructions yourself for most of these
 steps, but it is important to write an overview on installing dependencies
 (linking to the installation guide of that dependency), compiling instructions
 (when needed) and attack execution instructions.

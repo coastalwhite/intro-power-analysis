@@ -28,7 +28,7 @@ this script from our shell using `python3 crack.py`.
 In order to load the power traces we created in the [previous
 section](./capture.md), we can add the follow few lines which will load in the
 [NumPy] arrays. The traces here are put into a subfolder called `output`. If for
-any reason making power traces did not work out or you don't own a
+any reason making power traces did not work out, or you don't own a
 [ChipWhisperer] board, but you still want to continue, you can download some
 pre-made traces from
 [here](https://github.com/coastalwhite/intro-power-analysis/tree/main/datasets/aes/premade).
@@ -62,12 +62,12 @@ __crack the [AES] key byte by byte__. So let us start with a single one. We are
 going to go through every possibility and see which byte one provides the
 highest [correlation coefficient] between the actual power trace and our modeled
 power usage. The important realization here is that we are doing a correlation
-between all individual power trace points and the hypothetical power consumption
-and we will select the maximum correlation coefficient for all sub-key guesses.
-This is because we still have no idea where within the power trace the first
-round actually takes place. If we look at all points of each power trace, the
-location where the first round takes place should have the highest correlation.
-We will demonstrate this later on.
+between all individual power trace points and the hypothetical power
+consumption, and we will select the maximum correlation coefficient for all
+sub-key guesses.  This is because we still have no idea where within the power
+trace the first round actually takes place. If we look at all points of each
+power trace, the location where the first round takes place should have the
+highest correlation.  We will demonstrate this later on.
 
 ```python
 {{#include code/single_byte.py:additional_imports}}
@@ -95,7 +95,7 @@ different and there will be a high spike at the ASCII value of your first
 sub-key.
 
 Well done! We have cracked our first sub-key! Now that we know how to load in
-our power traces and we have successfully cracked one of the bytes of the
+our power traces, and we have successfully cracked one of the bytes of the
 encryption key, we can move on to cracking the entire key.
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)

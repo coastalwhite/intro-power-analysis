@@ -11,7 +11,7 @@ Not all algorithms perform different processor-instructions based on what
 byte shuffles and substitution boxes, which have the same amount of
 processor-instructions for every possible key. Still however, there is a way to
 crack the keys used by these algorithms using power analysis. The method does
-not depend on differing instructions, however. Instead this method focuses on
+not depend on differing instructions, however. Instead, this method focuses on
 the power used by the memory and registers.
 
 ## Leakage Models
@@ -19,7 +19,7 @@ the power used by the memory and registers.
 [Power analysis] depends on leakage models. These are models which predict how
 much power is going to be used depending on some task a
 microprocessor-controlled device performs. In the case of [RSA] this leakage
-model was based on the processor instructions. There are other leakage models
+model was based on the processor instructions. There are other leakage models,
 however. [Correlation Power Analysis] is a technique which (most of the time) is
 memory-based. Within this technique, we try to find out whether there is a
 connection between our leakage model &mdash; and its hypothetical key &mdash;
@@ -74,7 +74,7 @@ preferences for this memory state:
    derivative of the key memory value.
 2. Preferably, the [Hamming Weight]/[Distance][Hamming Distance] value holds for
    a longer time. With [Hamming Weight], for example, a memory state just before
-   shifting bytes around works better, because transpositions don't effect the
+   shifting bytes around works better, because transpositions don't affect the
    [Hamming Weight].
 
 ## Correlations
@@ -84,9 +84,9 @@ the power consumption, we are going to be determining whether there is a
 [correlation] between that leakage model and the power trace at every point in
 time. This means we are going to need multiple *power traces*: multiple power
 consumption values for each point in time. This assumes we have already
-(roughly) [synchronized][Sum of absolute differences] our power traces. This is
-done on the instruction level with our compiled algorithms on the
-[ChipWhisperer], so we don't have to worry about it too much.
+(roughly) [synchronized][Sum of absolute differences] our power traces. On the
+[ChipWhisperer], this done on the instruction level with our compiled
+algorithms, so we don't have to worry about it too much.
 
 ### Pearson Correlation Coefficients
 
@@ -98,7 +98,7 @@ actual power usage having a high [correlation]. If two functions are in perfect
 correlation, both functions rise and fall at the same time.
 
 This is what the [Pearson correlation coefficient] indicates. We provide it with
-two functions or arrays and it will give us a value between \\(-1\\) and
+two functions or arrays, and it will give us a value between \\(-1\\) and
 \\(1\\), indicating whether the two functions [correlate]. \\(1\\) meaning
 extreme but almost unrealistic levels of [correlation], \\(0\\) meaning no
 [correlation] and \\(-1\\) meaning an inverse [correlation]. How the [Pearson
@@ -149,7 +149,7 @@ Explanation](../assets/aes_correlation_visualization.png)
 
 _Figure 1: A visualization of [Pearson Correlation Coefficient] for [AES]_
 
-So what does this graph show? You can see that [correlation coefficient][Pearson
+So what does this graph show? You can see that the [correlation coefficient][Pearson
 correlation coefficient] remains reasonably consistent for the wrong key.  It
 never goes above \\(\sim 0.4\\). The graph of the correct key follows the same
 pattern — never really reaching above \\(\sim 0.4\\) — except for one or two

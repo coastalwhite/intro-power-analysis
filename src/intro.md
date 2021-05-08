@@ -14,17 +14,17 @@ IT Security has many fields and layers, all of which aim to investigate how to
 break and protect the core principles of information security. These principles
 are confidentiality, integrity and availability[^tenets]. One of these fields is
 [Side-Channel analysis]. Here the focus lies on how technology interacts with the
-world around it, and what analysis those interacts can tell us about
+world around it, and what analysis these interactions can tell us about
 calculations or operations done by the technology.
 
-One of the techniques within [Side-Channel analysis] which aims break
+One of the techniques within [Side-Channel analysis] which aims to break
 confidentiality is [Power analysis]. [Power analysis] looks at the power
 consumption of hardware in order to make statements about the specific
 calculations done within a computer. Some calculations require a higher amount
 of power than other calculations.
 
 Take a look at the following picture. If we know that the following _Figure 1_
-records the a sequence of two different computations - namely, squaring and
+records a sequence of two different computations - namely, squaring and
 taking a product - and we also know that squaring takes marginally less time
 than taking a product in this case. You could hypothesize where the power trace
 is taking a product and where the trace is squaring a number.
@@ -46,16 +46,16 @@ have very little programming experience. There is, however, a lot of pseudocode.
 
 Furthermore, if you plan on doing your own traces, you will need a
 [ChipWhisperer] capturing board. This walkthrough will provide predefined data
-sets so you can do some of the analysis without doing the traces yourself. This
+sets, so you can do some analysis without doing the traces yourself. This
 could save you from buying a [ChipWhisperer] capturing board. It is, however,
-highly recommended to do some traces yourself. If you are looking at buying a
+highly recommended doing traces yourself. If you are looking at buying a
 [ChipWhisperer] capturing board and don't know what to use, this walkthrough is
 created using on the [CW Lite ARM] variant. It is a relatively cheap all-in-one
 solution.
 
 ## ChipWhisperer
 
-Normally, to make these power measurements on microprocesors, you need a lot of
+Normally, to make these power measurements on microprocessors, you need a lot of
 expensive equipment.  Equipment such as multimeters, oscilloscopes, different
 microcontrollers, connectors, etc. This is where the [ChipWhisperer] comes in.
 The [ChipWhisperer] framework provides microcontrollers to test and run you
@@ -64,14 +64,14 @@ measurement devices, which when put together with a target is referred to as a
 _scope_. [ChipWhisperer] goes further than a playground and can be used in
 real world environments, which makes an ideal framework to learn power analysis
 with. Partially because scopes can also be connected to other unrelated
-microprocesors in order to do power measurements on those.
+microprocessors in order to do power measurements on those.
 
 ## Errors and contributing
 
 This walkthrough along with all the content made for it can be found on
 [GitHub](https://github.com/coastalwhite/intro-power-analysis). If you find any
 errors or feel like something is unclear/left untouched, don't hesitate to
-create an issue or pull request on the page there.
+create an issue or pull-request on the page there.
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)

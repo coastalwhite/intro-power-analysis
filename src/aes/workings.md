@@ -34,37 +34,37 @@ shuffling of bytes and the [XOR] operation. Let us first have a look at the
 
 ## XOR operations
 
-The [XOR] operation is essentially the mixing in of the key and is what makes the
-running of the [AES] algorithm different depending on what key is used. Firstly,
-in order to make reversal even more different, we __create multiple new keys from
-the original key__. This is called the
-[AES key schedule](https://en.wikipedia.org/wiki/AES_key_schedule). This
-walkthrough will not go into detail on how this key-expansion works, but if
-interested one can look up details. The part which is important to this walkthrough
-is that after this expansion we have as many new keys as we have rounds. We will
-number all the from \\(k_0\\) to \\(k_{10}\\) (assuming we are using 128 bit [AES]).
-Here \\(k_0\\) is the original key and \\(k_1\\) till \\(k_{10}\\) are
+The [XOR] operation is essentially the mixing in of the key and is what makes
+the running of the [AES] algorithm different depending on what key is used.
+Firstly, in order to make reversal even more different, we __create multiple new
+keys from the original key__. This is called the [AES key
+schedule](https://en.wikipedia.org/wiki/AES_key_schedule). This walkthrough will
+not go into detail on how this key-expansion works, but if interested one can
+look up details. The part which is important to this walkthrough is that after
+this expansion we have as many new keys as we have rounds. We will number all
+the keys to form \\(k_0\\) to \\(k_{10}\\) (assuming we are using 128 bit
+[AES]).  Here \\(k_0\\) is the original key and \\(k_1\\) till \\(k_{10}\\) are
 the expanded keys.
 
 ![AES Key Schedule](../assets/AES_Key_Schedule.svg)
 
 _Figure 1: The AES Key Schedule_
 
-With these keys we performs a [XOR] on a block. The [XOR] operation is a
+With these keys we perform a [XOR] on a block. The [XOR] operation is a
 notorious one way operation. This is due to the lack of information the output
-shares about the input. When we do a one bit [XOR] operation and we receive 1 as
-an output, the input could have been (0,1) or (1,0). We also have two options
+shares about the input. When we do a one bit [XOR] operation, and we receive 1
+as an output, the input could have been (0,1) or (1,0). We also have two options
 when we get 0 as output. In the case of one bit, this is not that useful.
-However, when we a lot of bits the [XOR] operator is impossible to instantly
-reverse for every output and brute forcing time is equal to trying every option
-divided by two. Mathematically this caused by the [XOR] operation being
-non-[injective]. When we have
-the outcome and one of the inputs however, this step is extremely easy to
-reverse. These two properties make it ideal for a lot of encryption algorithms.
+However, when we have a lot of bits the [XOR] operator is impossible to
+instantly reverse for every output and brute forcing time is equal to trying
+every option divided by two. Mathematically this caused by the [XOR] operation
+being non-[injective]. When we have the outcome and one of the inputs however,
+this step is extremely easy to reverse. These two properties make it ideal for a
+lot of encryption algorithms.
 
 ![XOR Non Injective](../assets/XOR_NonInjectivity.svg)
 
-_Figure 2: The non [injective] nature of the [XOR] operation_
+_Figure 2: The non-[injective] nature of the [XOR] operation_
 
 ## Shuffling of bytes
 
@@ -78,7 +78,7 @@ block cipher]s view each block.
 
 Rijndael looks at blocks as a matrix of bytes. For the key sizes of key sizes of
 128, 192 and 256 bits, we have 4 by 4, 6 by 6 and 8 by 8 matrices, respectively.
-This would mean that a 128 bit key with bytes \\(b_0, ..., b_{15}\\) is turned
+This would mean that a 128-bit key with bytes \\(b_0, ..., b_{15}\\) is turned
 into \\[
 \begin{bmatrix}
 b_0 & b_4 & b_8 & b_{12} \\\\
@@ -96,7 +96,8 @@ Now comes one of the most genius but strange parts of the Rijndael block
 cipher. This is the substitution box. A substitution box is basically a lookup
 table to replace (or substitute) a byte with the one from the lookup table. Some
 demands for such a lookup table (when used in encryption algorithms) may be:
-* __Reverseable__: In order to find back the original byte, we want to be able
+
+* __Reversible__: In order to find back the original byte, we want to be able
    to reverse the process.
 * __Non-Linear__: In order to make resistant to
    [linear](https://en.wikipedia.org/wiki/Linear_cryptanalysis) and
@@ -132,23 +133,23 @@ _Figure 3: [Rijndael block cipher]'s Shift Row_
 
 ### Mixing
 
-The last shuffling step mixes the columns in order create [cryptographic
+The last shuffling step mixes the columns in order to create [cryptographic
 diffusion](https://en.wikipedia.org/wiki/Confusion_and_diffusion), which makes
 it __resistant to [statistical analysis
 attacks](https://en.wikipedia.org/wiki/Frequency_analysis)__. The step works by
-multiplying each column with the following inversable matrix (multiplication
+multiplying each column with the following invertible matrix (multiplication
 meaning modulo multiplication and addition meaning [XOR]): \\[ \begin{bmatrix} 2
 & 3 & 1 & 1 \\\\ 1 & 2 & 3 & 1 \\\\ 1 & 1 & 2 & 3 \\\\ 3 & 1 & 1 & 2
 \end{bmatrix} \\]
 
 ## Overview
 
-Let us now provide a overview for how a typical [AES] encryption looks. One can
+Let us now provide an overview for how a typical [AES] encryption looks. One can
 imagine that the decryption is just the inverse of these actions we will
 therefore gloss over that part.
 
 As said before, the [AES] encryption process works in rounds. With every round
-needing a separate expanded key. Therefore the first step is to create these key
+needing a separate expanded key. Therefore, the first step is to create these key
 expansions as described in [XOR Operations](#xor-operations). Immediately
 following this we that the initial round key \\(k_0\\) and apply the [XOR] with
 it to each block.
@@ -161,9 +162,9 @@ matrix](#shifting). Thirdly, we [mix the columns of the matrix up](#mixing).
 Lastly, we [add the round key for that round](#xor-operations).
 
 If you are counting along, you will notice that the final round is missing. This
-is because the final round is a little bit different. The only difference being
+is because the final round is a little different. The only difference being
 that we __skip the [mixing of
-columns](#mixing)__ step, since it serves no purpose in last round.
+columns](#mixing)__ step, since it serves no purpose in the final round.
 
 This all results in the following process:
 
