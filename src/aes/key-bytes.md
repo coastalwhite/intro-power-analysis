@@ -27,17 +27,18 @@ this script from our shell using `python3 crack.py`.
 
 In order to load the power traces we created in the [previous
 section](./capture.md), we can add the follow few lines which will load in the
-[NumPy] arrays. If for any reason making power traces did not work out or you
-don't own a [ChipWhisperer] board, but you still want to continue, you can
-download some pre-made traces from
+[NumPy] arrays. The traces here are put into a subfolder called `output`. If for
+any reason making power traces did not work out or you don't own a
+[ChipWhisperer] board, but you still want to continue, you can download some
+pre-made traces from
 [here](https://github.com/coastalwhite/intro-power-analysis/tree/main/datasets/aes/premade).
 
 ```python
 {{#include code/common.py:load_data}}
 ```
 
-Now we can use our `traces`, we know how many traces we have (`num_traces`),
-and how many points in time we have per trace (`num_points`).
+Now we can use our from the `traces` variable, we know how many traces we have
+(`num_traces`), and how many points in time we have per trace (`num_points`).
 
 ## Implementing Pearson Correlation Coefficients
 
@@ -52,7 +53,7 @@ Correlation Coefficients][PCC CPA] in [Python].
 
 Although this code is very inefficient, and does a lot of unnecessary and double
 calculations, it will serve well for now. We are going to be optimizing this
-code in [Sidenote: optimizing our algorithm](./optimization.md).
+code in [Sidenote: optimizing our code](./optimization.md).
 
 ## Cracking a single byte of the key
 
