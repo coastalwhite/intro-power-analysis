@@ -2,17 +2,17 @@
 
 > **What will this section cover?**
 >
-> * Setting up our ChipWhisperer scope and target
-> * Running AES on our ChipWhisperer target
-> * Doing a power trace of a run of our algorithm
+> * Setting up our [ChipWhisperer] *scope* and *target*
+> * Running [AES] on our [ChipWhisperer] *target*
+> * Performing a power trace of our algorithm
 > * Saving multiple power traces to a file
 
 Cracking the key used by [AES] with [Power Analysis] is a lot more complex than
 was the case with [RSA]. Looking at one trace of a [RSA] decryption can
 potentially give you all the information you need to crack the private key.
 With [AES] and, more generally, with [Correlation Power Analysis], it is
-necessary to take multiple traces and average those power traces out. In this
-chapter we are going to have a look at how we can set up a [ChipWhisperer] to
+necessary to perform multiple traces and average those power traces out. In this
+section, we are going to have a look at how we can set up a [ChipWhisperer] to
 measure power traces. Afterwards, we are going to do some traces and learn how
 to save them so we can later do more detailed analysis on them.
 
@@ -23,24 +23,23 @@ to save them so we can later do more detailed analysis on them.
 ## Setting up our ChipWhisperer board
 
 Assuming that you have correctly [setup your software
-environment](../preparing.md), we can start setting up our [ChipWhisperer]
-board. This is going to go in 3 steps:
+environment](../preparing.md), we can start connecting and setting up our
+[ChipWhisperer] board. This is going to go in 2 steps:
 
-1. Connecting to the scope
-2. Setting up the target
-3. Upload the source code for our algorithm
+1. Fetching and setting up our scope
+2. Setting up and programming our target
 
 ### Basics
 
 Before we actually start scripting, we are starting in the [Python
-Interpreter]. We can get into the [Python Interpreter] from the our shell using
+Interpreter]. We can get into the [Python Interpreter] from our shell using
 the following command:
 
 ```bash
 python3
 ```
 
-In order to get started with the [ChipWhisperer] Python Library, we can import
+In order to then get started with the [ChipWhisperer] Python Library, we can import
 the library with:
 
 ```python
@@ -56,14 +55,14 @@ command to connect to the Capture board.
 scope = cw.scope()
 ```
 
-This should connect to our capture board. On some ChipWhisperer capture boards
-an extra light might turn on. If you get an error, there is something wrong with
-your connection. If you are on Linux, perhaps you have [setup some udev
-rules](../preparing/chipwhisperer.md#linux-udev-rules).
+This should connect to our capture board. On some [ChipWhisperer] capture boards
+an extra light might start flickering. If you get an error, there most probably
+is something wrong with your connection. If you are on Linux, perhaps you have
+to [setup some udev rules](../preparing/chipwhisperer.md#linux-udev-rules).
 
 Now we are going to set some settings used by the [ChipWhisperer] board(s). For
-now, we will just use the default settings. That works well enough for now. If
-you want an overview of the possible settings, look over
+now, we will just use the default settings. That works well enough for now, but
+if you want an overview of the possible settings, look over
 [here](https://chipwhisperer.readthedocs.io/en/latest/api.html#openadc-scope).
 We can select the default settings using the following command.
 
@@ -74,28 +73,31 @@ scope.default_setup()
 Then we have to fetch the *target* board. This is contains all the connections
 and settings about the microprocessor which is going to execute our algorithm.
 If you have hooked up your *target* &mdash; this is done automatically for the
-ChipWhisperer Lite boards &mdash; you can use the following command to fetch the
-*target* object.
+[ChipWhisperer Lite boards][CW LITE ARM] &mdash; you can use the following
+command to fetch the *target* object.
 
 ```python
 target = cw.target(scope)
 ```
 
-Now in order to safely disconnect our *target* boards and *capture* boards and
-we can use the following two commands.
+Now in order to safely disconnect our *target* and *capture* board and we can
+use the following two commands.
 
 ```python
 scope.disconnect()
 target.disconnect()
 ```
 
+Now we know the basics of how to setup and interact with the connection between
+our computer and the [ChipWhisperer] board.
+
 ### Scripting
 
-Now that we know some basic commands we can start actually scripting. We can
-create a [Python] file and put the basic commands &mdash; we just learned
-&mdash; into it.
+We know some basic commands, so we can actually start scripting. We create a
+[Python] file and put the basic commands &mdash; we just learned &mdash; into
+it.
 
-This is what is will look like.
+This is what it will look like.
 
 ```python
 {{#include code/capture.py:setup}}
@@ -108,7 +110,7 @@ This is what is will look like.
 ```
 
 Running this script using the `python3 file-name.py` command should work just
-fine and now we can start actually working with an algorithm.
+fine and now we can start actually working with an encryption algorithm.
 
 ### Uploading the algorithm source code
 
@@ -117,17 +119,18 @@ can [compile this software ourselves](../compiling.md), but a lot of compiled
 code can also be found online. The compiled code for [AES] can be found
 [here][SimpleSerial AES].
 
-> **Note:** This walkthrough will demonstrating the process of uploading source
-> for the [ChipWhisperer Lite ARM board][CW LITE ARM], although many of the concepts here can
-> also be applied to other boards. More information can be found
+> **Note:** This walkthrough will demonstrate the process of uploading source
+> code for the [ChipWhisperer Lite ARM board][CW LITE ARM], although many of the
+> concepts here can also be applied to other boards. More information on other
+> uploading source code for other targets can be found
 > [here](https://chipwhisperer.readthedocs.io/en/latest/api.html#program).
 
-In order to upload a binary to the [CW Lite ARM] with are going to using the
-[Intel Hex format](https://en.wikipedia.org/wiki/Intel_HEX). Therefore, assuming
-we are using the [ChipWhisperer] Lite 32-bit ARM-edition, we can the `CWLITEARM`
-hex file provided in the [SimpleSerial AES GitHub folder][SimpleSerial AES].
+In order to upload a binary to the [CW Lite ARM], we will use the [Intel Hex
+format](https://en.wikipedia.org/wiki/Intel_HEX). Therefore, assuming we are
+using the [ChipWhisperer] Lite 32-bit ARM-edition, we can the `CWLITEARM` hex
+file provided in the [SimpleSerial AES GitHub folder][SimpleSerial AES].
 Assuming we have downloaded that `.hex` file and put it into a folder called
-`hexfiles` we can using the following [Python] code to upload the program to our
+`hexfiles` we can use the following [Python] code to upload the program to our
 *target*.
 
 ```python
@@ -138,8 +141,8 @@ Assuming we have downloaded that `.hex` file and put it into a folder called
 # ... Disconnecting from the scope / target
 ```
 
-Now, we have uploaded our program to the [ChipWhisperer] target board, we start
-capturing traces.
+Now that we have uploaded our program to the [ChipWhisperer] target board, we
+start capturing traces.
 
 ## Capturing a trace
 
@@ -214,10 +217,10 @@ This way we can later load it.
 > module have a look over [here](https://wiki.newae.com/Making_Scripts).
 > __Disclaimer:__ This is quite heavy.
 
-Now we can correctly set up our [ChipWhisperer] equipment, upload the source
-code of the algorithm we are using to the target, capture power traces of the
-target and save those power traces to a file on our system. Now we are ready to
-do some analysis on those power traces.
+We have now correctly set up our [ChipWhisperer] equipment, uploaded the
+source code of the encryption algorithm we are using to the target, captured
+power traces of the target and saved those power traces to a file on our system.
+Now, we are ready to do some analysis on those power traces.
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)
