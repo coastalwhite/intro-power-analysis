@@ -16,40 +16,126 @@ chapter we are going to have a look at how we can set up a [ChipWhisperer] to
 measure power traces. Afterwards, we are going to do some traces and learn how
 to save them so we can later do more detailed analysis on them.
 
-## Base setup
+## Setting up our ChipWhisperer board
 
-Assuming that you have correctly [setup your environment](../preparing.md), we
-first have to connect to the *scope* and the *target*. The scope being the
-measuring device and the target being the microprocessor, which is going to run
-the encryption algorithm. In order to connect to the scope and the target, we
-need the following code.
+Assuming that you have correctly [setup your software
+environment](../preparing.md), we can start setting up our [ChipWhisperer]
+board. This is going to go in 3 steps:
+
+1. Connecting to the scope
+2. Setting up the target
+3. Upload the source code for our algorithm
+
+### Basics
+
+Before we actually start scripting, we are starting in the [Python
+Interpreter]. We can get into the [Python Interpreter] from the our shell using
+the following command:
+
+```bash
+python3
+```
+
+In order to get started with the [ChipWhisperer] Python Library, we can import
+the library with:
+
+```python
+import chipwhisperer as cw
+```
+
+If one gets an error here, verify that [the ChipWhisperer Python library is
+properly installed](../preparing/chipwhisperer.md). Otherwise we can try connect
+our [ChipWhisperer] Capture board to our computer via USB and run the following
+command to connect to the Capture board.
+
+```python
+scope = cw.scope()
+```
+
+This should connect to our capture board. On some ChipWhisperer capture boards
+an extra light might turn on. If you get an error, there is something wrong with
+your connection. If you are on Linux, perhaps you have [setup some udev
+rules](../preparing/chipwhisperer.md#linux-udev-rules).
+
+Now we are going to set some settings used by the [ChipWhisperer] board(s). For
+now, we will just use the default settings. That works well enough for now. If
+you want an overview of the possible settings, look over
+[here](https://chipwhisperer.readthedocs.io/en/latest/api.html#openadc-scope).
+We can select the default settings using the following command.
+
+```python
+scope.default_setup()
+```
+
+Then we have to fetch the *target* board. This is contains all the connections
+and settings about the microprocessor which is going to execute our algorithm.
+If you have hooked up your *target* &mdash; this is done automatically for the
+ChipWhisperer Lite boards &mdash; you can use the following command to fetch the
+*target* object.
+
+```python
+target = cw.target(scope)
+```
+
+Now in order to safely disconnect our *target* boards and *capture* boards and
+we can use the following two commands.
+
+```python
+scope.disconnect()
+target.disconnect()
+```
+
+### Scripting
+
+Now that we know some basic commands we can start actually scripting. We can
+create a [Python] file and put the basic commands &mdash; we just learned
+&mdash; into it.
+
+This is what is will look like.
 
 ```python
 {{#include code/capture.py:setup}}
-```
 
-In order to disconnect them again, we can use the following code.
+#
+# We do our logic here!
+#
 
-```python
 {{#include code/first_trace.py:disconnect}}
 ```
 
-## Flashing the source code
+Running this script using the `python3 file-name.py` command should work just
+fine and now we can start actually working with an algorithm.
 
-Depending on what target we are using, we need different software. We can
-compile this ourselves, but most compiled code can also be found online. The
-compiled code for [AES] can be found
-[here](https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-aes).
+### Uploading the algorithm source code
 
-We always have the flash the source code onto the [CW Lite ARM] using the [Intel
-Hex format](https://en.wikipedia.org/wiki/Intel_HEX). Therefore, assuming we are
-using the [ChipWhisperer] Lite 32-bit ARM-edition, we can the `CWLITEARM` hex file.
-in order to upload the program to the target, we can use the following [Python]
-code.
+Depending on what target we are using, we need to upload different software. We
+can [compile this software ourselves](../compiling.md), but a lot of compiled
+code can also be found online. The compiled code for [AES] can be found
+[here][SimpleSerial AES].
+
+> **Note:** This walkthrough will demonstrating the process of uploading source
+> for the [ChipWhisperer Lite ARM board][CW LITE ARM], although many of the concepts here can
+> also be applied to other boards. More information can be found
+> [here](https://chipwhisperer.readthedocs.io/en/latest/api.html#program).
+
+In order to upload a binary to the [CW Lite ARM] with are going to using the
+[Intel Hex format](https://en.wikipedia.org/wiki/Intel_HEX). Therefore, assuming
+we are using the [ChipWhisperer] Lite 32-bit ARM-edition, we can the `CWLITEARM`
+hex file provided in the [SimpleSerial AES GitHub folder][SimpleSerial AES].
+Assuming we have downloaded that `.hex` file and put it into a folder called
+`hexfiles` we can using the following [Python] code to upload the program to our
+*target*.
 
 ```python
+# ... Connecting to the scope / target
+
 {{#include code/capture.py:program}}
+
+# ... Disconnecting from the scope / target
 ```
+
+Now, we have uploaded our program to the [ChipWhisperer] target board, we start
+capturing traces.
 
 ## Capturing a trace
 
@@ -152,3 +238,5 @@ This way we can later load it.
 [injective]: https://en.wikipedia.org/wiki/Injective_function
 [Rijndael S-Box]: https://en.wikipedia.org/wiki/Rijndael_S-box
 [Correlation Power Analysis]: ./cpa.md
+[Python Interpreter]: https://docs.python.org/3/tutorial/interpreter.html
+[SimpleSerial AES]: https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-aes
