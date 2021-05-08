@@ -62,6 +62,14 @@ command.
 pip install chipwhisperer
 ```
 
+## Linux udev rules
+
+When we are going to start doing traces, one might run into a missing
+__permissions__ error on Linux. This has to do with the `udev` rules. How to
+solve this, refer to the [ChipWhisperer
+docs](https://chipwhisperer.readthedocs.io/en/latest/prerequisites.html#hardware-drivers).
+This should solve having to run everything with `sudo`, which is not preferred.
+
 ## Verifying installation
 
 To verify that the installation succeeded, we can start [Python] in interactive
@@ -77,19 +85,15 @@ We can use the following [Python] code to attempt to import the [ChipWhisperer]
 python library.
 
 ```python3
-import chipwhisperer as cw
+import chipwhisperer
 ```
 
 If there aren't any error messages, we have successfully installed the
 [ChipWhisperer] python library!
 
-## Note for GNU/Linux users
-
-When we are going to start doing traces, one might run into a missing
-__permissions__ error.  This has to do with the `udev` rules. How to solve this,
-refer to the [ChipWhisperer
-docs](https://chipwhisperer.readthedocs.io/en/latest/prerequisites.html#hardware-drivers).
-This should solve having to run everything with `sudo`, which is not preferred.
+We have now correctly installed everything necessary to perform our own power
+measurements using [ChipWhisperer] boards. Furthermore, we have also verified
+our installation.
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)
