@@ -112,6 +112,23 @@ This is also optional, but indeed very handy. Installation can be done via [pip]
 pip install tqdm
 ```
 
+## Verifying installation of packages
+
+Go into the [Python] interpreter by running `python3` in your shell. We can
+verify the installation of all the packages by running the following few
+commands:
+
+```python
+import numpy
+import matplotlib
+import tqdm
+```
+
+If none of those three returned an error, everything is installed correctly!
+
+We have now installed [Python], [PIP] and some packages used throughout this
+walkthrough. We have also verified that everything is properly installed.
+
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [RSA]: https://en.wikipedia.org/wiki/RSA_(cryptosystem)
