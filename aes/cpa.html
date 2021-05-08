@@ -1,0 +1,382 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Correlation Power Analysis - Power analysis Introductory Walkthrough</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and PIP</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/cpa.html" class="active"><strong aria-hidden="true">4.1.</strong> Correlation Power Analysis</a></li><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.2.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.4.</strong> Capture multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/key-bytes.html"><strong aria-hidden="true">4.5.</strong> Crack individual key-bytes</a></li><li class="chapter-item expanded "><a href="../aes/automate.html"><strong aria-hidden="true">4.6.</strong> Automate the cracking process</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our code</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../compiling.html"><strong aria-hidden="true">5.</strong> Compiling/Creating your own algorithms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiling/toolchains.html"><strong aria-hidden="true">5.1.</strong> Installing Toolchains</a></li><li class="chapter-item expanded "><a href="../compiling/simpleserial.html"><strong aria-hidden="true">5.2.</strong> SimpleSerial Protocol</a></li><li class="chapter-item expanded "><a href="../compiling/resources.html"><strong aria-hidden="true">5.3.</strong> Existing resources</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">6.</strong> Assignment</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Power analysis Introductory Walkthrough</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://github.com/coastalwhite/intro-power-analysis" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="correlation-power-analysis"><a class="header" href="#correlation-power-analysis">Correlation Power Analysis</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Seeing electronics as capacitors</li>
+<li>Hamming Weight and Hamming Distance models</li>
+<li>Correlation coefficients</li>
+</ul>
+</blockquote>
+<p>Not all algorithms perform different processor-instructions based on what
+(private) key was used. Most <a href="https://en.wikipedia.org/wiki/Symmetric-key_algorithm">symmetric encryption</a> algorithms use some form of
+byte shuffles and substitution boxes, which have the same amount of
+processor-instructions for every possible key. Still however, there is a way to
+crack the keys used by these algorithms using power analysis. The method does
+not depend on differing instructions, however. Instead this method focuses on
+the power used by the memory and registers.</p>
+<h2 id="leakage-models"><a class="header" href="#leakage-models">Leakage Models</a></h2>
+<p><a href="https://en.wikipedia.org/wiki/Power_analysis">Power analysis</a> depends on leakage models. These are models which predict how
+much power is going to be used depending on some task a
+microprocessor-controlled device performs. In the case of <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> this leakage
+model was based on the processor instructions. There are other leakage models
+however. <a href="https://wiki.newae.com/Correlation_Power_Analysis">Correlation Power Analysis</a> is a technique which (most of the time) is
+memory-based. Within this technique, we try to find out whether there is a
+connection between our leakage model — and its hypothetical key —
+and the actual power consumption. Such a connection is also known as a
+statistical <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>.  Memory-based leakage models often choose between two
+different techniques: <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a> and <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming Distance</a>. In short:
+<em>Looking at how much power it would take to set memory is known as the <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming
+Distance</a> model. Looking at how much power it would take to maintain memory,
+which is known as the <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a> model.</em></p>
+<h3 id="hamming-weight"><a class="header" href="#hamming-weight">Hamming Weight</a></h3>
+<p>The <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a> model states that there should be a <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> between
+the amount of bits in the <em>on</em> or \(1\) state and the amount of power a device
+uses. This idea stems from the fact that bits in <a href="https://en.wikipedia.org/wiki/Random-access_me,mory">RAM</a> are physical capacitors,
+which need to be refreshed often. This process of refreshing the state of <a href="https://en.wikipedia.org/wiki/Random-access_me,mory">RAM</a>
+costs an amount of power which is proportional to the amount of bits in the <em>on</em>
+or \(1\) state.</p>
+<p>For example, the bit-string \(s=010010101\) has \(4\) bits in the in <em>on</em>
+state and thus the <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a> of \(s\) is \(4\). A general
+mathematical expression for the <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a> of a bit-string \(s\) is \[
+\text{HammingWeight} ( s ) = \# \{s_i \in s : s_i = 1\} \]</p>
+<h3 id="hamming-distance"><a class="header" href="#hamming-distance">Hamming Distance</a></h3>
+<p>The <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming Distance</a> model states that there should be a <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> between
+the amount of bits switching between the <em>on</em> (\(1\)) and the <em>off</em> (\(0\))
+state and the amount of power a device uses. Register bits are often set to a
+specific voltage before reassignment. This is for power efficiency reasons.
+Because of this the <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming Distance</a> model works better on hardware
+implementations of encryption algorithms.</p>
+<p>For example, switching from the bit-string \(p=010010101\) to
+\(c=110011001\) yields a <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming Distance</a> of \(3\), because \(3\) bits
+were flipped. A general mathematical expression for the <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming Distance</a> from a
+bit-string \(p\) to a bit-string \(c\) with \(|p| = |c|\) is
+\[ \text{HammingDistance} ( p, c ) = \# \{ i : p_i \not= c_i \text{ with }
+i \in \{1,...,|p|\} \} \]</p>
+<h3 id="memory-based-models"><a class="header" href="#memory-based-models">Memory-based models</a></h3>
+<p>Now that we have seen two different models for <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> between
+memory-usage and power consumption, we might ask ourselves how we go from these
+concepts to a functional model for an encryption algorithm. We have to
+determine a memory state which we can test for. Trivially, this memory state
+should be dependent on the (private) key used. Next to that, we have two
+preferences for this memory state:</p>
+<ol>
+<li>Ideally, the memory state is dependent on the input string. This allows us to
+look for different memory values. Instead of just searching for the same
+derivative of the key memory value.</li>
+<li>Preferably, the <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a>/<a href="https://en.wikipedia.org/wiki/Hamming_distance">Distance</a> value holds for
+a longer time. With <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a>, for example, a memory state just before
+shifting bytes around works better, because transpositions don't effect the
+<a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a>.</li>
+</ol>
+<h2 id="correlations"><a class="header" href="#correlations">Correlations</a></h2>
+<p>In order to determine whether there is a connection between a leakage model and
+the power consumption, we are going to be determining whether there is a
+<a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> between that leakage model and the power trace at every point in
+time. This means we are going to need multiple <em>power traces</em>: multiple power
+consumption values for each point in time. This assumes we have already
+(roughly) <a href="https://en.wikipedia.org/wiki/Sum_of_absolute_differences">synchronized</a> our power traces. This is
+done on the instruction level with our compiled algorithms on the
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>, so we don't have to worry about it too much.</p>
+<h3 id="pearson-correlation-coefficients"><a class="header" href="#pearson-correlation-coefficients">Pearson Correlation Coefficients</a></h3>
+<p>Now, however, we are also tasked with determining how well our set of power
+traces correlates with our leakage model. Just to summarize, we want to know how
+likely it is that our modeled power usage has a similar pattern to the actual
+power usage.  In statistics this is known as the modeled power usage and the
+actual power usage having a high <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>. If two functions are in perfect
+correlation, both functions rise and fall at the same time.</p>
+<p>This is what the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation coefficient</a> indicates. We provide it with
+two functions or arrays and it will give us a value between \(-1\) and
+\(1\), indicating whether the two functions <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlate</a>. \(1\) meaning
+extreme but almost unrealistic levels of <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>, \(0\) meaning no
+<a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> and \(-1\) meaning an inverse <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>. How the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson
+correlation coefficient</a> manages to do this is not as important for us, but
+reading the Wikipedia page can be very interesting. What is important for us
+now, is the formula so we can use it in our code.</p>
+<p>\[
+\rho_{X,Y} = \frac{\text{cov}(X,Y)}{\sigma_X \sigma_Y}
+\]</p>
+<p>This may not be entirely clear to most people without knowledge of
+statistics. So let us break it down.</p>
+<ul>
+<li>\(\rho\) is the letter commonly used to represent the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation
+coefficient</a>.</li>
+<li>\(X\) and \(Y\) are our functions and can actually be represented as a
+finite list of numbers in our case. This means \(X = \{ x_0, \ldots, x_n
+\}\) and \(Y = \{ y_0, \ldots, y_n \}\) with \(n\) being an integer
+greater than zero.</li>
+<li>\(\text{cov}(X,Y)\) is the <a href="https://en.wikipedia.org/wiki/Covariance">covariance</a> of \(X\) and \(Y\). This can be
+calculated with \(\text{cov}(X,Y)=\mathbb{E}[(X - \mu_X)(Y - \mu_Y)] =
+\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)(y_i - \mu_Y) \), with
+\(\mu_X\) and \(\mu_Y\) being the <a href="https://en.wikipedia.org/wiki/Mean">mean</a> of \(X\) and \(Y\),
+respectively.</li>
+<li>\(\sigma_X\) and \(\sigma_Y\) being the <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> of \(X\) and
+\(Y\), respectively. The <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> can be calculated with
+\(\sigma_X = \sqrt{\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)^2}\) with
+\(\mu_X\) being the <a href="https://en.wikipedia.org/wiki/Mean">mean</a> of \(X\).</li>
+</ul>
+<p>So let us try to visualize what is actually going to be happening.</p>
+<p>We are calculating all the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficients</a>
+between the power traces and our leakage model for all the points in time. Then
+we choose the highest <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a>. At that point in time our
+hypothetical memory state should have occurred. When we repeat this with all
+keys in our leakage model, the correct key should correlate most at some point
+in the power trace.</p>
+<p>For example, if we take 100 power traces and correlate each point of time with a
+memory-based leakage model. Once using the correct key, and another time using a
+wrong key. It might look something like the following graph. On the vertical
+axis is the <a href="https://en.wikipedia.org/wiki/Absolute_value">absolute</a> of the correlation and on the horizontal axis we see time
+represented by \(5000\) power measurements.</p>
+<p><img src="../assets/aes_correlation_visualization.png" alt="AES Pearson Correlation Explanation" /></p>
+<p><em>Figure 1: A visualization of <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson Correlation Coefficient</a> for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a></em></p>
+<p>So what does this graph show? You can see that <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a> remains reasonably consistent for the wrong key.  It
+never goes above \(\sim 0.4\). The graph of the correct key follows the same
+pattern — never really reaching above \(\sim 0.4\) — except for one or two
+spikes. At these spikes apparently our model matches the actual power
+consumption very closely. These spikes are what we are interested in.</p>
+<h2 id="so-what-did-we-learn"><a class="header" href="#so-what-did-we-learn">So what did we learn?</a></h2>
+<p>Determining what key was used is not only possible using leakage models based on
+differing processor instructions. We can also correlate memory-based leakage
+models, using the Hamming Weight or Hamming Distance hypotheses, with multiple
+power traces to determine how likely it is that a certain memory state occurred
+during a power trace.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../aes.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../aes/workings.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../aes.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../aes/workings.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

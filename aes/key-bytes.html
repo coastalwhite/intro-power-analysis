@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Manual analysis - Power analysis Introductory Walkthrough</title>
+        <title>Crack individual key-bytes - Power analysis Introductory Walkthrough</title>
         
         
 
@@ -98,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="../preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/manual-analysis.html" class="active"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="../aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="../aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and PIP</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/cpa.html"><strong aria-hidden="true">4.1.</strong> Correlation Power Analysis</a></li><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.2.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.4.</strong> Capture multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/key-bytes.html" class="active"><strong aria-hidden="true">4.5.</strong> Crack individual key-bytes</a></li><li class="chapter-item expanded "><a href="../aes/automate.html"><strong aria-hidden="true">4.6.</strong> Automate the cracking process</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our code</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../compiling.html"><strong aria-hidden="true">5.</strong> Compiling/Creating your own algorithms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiling/toolchains.html"><strong aria-hidden="true">5.1.</strong> Installing Toolchains</a></li><li class="chapter-item expanded "><a href="../compiling/simpleserial.html"><strong aria-hidden="true">5.2.</strong> SimpleSerial Protocol</a></li><li class="chapter-item expanded "><a href="../compiling/resources.html"><strong aria-hidden="true">5.3.</strong> Existing resources</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">6.</strong> Assignment</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -170,22 +170,26 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="manual-analysis"><a class="header" href="#manual-analysis">Manual Analysis</a></h1>
-<p>With the power usage model we described in the previous chapter, we can now
-start to do some analysis of our power traces.</p>
-<p>Let look what we have up until now.</p>
-<pre><code class="language-python"># Hamming Weight
-HammingWeightFn = lambda x: bin(x).count('1')
-HammingDistanceFn = lambda x, y: HammingWeightFn(x ^ y)
+                        <h1 id="crack-individual-key-byte"><a class="header" href="#crack-individual-key-byte">Crack individual key-byte</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Loading our saved power traces</li>
+<li>Calculating <a href="./cpa.html#pearson-correlation-coefficients">Pearson correlation
+coefficients</a> in <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a></li>
+<li>Finding the highest <a href="./cpa.html#pearson-correlation-coefficients">Pearson correlation
+coefficient</a> for a byte of the key used</li>
+</ul>
+</blockquote>
+<p>After creating files containing multiple power traces in the <a href="./capture.html">previous
+section</a>, we can now start analyzing our traces and attempt to
+crack some bytes with the leakage model we defined in <a href="./modeling.html">Modeling
+AES</a>.</p>
+<p>So what did we have for our leakage model up until now?</p>
+<pre><code class="language-python">HammingWeightFn = lambda x: bin(x).count('1')
 
-# ... prev ...
-
-# Precompute Hamming Weight and Hamming Distance for bytes
+# Precompute Hamming Weight
 HammingWeight = [ HammingWeightFn(n) for n in range (0x00, 0xff + 1) ] 
-HammingDistance = [
-    [ HammingDistanceFn(x, y) for x in range(0x00, 0xff + 1) ]
-        for y in range(0x00, 0xff + 1)
-]
 
 # Rijndael Substitution box
 SBox = [
@@ -226,8 +230,17 @@ def hypothetical_power_usage(subkey, plain_text_char):
         ]
     ]
 </code></pre>
-<p>In order to load the data we created with our trace we can add the follow few
-lines which will load in the <a href="https://numpy.org/">numpy</a> arrays.</p>
+<p>We are going to take this as a starting point of a new <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> script. This
+walkthrough is will refer to that <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> file as <code>crack.py</code>. We can thus run
+this script from our shell using <code>python3 crack.py</code>.</p>
+<h2 id="loading-back-in-our-traces"><a class="header" href="#loading-back-in-our-traces">Loading back in our traces</a></h2>
+<p>In order to load the power traces we created in the <a href="./capture.html">previous
+section</a>, we can add the follow few lines which will load in the
+<a href="https://numpy.org/">NumPy</a> arrays. The traces here are put into a subfolder called <code>output</code>. If for
+any reason making power traces did not work out or you don't own a
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board, but you still want to continue, you can download some
+pre-made traces from
+<a href="https://github.com/coastalwhite/intro-power-analysis/tree/main/datasets/aes/premade">here</a>.</p>
 <pre><code class="language-python">import numpy as np
 
 traces = np.load('output/traces.npy')
@@ -237,49 +250,13 @@ num_traces = np.shape(traces)[0]
 num_points = np.shape(traces)[1]
 
 </code></pre>
-<h2 id="are-we-data-scientists-yet"><a class="header" href="#are-we-data-scientists-yet">Are we data-scientists yet?</a></h2>
-<p>We want to change the data in such a way that it makes it easier to identify
-whether a our <strong>modeled power usage is similar to the actual power usage</strong>. We
-need multiple power traces for this. The most important processing of data is
-going to be using <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation coefficient</a>s.</p>
-<h3 id="pearson-correlation-coefficient"><a class="header" href="#pearson-correlation-coefficient">Pearson correlation coefficient</a></h3>
-<p>We have an difficult task here. Again, we want to know how likely it is that our
-modeled power usage has a similar pattern to the actual power usage. In
-statistics this is known as the modeled power usage and the actual power usage
-having a high <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>. If two functions are in perfect correlation,
-one function should always rise when the other rises and one function
-should always decline when the other declines.</p>
-<p>This is what the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation coefficient</a> indicates. We provide it with
-two functions or arrays and it will give us a value between \(-1\) and
-\(1\), indicating whether the two functions <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlate</a>. \(1\) meaning
-extreme but almost unrealistic levels of <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>, \(0\) meaning no
-<a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> and \(-1\) meaning a inverse <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>. How the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson
-correlation coefficient</a> manages to do this is not as important for us, but
-reading the Wikipedia page can be very interesting. What is important for us is
-the formula so we can use it in our code.</p>
-<p>\[
-\rho_{X,Y} = \frac{\text{cov}(X,Y)}{\sigma_X \sigma_Y}
-\]</p>
-<p>This may not be entirely clear to most people without knowledge of
-statistics. So let us break it down.</p>
-<ul>
-<li>\(\rho\) is the letter commonly used to represent the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation
-coefficient</a>.</li>
-<li>\(X\) and \(Y\) are our functions and can actually be represented as a
-finite list of numbers in our case. This means \(X = { x_0, \ldots, x_n }\) and
-\(Y = { y_0, \ldots, y_n }\) with \(n\) being an integers greater or
-equal to zero.</li>
-<li>\(\text{cov}(X,Y)\) is the <a href="https://en.wikipedia.org/wiki/Covariance">covariance</a> of \(X\) and \(Y\). This can be
-calculated with \(\text{cov}(X,Y)=\mathbb{E}[(X - \mu_X)(Y - \mu_Y)] =
-\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)(y_i - \mu_Y) \), with
-\(\mu_X\) and \(\mu_Y\) being the <a href="https://en.wikipedia.org/wiki/Mean">mean</a> of \(X\) and \(Y\),
-respectively.</li>
-<li>\(\sigma_X\) and \(\sigma_Y\) being the <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> of \(X\) and
-\(Y\), respectively. The <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> can be calculated with
-\(\sigma_X = \sqrt{\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)^2}\) with
-\(\mu_X\) being the <a href="https://en.wikipedia.org/wiki/Mean">mean</a> of \(X\).</li>
-</ul>
-<p>Let us move these formulas to <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>.</p>
+<p>Now we can use our from the <code>traces</code> variable, we know how many traces we have
+(<code>num_traces</code>), and how many points in time we have per trace (<code>num_points</code>).</p>
+<h2 id="implementing-pearson-correlation-coefficients"><a class="header" href="#implementing-pearson-correlation-coefficients">Implementing Pearson Correlation Coefficients</a></h2>
+<p>As explained in the section on <a href="./cpa.html">Correlation Power Analysis</a>, we are
+going to be using <a href="./cpa.html#pearson-correlation-coefficients">Pearson Correlation Coefficients</a> to detect whether
+our power trace is similar to our leakage model. So let us implement <a href="./cpa.html#pearson-correlation-coefficients">Pearson
+Correlation Coefficients</a> in <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>.</p>
 <pre><code class="language-python">def covariance(X, Y):
     if len(X) != len(Y):
         print(&quot;Lengths are unequal, quiting...&quot;)
@@ -306,8 +283,8 @@ def pearson_correlation_coefficient(X, Y):
 </code></pre>
 <p>Although this code is very inefficient, and does a lot of unnecessary and double
 calculations, it will serve well for now. We are going to be optimizing this
-code in <a href="./optimization.html">Sidenote: optimizing our algorithm</a>.</p>
-<h3 id="cracking-a-single-byte"><a class="header" href="#cracking-a-single-byte">Cracking a single byte</a></h3>
+code in <a href="./optimization.html">Sidenote: optimizing our code</a>.</p>
+<h2 id="cracking-a-single-byte-of-the-key"><a class="header" href="#cracking-a-single-byte-of-the-key">Cracking a single byte of the key</a></h2>
 <p>As explained in <a href="./modeling.html">Modeling AES</a>, we can — using <a href="https://en.wikipedia.org/wiki/Power_analysis">power analysis</a> —
 <strong>crack the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> key byte by byte</strong>. So let us start with a single one. We are
 going to go through every possibility and see which byte one provides the
@@ -368,20 +345,22 @@ plt.show()
 sub-key byte. If you used a different key, your plot will most probably look
 different and there will be a high spike at the ASCII value of your first
 sub-key.</p>
-<p>Well done! We have cracked our first sub-key!</p>
+<p>Well done! We have cracked our first sub-key! Now that we know how to load in
+our power traces and we have successfully cracked one of the bytes of the
+encryption key, we can move on to cracking the entire key.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../aes/modeling.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../aes/capture.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../aes/pearson.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../aes/automate.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -393,13 +372,13 @@ sub-key.</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../aes/modeling.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../aes/capture.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../aes/pearson.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../aes/automate.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

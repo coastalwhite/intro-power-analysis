@@ -98,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="../preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/workings.html" class="active"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/manual-analysis.html"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="../aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="../aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and PIP</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/cpa.html"><strong aria-hidden="true">4.1.</strong> Correlation Power Analysis</a></li><li class="chapter-item expanded "><a href="../aes/workings.html" class="active"><strong aria-hidden="true">4.2.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.4.</strong> Capture multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/key-bytes.html"><strong aria-hidden="true">4.5.</strong> Crack individual key-bytes</a></li><li class="chapter-item expanded "><a href="../aes/automate.html"><strong aria-hidden="true">4.6.</strong> Automate the cracking process</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our code</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../compiling.html"><strong aria-hidden="true">5.</strong> Compiling/Creating your own algorithms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiling/toolchains.html"><strong aria-hidden="true">5.1.</strong> Installing Toolchains</a></li><li class="chapter-item expanded "><a href="../compiling/simpleserial.html"><strong aria-hidden="true">5.2.</strong> SimpleSerial Protocol</a></li><li class="chapter-item expanded "><a href="../compiling/resources.html"><strong aria-hidden="true">5.3.</strong> Existing resources</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">6.</strong> Assignment</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -171,6 +171,20 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="how-aes-works"><a class="header" href="#how-aes-works">How AES Works</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>The inner workings of the AES algorithm.</li>
+<li>Different operations utilized by Rijndael block ciphers:
+<ul>
+<li><a href="#xor-operations">XOR operations</a></li>
+<li><a href="#substitution">Byte subtitutions and S-Boxes</a></li>
+<li><a href="#shifting">Shifting of Rows</a></li>
+<li><a href="#shifting">Mixing of Rows</a></li>
+</ul>
+</li>
+</ul>
+</blockquote>
 <p>In order to do break <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> with power analysis, we need a reasonably detailed
 understanding of how <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> works. So let us do a crash course.</p>
 <p>The <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm is a subset of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">Rijndael block cipher</a> algorithm and
@@ -339,7 +353,7 @@ number</a></li>
 </ol>
 <p>After reading this section should have a basic overview and understanding of how
 <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> works, which you will need for your <a href="https://en.wikipedia.org/wiki/Power_analysis">Power analysis</a>. If you want a more
-visual explanation, you could watch <a href="https://www.youtube.com/watch?v=O4xNJsjtN6E">AES Explained by
+visual explanation of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm, you could watch <a href="https://www.youtube.com/watch?v=O4xNJsjtN6E">AES Explained by
 Computerphile</a>.</p>
 
                     </main>
@@ -347,13 +361,13 @@ Computerphile</a>.</p>
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../aes.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../aes/cpa.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../aes/capture.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../aes/modeling.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -365,13 +379,13 @@ Computerphile</a>.</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../aes.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../aes/cpa.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../aes/capture.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../aes/modeling.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

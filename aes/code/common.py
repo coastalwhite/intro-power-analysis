@@ -4,20 +4,12 @@
 # ANCHOR: start
 # ANCHOR: hamming
 # ANCHOR: hamming_fns
-# Hamming Weight
 HammingWeightFn = lambda x: bin(x).count('1')
-HammingDistanceFn = lambda x, y: HammingWeightFn(x ^ y)
 # ANCHOR_END: hamming_fns
 
 # ANCHOR: hamming_precompute
-# ... prev ...
-
-# Precompute Hamming Weight and Hamming Distance for bytes
+# Precompute Hamming Weight
 HammingWeight = [ HammingWeightFn(n) for n in range (0x00, 0xff + 1) ] 
-HammingDistance = [
-    [ HammingDistanceFn(x, y) for x in range(0x00, 0xff + 1) ]
-        for y in range(0x00, 0xff + 1)
-]
 # ANCHOR_END: hamming_precompute
 # ANCHOR_END: hamming
 

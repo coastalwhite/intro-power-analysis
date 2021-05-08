@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Capturing multiple traces - Power analysis Introductory Walkthrough</title>
+        <title>Capture multiple traces - Power analysis Introductory Walkthrough</title>
         
         
 
@@ -98,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="../preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/capture.html" class="active"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/manual-analysis.html"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="../aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="../aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and PIP</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/cpa.html"><strong aria-hidden="true">4.1.</strong> Correlation Power Analysis</a></li><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.2.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/capture.html" class="active"><strong aria-hidden="true">4.4.</strong> Capture multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/key-bytes.html"><strong aria-hidden="true">4.5.</strong> Crack individual key-bytes</a></li><li class="chapter-item expanded "><a href="../aes/automate.html"><strong aria-hidden="true">4.6.</strong> Automate the cracking process</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our code</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../compiling.html"><strong aria-hidden="true">5.</strong> Compiling/Creating your own algorithms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiling/toolchains.html"><strong aria-hidden="true">5.1.</strong> Installing Toolchains</a></li><li class="chapter-item expanded "><a href="../compiling/simpleserial.html"><strong aria-hidden="true">5.2.</strong> SimpleSerial Protocol</a></li><li class="chapter-item expanded "><a href="../compiling/resources.html"><strong aria-hidden="true">5.3.</strong> Existing resources</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">6.</strong> Assignment</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -170,18 +170,83 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="capturing-multiple-traces"><a class="header" href="#capturing-multiple-traces">Capturing multiple traces</a></h1>
-<p><a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> is a lot more complex than <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>. Although looking at one trace of <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>
-can give you a lot of information about the key used, with <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> it is a lot
-more common to take multiple traces and average them out. Here we are gonna have
-a look at how we can upload the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> source code to the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> target
-board, and then capture multiple power traces.</p>
-<h2 id="base-setup"><a class="header" href="#base-setup">Base setup</a></h2>
-<p>Assuming that you have correctly <a href="../preparing.html">setup your environment</a>, we
-first have to connect to the <em>scope</em> and the <em>target</em>. The scope being the
-measuring device and the target being the microprocessor, which is going to run
-the encryption algorithm. In order to connect to the scope and the target, we
-need the following code.</p>
+                        <h1 id="capture-multiple-traces"><a class="header" href="#capture-multiple-traces">Capture multiple traces</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Setting up our <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> <em>scope</em> and <em>target</em></li>
+<li>Running <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> on our <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> <em>target</em></li>
+<li>Performing a power trace of our algorithm</li>
+<li>Saving multiple power traces to a file</li>
+</ul>
+</blockquote>
+<p>Cracking the key used by <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> with <a href="https://en.wikipedia.org/wiki/Power_analysis">Power Analysis</a> is a lot more complex than
+was the case with <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>. Looking at one trace of a <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> decryption can
+potentially give you all the information you need to crack the private key.
+With <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> and, more generally, with <a href="./cpa.html">Correlation Power Analysis</a>, it is
+necessary to perform multiple traces and average those power traces out. In this
+section, we are going to have a look at how we can set up a <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> to
+measure power traces. Afterwards, we are going to do some traces and learn how
+to save them so we can later do more detailed analysis on them.</p>
+<blockquote>
+<p><strong>Note:</strong> If you just want to move on with the analysis or don't have a
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board at hand, you can download a pre-made power trace
+over <a href="https://github.com/coastalwhite/intro-power-analysis/tree/main/datasets/aes/premade">here</a>.</p>
+</blockquote>
+<h2 id="setting-up-our-chipwhisperer-board"><a class="header" href="#setting-up-our-chipwhisperer-board">Setting up our ChipWhisperer board</a></h2>
+<p>Assuming that you have correctly <a href="../preparing.html">setup your software
+environment</a>, we can start connecting and setting up our
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board. This is going to go in 2 steps:</p>
+<ol>
+<li>Fetching and setting up our scope</li>
+<li>Setting up and programming our target</li>
+</ol>
+<h3 id="basics"><a class="header" href="#basics">Basics</a></h3>
+<p>Before we actually start scripting, we are starting in the <a href="https://docs.python.org/3/tutorial/interpreter.html">Python
+Interpreter</a>. We can get into the <a href="https://docs.python.org/3/tutorial/interpreter.html">Python Interpreter</a> from our shell using
+the following command:</p>
+<pre><code class="language-bash">python3
+</code></pre>
+<p>In order to then get started with the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> Python Library, we can import
+the library with:</p>
+<pre><code class="language-python">import chipwhisperer as cw
+</code></pre>
+<p>If one gets an error here, verify that <a href="../preparing/chipwhisperer.html">the ChipWhisperer Python library is
+properly installed</a>. Otherwise we can try connect
+our <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> Capture board to our computer via USB and run the following
+command to connect to the Capture board.</p>
+<pre><code class="language-python">scope = cw.scope()
+</code></pre>
+<p>This should connect to our capture board. On some <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> capture boards
+an extra light might start flickering. If you get an error, there most probably
+is something wrong with your connection. If you are on Linux, perhaps you have
+to <a href="../preparing/chipwhisperer.html#linux-udev-rules">setup some udev rules</a>.</p>
+<p>Now we are going to set some settings used by the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board(s). For
+now, we will just use the default settings. That works well enough for now, but
+if you want an overview of the possible settings, look over
+<a href="https://chipwhisperer.readthedocs.io/en/latest/api.html#openadc-scope">here</a>.
+We can select the default settings using the following command.</p>
+<pre><code class="language-python">scope.default_setup()
+</code></pre>
+<p>Then we have to fetch the <em>target</em> board. This is contains all the connections
+and settings about the microprocessor which is going to execute our algorithm.
+If you have hooked up your <em>target</em> — this is done automatically for the
+<a href="https://www.newae.com/products/NAE-CWLITE-ARM">ChipWhisperer Lite boards</a> — you can use the following
+command to fetch the <em>target</em> object.</p>
+<pre><code class="language-python">target = cw.target(scope)
+</code></pre>
+<p>Now in order to safely disconnect our <em>target</em> and <em>capture</em> board and we can
+use the following two commands.</p>
+<pre><code class="language-python">scope.disconnect()
+target.disconnect()
+</code></pre>
+<p>Now we know the basics of how to setup and interact with the connection between
+our computer and the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board.</p>
+<h3 id="scripting"><a class="header" href="#scripting">Scripting</a></h3>
+<p>We know some basic commands, so we can actually start scripting. We create a
+<a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> file and put the basic commands — we just learned — into
+it.</p>
+<p>This is what it will look like.</p>
 <pre><code class="language-python">import chipwhisperer as cw
 
 # Setup a connection with the CW board
@@ -194,22 +259,38 @@ scope.default_setup()
 # Fetch the target from the scope
 # This should be automatically connected
 target = cw.target(scope)
-</code></pre>
-<p>In order to disconnect them again, we can use the following code.</p>
-<pre><code class="language-python">scope.dis()
+
+#
+# We do our logic here!
+#
+
+scope.dis()
 target.dis()
 </code></pre>
-<h2 id="flashing-the-source-code"><a class="header" href="#flashing-the-source-code">Flashing the source code</a></h2>
-<p>Depending on what target we are using, we need different software. We can
-compile this ourselves, but most compiled code can also be found online. The
-compiled code for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> can be found
+<p>Running this script using the <code>python3 file-name.py</code> command should work just
+fine and now we can start actually working with an encryption algorithm.</p>
+<h3 id="uploading-the-algorithm-source-code"><a class="header" href="#uploading-the-algorithm-source-code">Uploading the algorithm source code</a></h3>
+<p>Depending on what target we are using, we need to upload different software. We
+can <a href="../compiling.html">compile this software ourselves</a>, but a lot of compiled
+code can also be found online. The compiled code for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> can be found
 <a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-aes">here</a>.</p>
-<p>We always have the flash the source code onto the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">CW Lite ARM</a> using the <a href="https://en.wikipedia.org/wiki/Intel_HEX">Intel
-Hex format</a>. Therefore, assuming we are
-using the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> Lite 32-bit ARM-edition, we can the <code>CWLITEARM</code> hex file.
-in order to upload the program to the target, we can use the following <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>
-code.</p>
-<pre><code class="language-python">from chipwhisperer.capture.api.programmers import STM32FProgrammer
+<blockquote>
+<p><strong>Note:</strong> This walkthrough will demonstrate the process of uploading source
+code for the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">ChipWhisperer Lite ARM board</a>, although many of the
+concepts here can also be applied to other boards. More information on other
+uploading source code for other targets can be found
+<a href="https://chipwhisperer.readthedocs.io/en/latest/api.html#program">here</a>.</p>
+</blockquote>
+<p>In order to upload a binary to the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">CW Lite ARM</a>, we will use the <a href="https://en.wikipedia.org/wiki/Intel_HEX">Intel Hex
+format</a>. Therefore, assuming we are
+using the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> Lite 32-bit ARM-edition, we can the <code>CWLITEARM</code> hex
+file provided in the <a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-aes">SimpleSerial AES GitHub folder</a>.
+Assuming we have downloaded that <code>.hex</code> file and put it into a folder called
+<code>hexfiles</code> we can use the following <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> code to upload the program to our
+<em>target</em>.</p>
+<pre><code class="language-python"># ... Connecting to the scope / target
+
+from chipwhisperer.capture.api.programmers import STM32FProgrammer
 import os
 
 # Initiate a new STM32F Program
@@ -225,7 +306,11 @@ aes_hex_path = os.path.join(aes_firmware_dir, r&quot;hexfiles/simpleserial-aes-C
 # Apply the program to the actual target
 # This allows us to run the hex code on the microcontroller
 cw.program_target(scope, program, aes_hex_path)
+
+# ... Disconnecting from the scope / target
 </code></pre>
+<p>Now that we have uploaded our program to the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> target board, we
+start capturing traces.</p>
 <h2 id="capturing-a-trace"><a class="header" href="#capturing-a-trace">Capturing a trace</a></h2>
 <p>In order to run our first trace, we need a key and some plain text. The program
 we are using is based on <em>128 bit AES</em> and therefore we should provide a
@@ -254,7 +339,7 @@ hood by the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</
 function corresponds with a couple of steps (arming the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>,
 sending the key/plaintext and retrieving the trace data, etc.). This can
 become important when implementing your own algorithms. There it may be
-important to replace w this one function with its individual steps to get more
+important to replace this one function with its individual steps to get more
 control over the commands send. This can be seen in the <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> code of the
 <a href="https://github.com/coastalwhite/simpleserial-c-template">SimpleSerial C
 template</a>.</p>
@@ -300,7 +385,7 @@ key_str = 'H4ck3rm4n-l33t42'
 key = bytearray(key_str, 'ascii')
 
 # Define the constant for the amount of traces
-N = 5
+N = 100
 
 textins = []
 traces = []
@@ -337,19 +422,23 @@ np.save('output/textins.npy', np_textins)
 module have a look over <a href="https://wiki.newae.com/Making_Scripts">here</a>.
 <strong>Disclaimer:</strong> This is quite heavy.</p>
 </blockquote>
+<p>We have now correctly set up our <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> equipment, uploaded the
+source code of the encryption algorithm we are using to the target, captured
+power traces of the target and saved those power traces to a file on our system.
+Now, we are ready to do some analysis on those power traces.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../aes/workings.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../aes/modeling.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../aes/modeling.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../aes/key-bytes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -361,13 +450,13 @@ module have a look over <a href="https://wiki.newae.com/Making_Scripts">here</a>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../aes/workings.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../aes/modeling.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../aes/modeling.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../aes/key-bytes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

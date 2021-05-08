@@ -98,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html" class="active"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="../preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/manual-analysis.html"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="../aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="../aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and PIP</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html" class="active"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/cpa.html"><strong aria-hidden="true">4.1.</strong> Correlation Power Analysis</a></li><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.2.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.4.</strong> Capture multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/key-bytes.html"><strong aria-hidden="true">4.5.</strong> Crack individual key-bytes</a></li><li class="chapter-item expanded "><a href="../aes/automate.html"><strong aria-hidden="true">4.6.</strong> Automate the cracking process</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our code</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../compiling.html"><strong aria-hidden="true">5.</strong> Compiling/Creating your own algorithms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiling/toolchains.html"><strong aria-hidden="true">5.1.</strong> Installing Toolchains</a></li><li class="chapter-item expanded "><a href="../compiling/simpleserial.html"><strong aria-hidden="true">5.2.</strong> SimpleSerial Protocol</a></li><li class="chapter-item expanded "><a href="../compiling/resources.html"><strong aria-hidden="true">5.3.</strong> Existing resources</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">6.</strong> Assignment</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -171,6 +171,19 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="chipwhisperer"><a class="header" href="#chipwhisperer">ChipWhisperer</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Installing the ChipWhisperer Python Library for different Operating Systems
+<ul>
+<li><a href="#windows">Windows</a></li>
+<li><a href="#macos">macOS</a></li>
+<li><a href="#gnulinux">GNU/Linux</a></li>
+</ul>
+</li>
+<li><a href="#verifying-installation">Verifying that the installation was successful</a></li>
+</ul>
+</blockquote>
 <p>The <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> framework has a <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> library to interact with its
 devices.  This library is definitely a necessity if you plan on doing your own
 traces.</p>
@@ -206,6 +219,12 @@ and <a href="https://en.wikipedia.org/wiki/Libusb">libusb</a> using the followin
 command.</p>
 <pre><code class="language-bash">pip install chipwhisperer
 </code></pre>
+<h2 id="linux-udev-rules"><a class="header" href="#linux-udev-rules">Linux udev rules</a></h2>
+<p>When we are going to start doing traces, one might run into a missing
+<strong>permissions</strong> error on Linux. This has to do with the <code>udev</code> rules. How to
+solve this, refer to the <a href="https://chipwhisperer.readthedocs.io/en/latest/prerequisites.html#hardware-drivers">ChipWhisperer
+docs</a>.
+This should solve having to run everything with <code>sudo</code>, which is not preferred.</p>
 <h2 id="verifying-installation"><a class="header" href="#verifying-installation">Verifying installation</a></h2>
 <p>To verify that the installation succeeded, we can start <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> in interactive
 mode using the <code>python3</code> shell command. Then we should see something such as the
@@ -215,16 +234,13 @@ following.</p>
 </code></pre>
 <p>We can use the following <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> code to attempt to import the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>
 python library.</p>
-<pre><code class="language-python3">import chipwhisperer as cw
+<pre><code class="language-python3">import chipwhisperer
 </code></pre>
 <p>If there aren't any error messages, we have successfully installed the
 <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> python library!</p>
-<h2 id="note-for-gnulinux-users"><a class="header" href="#note-for-gnulinux-users">Note for GNU/Linux users</a></h2>
-<p>When we are going to start doing traces, one might run into a missing
-<strong>permissions</strong> error.  This has to do with the <code>udev</code> rules. How to solve this,
-refer to the <a href="https://chipwhisperer.readthedocs.io/en/latest/prerequisites.html#hardware-drivers">ChipWhisperer
-docs</a>.
-This should solve having to run everything with <code>sudo</code>, which is not preferred.</p>
+<p>We have now correctly installed everything necessary to perform our own power
+measurements using <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> boards. Furthermore, we have also verified
+our installation.</p>
 
                     </main>
 
@@ -237,7 +253,7 @@ This should solve having to run everything with <code>sudo</code>, which is not 
                         
 
                         
-                            <a rel="next" href="../preparing/toolchains.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../rsa.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -255,7 +271,7 @@ This should solve having to run everything with <code>sudo</code>, which is not 
                 
 
                 
-                    <a rel="next" href="../preparing/toolchains.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../rsa.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

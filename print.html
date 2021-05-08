@@ -100,7 +100,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="aes/capture.html"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="aes/manual-analysis.html"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and PIP</a></li><li class="chapter-item expanded "><a href="preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li></ol></li><li class="chapter-item expanded "><a href="rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="aes/cpa.html"><strong aria-hidden="true">4.1.</strong> Correlation Power Analysis</a></li><li class="chapter-item expanded "><a href="aes/workings.html"><strong aria-hidden="true">4.2.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="aes/capture.html"><strong aria-hidden="true">4.4.</strong> Capture multiple traces</a></li><li class="chapter-item expanded "><a href="aes/key-bytes.html"><strong aria-hidden="true">4.5.</strong> Crack individual key-bytes</a></li><li class="chapter-item expanded "><a href="aes/automate.html"><strong aria-hidden="true">4.6.</strong> Automate the cracking process</a></li><li class="chapter-item expanded "><a href="aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our code</a></li><li class="chapter-item expanded "><a href="aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="compiling.html"><strong aria-hidden="true">5.</strong> Compiling/Creating your own algorithms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="compiling/toolchains.html"><strong aria-hidden="true">5.1.</strong> Installing Toolchains</a></li><li class="chapter-item expanded "><a href="compiling/simpleserial.html"><strong aria-hidden="true">5.2.</strong> SimpleSerial Protocol</a></li><li class="chapter-item expanded "><a href="compiling/resources.html"><strong aria-hidden="true">5.3.</strong> Existing resources</a></li></ol></li><li class="chapter-item expanded "><a href="assignment.html"><strong aria-hidden="true">6.</strong> Assignment</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -173,6 +173,18 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="power-analysis-introductory-walkthrough"><a class="header" href="#power-analysis-introductory-walkthrough">Power Analysis Introductory Walkthrough</a></h1>
+<blockquote>
+<p><strong>What will this course cover?</strong></p>
+<ul>
+<li><a href="./preparing.html">Chapter 2</a> - Installing and configuring capture and
+analysis tools</li>
+<li><a href="./rsa.html">Chapter 3</a> - Explain <em>Simple Power Analysis</em> by looking at the
+RSA algorithm</li>
+<li><a href="./aes.html">Chapter 4</a> - Explain <em>Correlation Power Analysis</em> by looking at
+the AES algorithm</li>
+<li><a href="./compiling.html">Chapter 5</a> - Setting up tools to compile custom algorithms</li>
+</ul>
+</blockquote>
 <p>IT Security has many fields and layers, all of which aim to investigate how to
 break and protect the core principles of information security. These principles
 are confidentiality, integrity and availability<sup class="footnote-reference"><a href="#tenets">1</a></sup>. One of these fields is
@@ -190,9 +202,9 @@ taking a product - and we also know that squaring takes marginally less time
 than taking a product in this case. You could hypothesize where the power trace
 is taking a product and where the trace is squaring a number.</p>
 <p><img src="./assets/power_analysis.png" alt="Power Analysis of RSA" /></p>
-<p><em>Figure 1: Power Trace of a <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> encryption by
+<p>_Figure 1: Power Trace of a <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> encryption by
 <a href="https://en.wikipedia.org/wiki/Power_analysis#/media/File:Power_attack_full.png">Audriusa</a>
-(GPFL)</em></p>
+(GPFL)</p>
 <h2 id="purpose-of-this-walkthrough"><a class="header" href="#purpose-of-this-walkthrough">Purpose of this walkthrough</a></h2>
 <p>This walkthrough is meant to be an introduction into both power analysis and
 using the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> framework.  It expects you to have some basic
@@ -230,25 +242,39 @@ Burnette</a></p>
 </div>
 <h1 id="preparing-your-environment"><a class="header" href="#preparing-your-environment">Preparing your environment</a></h1>
 <blockquote>
-<p><strong>Preliminaries</strong></p>
+<p><strong>What will this chapter cover?</strong></p>
+<ul>
+<li>How to install <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> and [PIP]</li>
+<li>How to install dependencies for the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> Python library</li>
+<li>How to install the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> Python library</li>
+</ul>
+</blockquote>
 <p>This chapter expects the reader to have a personal computer
 (running a modern version of <em>Windows</em>, <em>macOS</em> or a commonly used <em>GNU/Linux</em>
 distribution) to which one has root/administrator permissions. Furthermore,
 especially for <em>macOS</em> and <em>GNU/Linux</em>, a basic understanding of the shell is
 recommended.</p>
-</blockquote>
 <p>Although working with the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> requires little setup, it has some
 prerequisites. Apart from from the usual text editor and <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>, we need to
 install some libraries and toolchains. What we need to install also depends on
 what we want to achieve with this walkthrough. So the next few sections are
 going to take you through some of the common necessities. Along with some of
 things that could come in handy whilst following this walkthrough.</p>
-<h1 id="python-and-pip"><a class="header" href="#python-and-pip">Python and Pip</a></h1>
+<h1 id="python-and-pip"><a class="header" href="#python-and-pip">Python and PIP</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Installing <a href="preparing/python-pip.html#installing-python">Python</a></li>
+<li>Installing <a href="preparing/python-pip.html#installing-pip">PIP</a></li>
+<li>Installing mandatory dependencies: <a href="preparing/python-pip.html#numpy">NumPy</a></li>
+<li>Installing optional dependencies: <a href="preparing/python-pip.html#pyplot">PyPlot</a> &amp; <a href="preparing/python-pip.html#tqdm">TQDM</a></li>
+</ul>
+</blockquote>
 <p>We are going to be heavily relying on <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> to do most of our measurements.
 We are also going to do some data analysis using <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>. Because of this heavy
 reliance on <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>, we need to install <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> along with some packages for it.
-Two will be manditory: <a href="https://numpy.org/">NumPy</a> and the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> library (which will be
-covered in <a href="preparing/./chipwhisperer.html">ChipWhisper</a>) and two are optional but very
+Two will be mandatory: <a href="https://numpy.org/">NumPy</a> and the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> library (which will be
+covered in <a href="preparing/./chipwhisperer.html">ChipWhisperer</a>) and two are optional but very
 useful: <a href="https://matplotlib.org/">matplotlib</a> which is used for data plotting and <a href="https://github.com/tqdm/tqdm">TQDM</a> which is used
 for visual feedback whilst cracking.</p>
 <h2 id="installing-python"><a class="header" href="#installing-python">Installing Python</a></h2>
@@ -315,7 +341,31 @@ walkthrough uses the progress bars from <a href="https://github.com/tqdm/tqdm">T
 This is also optional, but indeed very handy. Installation can be done via <a href="https://pypi.org/project/pip/">pip</a>.</p>
 <pre><code class="language-bash">pip install tqdm
 </code></pre>
+<h2 id="verifying-installation-of-packages"><a class="header" href="#verifying-installation-of-packages">Verifying installation of packages</a></h2>
+<p>Go into the <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> interpreter by running <code>python3</code> in your shell. We can
+verify the installation of all the packages by running the following few
+commands:</p>
+<pre><code class="language-python">import numpy
+import matplotlib
+import tqdm
+</code></pre>
+<p>If none of those three returned an error, everything is installed correctly!</p>
+<p>We have now installed <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>, <a href="https://pypi.org/project/pip/">PIP</a> and some packages used throughout this
+walkthrough. We have also verified that everything is properly installed.</p>
 <h1 id="chipwhisperer-1"><a class="header" href="#chipwhisperer-1">ChipWhisperer</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Installing the ChipWhisperer Python Library for different Operating Systems
+<ul>
+<li><a href="preparing/chipwhisperer.html#windows">Windows</a></li>
+<li><a href="preparing/chipwhisperer.html#macos">macOS</a></li>
+<li><a href="preparing/chipwhisperer.html#gnulinux">GNU/Linux</a></li>
+</ul>
+</li>
+<li><a href="preparing/chipwhisperer.html#verifying-installation">Verifying that the installation was successful</a></li>
+</ul>
+</blockquote>
 <p>The <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> framework has a <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> library to interact with its
 devices.  This library is definitely a necessity if you plan on doing your own
 traces.</p>
@@ -351,6 +401,12 @@ and <a href="https://en.wikipedia.org/wiki/Libusb">libusb</a> using the followin
 command.</p>
 <pre><code class="language-bash">pip install chipwhisperer
 </code></pre>
+<h2 id="linux-udev-rules"><a class="header" href="#linux-udev-rules">Linux udev rules</a></h2>
+<p>When we are going to start doing traces, one might run into a missing
+<strong>permissions</strong> error on Linux. This has to do with the <code>udev</code> rules. How to
+solve this, refer to the <a href="https://chipwhisperer.readthedocs.io/en/latest/prerequisites.html#hardware-drivers">ChipWhisperer
+docs</a>.
+This should solve having to run everything with <code>sudo</code>, which is not preferred.</p>
 <h2 id="verifying-installation"><a class="header" href="#verifying-installation">Verifying installation</a></h2>
 <p>To verify that the installation succeeded, we can start <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> in interactive
 mode using the <code>python3</code> shell command. Then we should see something such as the
@@ -360,59 +416,22 @@ following.</p>
 </code></pre>
 <p>We can use the following <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> code to attempt to import the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>
 python library.</p>
-<pre><code class="language-python3">import chipwhisperer as cw
+<pre><code class="language-python3">import chipwhisperer
 </code></pre>
 <p>If there aren't any error messages, we have successfully installed the
 <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> python library!</p>
-<h2 id="note-for-gnulinux-users"><a class="header" href="#note-for-gnulinux-users">Note for GNU/Linux users</a></h2>
-<p>When we are going to start doing traces, one might run into a missing
-<strong>permissions</strong> error.  This has to do with the <code>udev</code> rules. How to solve this,
-refer to the <a href="https://chipwhisperer.readthedocs.io/en/latest/prerequisites.html#hardware-drivers">ChipWhisperer
-docs</a>.
-This should solve having to run everything with <code>sudo</code>, which is not preferred.</p>
-<h1 id="compiling-your-own-algorithms"><a class="header" href="#compiling-your-own-algorithms">Compiling your own algorithms</a></h1>
-<p>This walkthrough provides most of the precompiled code you might need. However,
-in order to do some of the provided exercises and do some experimentation
-yourself, you might want to compile some algorithm. To do this, there are two
-things we need. The toolchain to compile to our specific microprocessor
-architecture and the low-level source code to compile.</p>
-<h2 id="toolchains"><a class="header" href="#toolchains">Toolchains</a></h2>
-<p>In order to compile code which is usable for our specific microprocessor
-architecture, we need to toolchain for that architecture. As said in the
-<a href="preparing/../intro.html">introduction chapter</a>, this walkthrough is using the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">CW Lite Arm</a>
-variant and therefore here we will show how to install the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">ARM toolchain</a>. For
-other toolchains, have a look at the <a href="https://chipwhisperer.readthedocs.io/en/latest/prerequisites.html#compilers">ChipWhisperer
-documentation</a>.</p>
-<h2 id="installing-the-arm-toolchain"><a class="header" href="#installing-the-arm-toolchain">Installing the ARM toolchain</a></h2>
-<p>Information on the ARM can be found
-<a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">here</a>.</p>
-<h3 id="windows-and-macos"><a class="header" href="#windows-and-macos">Windows and macOS</a></h3>
-<p>por <em>Windows</em> and <em>macOS</em>, the installer on the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">ARM developer
-website</a>
-should be enough to install the ARM embedded toolchain.</p>
-<h3 id="gnulinux-2"><a class="header" href="#gnulinux-2">GNU/Linux</a></h3>
-<p>For <a href="https://en.wikipedia.org/wiki/Debian">Debian</a> based systems, including <a href="https://en.wikipedia.org/wiki/Ubuntu">Ubuntu</a>, we can use the following command
-to install the ARM embedded toolchain.</p>
-<pre><code class="language-bash">sudo apt install gcc-arm-none-eabi
-</code></pre>
-<p>For <a href="https://en.wikipedia.org/wiki/Arch_Linux">ArchLinux</a> based systems, including <a href="https://en.wikipedia.org/wiki/Manjaro">Manjaro</a>, we can use the following
-command to install the ARM embedded toolchain.</p>
-<pre><code class="language-bash">sudo pacman -S arm-none-eabi-gcc
-</code></pre>
-<h2 id="compiling-binaries"><a class="header" href="#compiling-binaries">Compiling binaries</a></h2>
-<p>With the proper toolchain installed, we can compile binaries which are going to
-used on the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> <em>targets</em>. Take a look at <a href="https://github.com/coastalwhite/simpleserial-c-template">Simpleserial C Template</a>.
-It explains how to create and compile your own binaries. Or have a look at <a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware">the
-ChipWhisperer GitHub
-repository</a>
-for some examples of prewritten algorithms.</p>
-<blockquote>
-<p><em>Note:</em> <a href="https://chipwhisperer.readthedocs.io/en/latest/simpleserial.html">SimpleSerial</a> is the protocol <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> utilizes to describe p
-communicating between the host machine (e.g. a laptop), through the <em>scope</em>,
-and the <em>target</em>. Some documentation on the <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">C</a> library on it can be found
-<a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial">here</a>.</p>
-</blockquote>
+<p>We have now correctly installed everything necessary to perform our own power
+measurements using <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> boards. Furthermore, we have also verified
+our installation.</p>
 <h1 id="a-case-study-rsa"><a class="header" href="#a-case-study-rsa">A case study: RSA</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>What is <em>Simple Power Analysis</em>?</li>
+<li>What is the <em>RSA</em> algorithm?</li>
+<li>How can you break implementations of <em>RSA</em> using <em>Simple Power Analysis</em>?</li>
+</ul>
+</blockquote>
 <p><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> is an encryption algorithm that is used all over the place. That little
 padlock in your browser; it is powered by <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>. Coding an implementation of
 <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> is reasonably simple, but the mathematics behind it can prove to be really
@@ -421,6 +440,19 @@ though. Luckily, there is no need to dive too much into the mathematics to crack
 deeper into cache-based <a href="https://en.wikipedia.org/wiki/Power_analysis">Power analysis</a> attacks, why they work exactly and how
 to perform them on the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>. This chapter is going to skip over a few
 of the specifics to create a better overview of our method and goals.</p>
+<h2 id="what-is-simple-power-analysis"><a class="header" href="#what-is-simple-power-analysis">What is Simple Power Analysis</a></h2>
+<p><a href="https://en.wikipedia.org/wiki/Power_analysis#Simple_power_analysis">Simple Power Analysis</a> (also known as SPA) is a way of leaking information from
+power measurements of a microprocessor. One can imagine that a microprocessor in
+idle will use less power than a microprocessor running instructions at maximum
+speed. Similarly, some processor instructions use more power than others or use
+power at different intervals. If we take a series of power measurements of a
+microprocessor performing an algorithm, we use therefore possible say something
+about the instructions that processors performed. The technique of looking at
+such power measurements and leaking information from them is called <a href="https://en.wikipedia.org/wiki/Power_analysis#Simple_power_analysis">Simple
+Power Analysis</a>.</p>
+<p>We are going to exploit this technique with an encryption algorithm called
+<a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>. In some software implementations of <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>, we can leak secret information
+just by looking at power measurements of the microprocessor.</p>
 <h2 id="what-is-rsa"><a class="header" href="#what-is-rsa">What is RSA?</a></h2>
 <p><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> is an algorithm used to do <a href="https://en.wikipedia.org/wiki/Public-key_cryptography">asymmetric
 encryption</a>. This means
@@ -486,7 +518,7 @@ def custom_pow_mod(x, y, p):
     return res
 </code></pre>
 <blockquote>
-<p><em>Note:</em> This is in fact also how most arbitrary precision library implement
+<p><strong>Note:</strong> This is in fact also how most arbitrary precision library implement
 raising to the power. This is due the (relatively) low maximum complexity of
 this calculation.</p>
 </blockquote>
@@ -587,6 +619,21 @@ whether looking into an algorithm can tell us something about data used from the
 patterns in a power trace. In the next chapter, we are going to have go through
 how this can be done with <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>.</p>
 <h1 id="breaking-aes"><a class="header" href="#breaking-aes">Breaking AES</a></h1>
+<blockquote>
+<p><strong>What will this chapter cover?</strong></p>
+<ul>
+<li>Describe what <a href="./aes/cpa.html">Correlation Power Analysis</a> is</li>
+<li>Explain in full detail <a href="./aes/workings.html">how AES works</a></li>
+<li>Explain <a href="./aes/modeling.html">creating a leakage model for AES</a> in full
+detail</li>
+<li>Cover <a href="./aes/capture.html">how to capture multiple traces</a> with the
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> framework</li>
+<li>Explain <a href="./aes/key-bytes.html">how to crack individual key-bytes</a> from power
+traces</li>
+<li>Describe in which way we can <a href="./aes/automate.html">automate the cracking
+process and crack whole keys</a></li>
+</ul>
+</blockquote>
 <p><a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> or the <em>Advanced Encryption Standard</em>, is one of the most used
 symmetric encryption algorithms in today's world. It is used for most encrypted
 conversations between computers or applications. It is used by your chat apps
@@ -609,7 +656,162 @@ expose the key used.</p>
 <div class="footnote-definition" id="openssl"><sup class="footnote-definition-label">1</sup>
 <p>OpenSSL has been copyrighted since 1999 — <a href="https://www.openssl.org/">https://www.openssl.org/</a></p>
 </div>
+<h1 id="correlation-power-analysis"><a class="header" href="#correlation-power-analysis">Correlation Power Analysis</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Seeing electronics as capacitors</li>
+<li>Hamming Weight and Hamming Distance models</li>
+<li>Correlation coefficients</li>
+</ul>
+</blockquote>
+<p>Not all algorithms perform different processor-instructions based on what
+(private) key was used. Most <a href="https://en.wikipedia.org/wiki/Symmetric-key_algorithm">symmetric encryption</a> algorithms use some form of
+byte shuffles and substitution boxes, which have the same amount of
+processor-instructions for every possible key. Still however, there is a way to
+crack the keys used by these algorithms using power analysis. The method does
+not depend on differing instructions, however. Instead this method focuses on
+the power used by the memory and registers.</p>
+<h2 id="leakage-models"><a class="header" href="#leakage-models">Leakage Models</a></h2>
+<p><a href="https://en.wikipedia.org/wiki/Power_analysis">Power analysis</a> depends on leakage models. These are models which predict how
+much power is going to be used depending on some task a
+microprocessor-controlled device performs. In the case of <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> this leakage
+model was based on the processor instructions. There are other leakage models
+however. <a href="https://wiki.newae.com/Correlation_Power_Analysis">Correlation Power Analysis</a> is a technique which (most of the time) is
+memory-based. Within this technique, we try to find out whether there is a
+connection between our leakage model — and its hypothetical key —
+and the actual power consumption. Such a connection is also known as a
+statistical <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>.  Memory-based leakage models often choose between two
+different techniques: <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a> and <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming Distance</a>. In short:
+<em>Looking at how much power it would take to set memory is known as the <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming
+Distance</a> model. Looking at how much power it would take to maintain memory,
+which is known as the <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a> model.</em></p>
+<h3 id="hamming-weight"><a class="header" href="#hamming-weight">Hamming Weight</a></h3>
+<p>The <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a> model states that there should be a <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> between
+the amount of bits in the <em>on</em> or \(1\) state and the amount of power a device
+uses. This idea stems from the fact that bits in <a href="https://en.wikipedia.org/wiki/Random-access_me,mory">RAM</a> are physical capacitors,
+which need to be refreshed often. This process of refreshing the state of <a href="https://en.wikipedia.org/wiki/Random-access_me,mory">RAM</a>
+costs an amount of power which is proportional to the amount of bits in the <em>on</em>
+or \(1\) state.</p>
+<p>For example, the bit-string \(s=010010101\) has \(4\) bits in the in <em>on</em>
+state and thus the <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a> of \(s\) is \(4\). A general
+mathematical expression for the <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a> of a bit-string \(s\) is \[
+\text{HammingWeight} ( s ) = \# \{s_i \in s : s_i = 1\} \]</p>
+<h3 id="hamming-distance"><a class="header" href="#hamming-distance">Hamming Distance</a></h3>
+<p>The <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming Distance</a> model states that there should be a <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> between
+the amount of bits switching between the <em>on</em> (\(1\)) and the <em>off</em> (\(0\))
+state and the amount of power a device uses. Register bits are often set to a
+specific voltage before reassignment. This is for power efficiency reasons.
+Because of this the <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming Distance</a> model works better on hardware
+implementations of encryption algorithms.</p>
+<p>For example, switching from the bit-string \(p=010010101\) to
+\(c=110011001\) yields a <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming Distance</a> of \(3\), because \(3\) bits
+were flipped. A general mathematical expression for the <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming Distance</a> from a
+bit-string \(p\) to a bit-string \(c\) with \(|p| = |c|\) is
+\[ \text{HammingDistance} ( p, c ) = \# \{ i : p_i \not= c_i \text{ with }
+i \in \{1,...,|p|\} \} \]</p>
+<h3 id="memory-based-models"><a class="header" href="#memory-based-models">Memory-based models</a></h3>
+<p>Now that we have seen two different models for <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> between
+memory-usage and power consumption, we might ask ourselves how we go from these
+concepts to a functional model for an encryption algorithm. We have to
+determine a memory state which we can test for. Trivially, this memory state
+should be dependent on the (private) key used. Next to that, we have two
+preferences for this memory state:</p>
+<ol>
+<li>Ideally, the memory state is dependent on the input string. This allows us to
+look for different memory values. Instead of just searching for the same
+derivative of the key memory value.</li>
+<li>Preferably, the <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a>/<a href="https://en.wikipedia.org/wiki/Hamming_distance">Distance</a> value holds for
+a longer time. With <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a>, for example, a memory state just before
+shifting bytes around works better, because transpositions don't effect the
+<a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a>.</li>
+</ol>
+<h2 id="correlations"><a class="header" href="#correlations">Correlations</a></h2>
+<p>In order to determine whether there is a connection between a leakage model and
+the power consumption, we are going to be determining whether there is a
+<a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> between that leakage model and the power trace at every point in
+time. This means we are going to need multiple <em>power traces</em>: multiple power
+consumption values for each point in time. This assumes we have already
+(roughly) <a href="https://en.wikipedia.org/wiki/Sum_of_absolute_differences">synchronized</a> our power traces. This is
+done on the instruction level with our compiled algorithms on the
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>, so we don't have to worry about it too much.</p>
+<h3 id="pearson-correlation-coefficients"><a class="header" href="#pearson-correlation-coefficients">Pearson Correlation Coefficients</a></h3>
+<p>Now, however, we are also tasked with determining how well our set of power
+traces correlates with our leakage model. Just to summarize, we want to know how
+likely it is that our modeled power usage has a similar pattern to the actual
+power usage.  In statistics this is known as the modeled power usage and the
+actual power usage having a high <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>. If two functions are in perfect
+correlation, both functions rise and fall at the same time.</p>
+<p>This is what the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation coefficient</a> indicates. We provide it with
+two functions or arrays and it will give us a value between \(-1\) and
+\(1\), indicating whether the two functions <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlate</a>. \(1\) meaning
+extreme but almost unrealistic levels of <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>, \(0\) meaning no
+<a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> and \(-1\) meaning an inverse <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>. How the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson
+correlation coefficient</a> manages to do this is not as important for us, but
+reading the Wikipedia page can be very interesting. What is important for us
+now, is the formula so we can use it in our code.</p>
+<p>\[
+\rho_{X,Y} = \frac{\text{cov}(X,Y)}{\sigma_X \sigma_Y}
+\]</p>
+<p>This may not be entirely clear to most people without knowledge of
+statistics. So let us break it down.</p>
+<ul>
+<li>\(\rho\) is the letter commonly used to represent the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation
+coefficient</a>.</li>
+<li>\(X\) and \(Y\) are our functions and can actually be represented as a
+finite list of numbers in our case. This means \(X = \{ x_0, \ldots, x_n
+\}\) and \(Y = \{ y_0, \ldots, y_n \}\) with \(n\) being an integer
+greater than zero.</li>
+<li>\(\text{cov}(X,Y)\) is the <a href="https://en.wikipedia.org/wiki/Covariance">covariance</a> of \(X\) and \(Y\). This can be
+calculated with \(\text{cov}(X,Y)=\mathbb{E}[(X - \mu_X)(Y - \mu_Y)] =
+\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)(y_i - \mu_Y) \), with
+\(\mu_X\) and \(\mu_Y\) being the <a href="https://en.wikipedia.org/wiki/Mean">mean</a> of \(X\) and \(Y\),
+respectively.</li>
+<li>\(\sigma_X\) and \(\sigma_Y\) being the <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> of \(X\) and
+\(Y\), respectively. The <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> can be calculated with
+\(\sigma_X = \sqrt{\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)^2}\) with
+\(\mu_X\) being the <a href="https://en.wikipedia.org/wiki/Mean">mean</a> of \(X\).</li>
+</ul>
+<p>So let us try to visualize what is actually going to be happening.</p>
+<p>We are calculating all the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficients</a>
+between the power traces and our leakage model for all the points in time. Then
+we choose the highest <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a>. At that point in time our
+hypothetical memory state should have occurred. When we repeat this with all
+keys in our leakage model, the correct key should correlate most at some point
+in the power trace.</p>
+<p>For example, if we take 100 power traces and correlate each point of time with a
+memory-based leakage model. Once using the correct key, and another time using a
+wrong key. It might look something like the following graph. On the vertical
+axis is the <a href="https://en.wikipedia.org/wiki/Absolute_value">absolute</a> of the correlation and on the horizontal axis we see time
+represented by \(5000\) power measurements.</p>
+<p><img src="aes/../assets/aes_correlation_visualization.png" alt="AES Pearson Correlation Explanation" /></p>
+<p><em>Figure 1: A visualization of <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson Correlation Coefficient</a> for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a></em></p>
+<p>So what does this graph show? You can see that <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a> remains reasonably consistent for the wrong key.  It
+never goes above \(\sim 0.4\). The graph of the correct key follows the same
+pattern — never really reaching above \(\sim 0.4\) — except for one or two
+spikes. At these spikes apparently our model matches the actual power
+consumption very closely. These spikes are what we are interested in.</p>
+<h2 id="so-what-did-we-learn"><a class="header" href="#so-what-did-we-learn">So what did we learn?</a></h2>
+<p>Determining what key was used is not only possible using leakage models based on
+differing processor instructions. We can also correlate memory-based leakage
+models, using the Hamming Weight or Hamming Distance hypotheses, with multiple
+power traces to determine how likely it is that a certain memory state occurred
+during a power trace.</p>
 <h1 id="how-aes-works"><a class="header" href="#how-aes-works">How AES Works</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>The inner workings of the AES algorithm.</li>
+<li>Different operations utilized by Rijndael block ciphers:
+<ul>
+<li><a href="aes/workings.html#xor-operations">XOR operations</a></li>
+<li><a href="aes/workings.html#substitution">Byte subtitutions and S-Boxes</a></li>
+<li><a href="aes/workings.html#shifting">Shifting of Rows</a></li>
+<li><a href="aes/workings.html#shifting">Mixing of Rows</a></li>
+</ul>
+</li>
+</ul>
+</blockquote>
 <p>In order to do break <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> with power analysis, we need a reasonably detailed
 understanding of how <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> works. So let us do a crash course.</p>
 <p>The <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm is a subset of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">Rijndael block cipher</a> algorithm and
@@ -778,20 +980,176 @@ number</a></li>
 </ol>
 <p>After reading this section should have a basic overview and understanding of how
 <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> works, which you will need for your <a href="https://en.wikipedia.org/wiki/Power_analysis">Power analysis</a>. If you want a more
-visual explanation, you could watch <a href="https://www.youtube.com/watch?v=O4xNJsjtN6E">AES Explained by
+visual explanation of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm, you could watch <a href="https://www.youtube.com/watch?v=O4xNJsjtN6E">AES Explained by
 Computerphile</a>.</p>
-<h1 id="capturing-multiple-traces"><a class="header" href="#capturing-multiple-traces">Capturing multiple traces</a></h1>
-<p><a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> is a lot more complex than <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>. Although looking at one trace of <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>
-can give you a lot of information about the key used, with <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> it is a lot
-more common to take multiple traces and average them out. Here we are gonna have
-a look at how we can upload the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> source code to the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> target
-board, and then capture multiple power traces.</p>
-<h2 id="base-setup"><a class="header" href="#base-setup">Base setup</a></h2>
-<p>Assuming that you have correctly <a href="aes/../preparing.html">setup your environment</a>, we
-first have to connect to the <em>scope</em> and the <em>target</em>. The scope being the
-measuring device and the target being the microprocessor, which is going to run
-the encryption algorithm. In order to connect to the scope and the target, we
-need the following code.</p>
+<h1 id="modeling-aes"><a class="header" href="#modeling-aes">Modeling AES</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Creating a leakage model for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a></li>
+<li>Implementing a leakage model for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> in <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a></li>
+</ul>
+</blockquote>
+<p>In order to make sensible statements about the power usage of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>, we are
+going to make a <a href="aes/./cpa.html#leakage-models">leakage model</a> of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm.  To do this, we need
+some to determine the optimal memory state to target. When we have determined
+that state, we are going to implement that <a href="aes/./cpa.html#leakage-models">leakage model</a> in <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>.</p>
+<h2 id="hamming-distance-and-hamming-weight"><a class="header" href="#hamming-distance-and-hamming-weight">Hamming Distance and Hamming Weight</a></h2>
+<p>Remember that we covered both the <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming Distance</a> and <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a>
+hypotheses of looking at <a href="aes/./cpa.html#leakage-models">memory-based leakage model in Correlation Power
+Analysis</a>. In this walkthrough, we are going to go through a
+software implementation of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>. The <code>.hex</code> file of the algorithm for
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> targets can be found
+<a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-aes">here</a>.
+Since we are using a software implementation, this walkthrough is going to focus
+on the <a href="aes/./cpa.html#hamming-weight">Hamming Weight-based leakage model</a>.</p>
+<p>We can easily calculate <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a> with the following lambda function.</p>
+<pre><code class="language-python">HammingWeightFn = lambda x: bin(x).count('1')
+</code></pre>
+<p>Although it can be worth it to save this to memory, to speed to computation time
+later on.</p>
+<pre><code class="language-python"># Precompute Hamming Weight
+HammingWeight = [ HammingWeightFn(n) for n in range (0x00, 0xff + 1) ] 
+</code></pre>
+<h2 id="finding-a-memory-state"><a class="header" href="#finding-a-memory-state">Finding a memory state</a></h2>
+<p>Suppose we have an input block <em>Input</em> and an output block <em>Output</em>,
+which is a reasonably common situation. If we would want to check whether a
+supposed <em>Key</em> is the key used, we could run through the entire algorithm to
+check whether \(\text{AES}(Input, Key) = Output\). This is quite inefficient
+and is no better than brute forcing the key. Knowing what we now about the
+memory state of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>, we can however do two extreme optimizations.</p>
+<h3 id="shortcutting-calculations"><a class="header" href="#shortcutting-calculations">Shortcutting calculations</a></h3>
+<p>The first optimization we can do has to do with identifying the first memory state
+where the key and the \(Input\) are combined. If we can identify this memory
+state in the power trace, we can determine a probability a certain key was used.
+There are two problems with this however. Firstly, identifying the presence or
+the location of this memory state is non-trivial. It is very difficult to
+manually look at a power trace and tell something about memory states. This is
+is mostly due to the variances in baseline power consumption but also due to
+noise and other factors. Some of these factors however can be nullified if we
+look at multiple power traces instead of one. In order to make it even easier,
+we also also look at different input blocks. This allows us to shortcut
+calculation time by a lot, since we don't have to do multiple rounds. But we
+still have to brute force through every key option.</p>
+<h3 id="limiting-the-amount-of-keys"><a class="header" href="#limiting-the-amount-of-keys">Limiting the amount of keys</a></h3>
+<p>If we have done the first optimization, there is another optimization which
+would lower the amount of possible keys. For the 128 (\(2^{128}\) different
+keys), 192 (\(2^{192}\) different keys) and 256 (\(2^{256}\) different keys)
+bits key variants, this leaves just \(2^{12}\), \((3 \cdot 2^{11})\) and
+\(2^{13}\) key possibilities left, respectively. These are massive
+differences, which will allow us to break <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> in just a few seconds.</p>
+<p>How does it work? Please read back <a href="aes/./workings.html#shifting">How AES Works -
+Shifting</a> for one second and see if you find what we can
+exploit, when have a value before this step happens. As it mentions this, step
+is needed to prevent <strong>attacking each column individually</strong>. Since we can now
+produce a value before this step is done. We can attempt to break parts of the
+key one at the time. The parts of this key are called sub-keys and they are 1
+byte in size. This means we can take sum of different values for the sub-keys
+instead of the product.</p>
+<h2 id="putting-this-together"><a class="header" href="#putting-this-together">Putting this together</a></h2>
+<p>Let us make a model of the memory states power usage. This model should provide
+us with a number that should <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlate</a> with the power traces at the point of
+which this first <a href="aes/./workings.html#substitution">SBox</a> step is done. This leaves us
+with a longstanding memory state which is dependant on both the key and the
+input string. Two items we both preferred for our <a href="aes/./cpa.html#leakage-models">leakage model</a> as explained in
+<a href="aes/./cpa.html#memory-based-models">Memory-based models</a>. The <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> code for
+performing our model on a single byte input string using a single byte from the
+key (also called a subkey) is the following.</p>
+<pre><code class="language-python">def hypothetical_power_usage(subkey, plain_text_char):
+
+    # Use the Hamming Weight power usage model
+    return HammingWeight[
+
+        # Do a SBox look up of the XOR-ed value
+        #
+        # Since the Hamming Weight of the SBox value will
+        # persist for longer in memory this will make finding the
+        # pattern easier. It is also still before the Row Shifting
+        # so it doesn't cause trouble.
+        SBox [
+
+            # The initial round key XOR-ed with the plain text
+            subkey ^ plain_text_char
+        ]
+    ]
+</code></pre>
+<h1 id="capture-multiple-traces"><a class="header" href="#capture-multiple-traces">Capture multiple traces</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Setting up our <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> <em>scope</em> and <em>target</em></li>
+<li>Running <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> on our <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> <em>target</em></li>
+<li>Performing a power trace of our algorithm</li>
+<li>Saving multiple power traces to a file</li>
+</ul>
+</blockquote>
+<p>Cracking the key used by <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> with <a href="https://en.wikipedia.org/wiki/Power_analysis">Power Analysis</a> is a lot more complex than
+was the case with <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>. Looking at one trace of a <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> decryption can
+potentially give you all the information you need to crack the private key.
+With <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> and, more generally, with <a href="aes/./cpa.html">Correlation Power Analysis</a>, it is
+necessary to perform multiple traces and average those power traces out. In this
+section, we are going to have a look at how we can set up a <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> to
+measure power traces. Afterwards, we are going to do some traces and learn how
+to save them so we can later do more detailed analysis on them.</p>
+<blockquote>
+<p><strong>Note:</strong> If you just want to move on with the analysis or don't have a
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board at hand, you can download a pre-made power trace
+over <a href="https://github.com/coastalwhite/intro-power-analysis/tree/main/datasets/aes/premade">here</a>.</p>
+</blockquote>
+<h2 id="setting-up-our-chipwhisperer-board"><a class="header" href="#setting-up-our-chipwhisperer-board">Setting up our ChipWhisperer board</a></h2>
+<p>Assuming that you have correctly <a href="aes/../preparing.html">setup your software
+environment</a>, we can start connecting and setting up our
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board. This is going to go in 2 steps:</p>
+<ol>
+<li>Fetching and setting up our scope</li>
+<li>Setting up and programming our target</li>
+</ol>
+<h3 id="basics"><a class="header" href="#basics">Basics</a></h3>
+<p>Before we actually start scripting, we are starting in the <a href="https://docs.python.org/3/tutorial/interpreter.html">Python
+Interpreter</a>. We can get into the <a href="https://docs.python.org/3/tutorial/interpreter.html">Python Interpreter</a> from our shell using
+the following command:</p>
+<pre><code class="language-bash">python3
+</code></pre>
+<p>In order to then get started with the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> Python Library, we can import
+the library with:</p>
+<pre><code class="language-python">import chipwhisperer as cw
+</code></pre>
+<p>If one gets an error here, verify that <a href="aes/../preparing/chipwhisperer.html">the ChipWhisperer Python library is
+properly installed</a>. Otherwise we can try connect
+our <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> Capture board to our computer via USB and run the following
+command to connect to the Capture board.</p>
+<pre><code class="language-python">scope = cw.scope()
+</code></pre>
+<p>This should connect to our capture board. On some <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> capture boards
+an extra light might start flickering. If you get an error, there most probably
+is something wrong with your connection. If you are on Linux, perhaps you have
+to <a href="aes/../preparing/chipwhisperer.html#linux-udev-rules">setup some udev rules</a>.</p>
+<p>Now we are going to set some settings used by the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board(s). For
+now, we will just use the default settings. That works well enough for now, but
+if you want an overview of the possible settings, look over
+<a href="https://chipwhisperer.readthedocs.io/en/latest/api.html#openadc-scope">here</a>.
+We can select the default settings using the following command.</p>
+<pre><code class="language-python">scope.default_setup()
+</code></pre>
+<p>Then we have to fetch the <em>target</em> board. This is contains all the connections
+and settings about the microprocessor which is going to execute our algorithm.
+If you have hooked up your <em>target</em> — this is done automatically for the
+<a href="https://www.newae.com/products/NAE-CWLITE-ARM">ChipWhisperer Lite boards</a> — you can use the following
+command to fetch the <em>target</em> object.</p>
+<pre><code class="language-python">target = cw.target(scope)
+</code></pre>
+<p>Now in order to safely disconnect our <em>target</em> and <em>capture</em> board and we can
+use the following two commands.</p>
+<pre><code class="language-python">scope.disconnect()
+target.disconnect()
+</code></pre>
+<p>Now we know the basics of how to setup and interact with the connection between
+our computer and the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board.</p>
+<h3 id="scripting"><a class="header" href="#scripting">Scripting</a></h3>
+<p>We know some basic commands, so we can actually start scripting. We create a
+<a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> file and put the basic commands — we just learned — into
+it.</p>
+<p>This is what it will look like.</p>
 <pre><code class="language-python">import chipwhisperer as cw
 
 # Setup a connection with the CW board
@@ -804,22 +1162,38 @@ scope.default_setup()
 # Fetch the target from the scope
 # This should be automatically connected
 target = cw.target(scope)
-</code></pre>
-<p>In order to disconnect them again, we can use the following code.</p>
-<pre><code class="language-python">scope.dis()
+
+#
+# We do our logic here!
+#
+
+scope.dis()
 target.dis()
 </code></pre>
-<h2 id="flashing-the-source-code"><a class="header" href="#flashing-the-source-code">Flashing the source code</a></h2>
-<p>Depending on what target we are using, we need different software. We can
-compile this ourselves, but most compiled code can also be found online. The
-compiled code for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> can be found
+<p>Running this script using the <code>python3 file-name.py</code> command should work just
+fine and now we can start actually working with an encryption algorithm.</p>
+<h3 id="uploading-the-algorithm-source-code"><a class="header" href="#uploading-the-algorithm-source-code">Uploading the algorithm source code</a></h3>
+<p>Depending on what target we are using, we need to upload different software. We
+can <a href="aes/../compiling.html">compile this software ourselves</a>, but a lot of compiled
+code can also be found online. The compiled code for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> can be found
 <a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-aes">here</a>.</p>
-<p>We always have the flash the source code onto the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">CW Lite ARM</a> using the <a href="https://en.wikipedia.org/wiki/Intel_HEX">Intel
-Hex format</a>. Therefore, assuming we are
-using the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> Lite 32-bit ARM-edition, we can the <code>CWLITEARM</code> hex file.
-in order to upload the program to the target, we can use the following <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>
-code.</p>
-<pre><code class="language-python">from chipwhisperer.capture.api.programmers import STM32FProgrammer
+<blockquote>
+<p><strong>Note:</strong> This walkthrough will demonstrate the process of uploading source
+code for the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">ChipWhisperer Lite ARM board</a>, although many of the
+concepts here can also be applied to other boards. More information on other
+uploading source code for other targets can be found
+<a href="https://chipwhisperer.readthedocs.io/en/latest/api.html#program">here</a>.</p>
+</blockquote>
+<p>In order to upload a binary to the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">CW Lite ARM</a>, we will use the <a href="https://en.wikipedia.org/wiki/Intel_HEX">Intel Hex
+format</a>. Therefore, assuming we are
+using the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> Lite 32-bit ARM-edition, we can the <code>CWLITEARM</code> hex
+file provided in the <a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-aes">SimpleSerial AES GitHub folder</a>.
+Assuming we have downloaded that <code>.hex</code> file and put it into a folder called
+<code>hexfiles</code> we can use the following <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> code to upload the program to our
+<em>target</em>.</p>
+<pre><code class="language-python"># ... Connecting to the scope / target
+
+from chipwhisperer.capture.api.programmers import STM32FProgrammer
 import os
 
 # Initiate a new STM32F Program
@@ -835,7 +1209,11 @@ aes_hex_path = os.path.join(aes_firmware_dir, r&quot;hexfiles/simpleserial-aes-C
 # Apply the program to the actual target
 # This allows us to run the hex code on the microcontroller
 cw.program_target(scope, program, aes_hex_path)
+
+# ... Disconnecting from the scope / target
 </code></pre>
+<p>Now that we have uploaded our program to the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> target board, we
+start capturing traces.</p>
 <h2 id="capturing-a-trace"><a class="header" href="#capturing-a-trace">Capturing a trace</a></h2>
 <p>In order to run our first trace, we need a key and some plain text. The program
 we are using is based on <em>128 bit AES</em> and therefore we should provide a
@@ -864,7 +1242,7 @@ hood by the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</
 function corresponds with a couple of steps (arming the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>,
 sending the key/plaintext and retrieving the trace data, etc.). This can
 become important when implementing your own algorithms. There it may be
-important to replace w this one function with its individual steps to get more
+important to replace this one function with its individual steps to get more
 control over the commands send. This can be seen in the <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> code of the
 <a href="https://github.com/coastalwhite/simpleserial-c-template">SimpleSerial C
 template</a>.</p>
@@ -910,7 +1288,7 @@ key_str = 'H4ck3rm4n-l33t42'
 key = bytearray(key_str, 'ascii')
 
 # Define the constant for the amount of traces
-N = 5
+N = 100
 
 textins = []
 traces = []
@@ -947,120 +1325,30 @@ np.save('output/textins.npy', np_textins)
 module have a look over <a href="https://wiki.newae.com/Making_Scripts">here</a>.
 <strong>Disclaimer:</strong> This is quite heavy.</p>
 </blockquote>
-<h1 id="modeling-aes"><a class="header" href="#modeling-aes">Modeling AES</a></h1>
-<p>In order to make sensible statements about the power usage of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>, it can be
-handy to make a model of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm. To do this, we need some
-understanding about how computers use power and how the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm
-functions. The first of which we will discuss here and the second is discussed
-in the chapter <a href="aes/./workings.html">How AES Works</a>.</p>
-<h2 id="hamming-distance-and-hamming-weight"><a class="header" href="#hamming-distance-and-hamming-weight">Hamming Distance and Hamming Weight</a></h2>
-<p>Remember that computers are just emergent properties that we get when we have a
-ton of <a href="https://en.wikipedia.org/wiki/Transistor">transistors</a>,
-<a href="https://en.wikipedia.org/wiki/Capacitor">capacitors</a>, wires, etc. in the
-correct setup. This means that if we look at the capacitors level, there should
-be some capacitors that represents the state of a bit. Here mainly our interest
-falls on the internal state of memory. Since, we know that capacitors represents
-a binary 1 with a certain amount of charge and a binary 0 with close to no
-charge. We can ask ourselves the question, does it cost more power to set or
-maintain memory which involves more binary 1's than 0's. In fact, it indeed
-does. This gives us two models for looking at the power usage of memory.
-<strong>Looking at how much power it would take to set memory, which is known as the
-Hamming Distance model. Or we can look at how much power it would take to
-maintain memory, which is known as the Hamming Weight model.</strong> Hamming Distance
-meaning the amount of bitflips needed to turn one memory state into another, and
-Hamming Distance meaning the amount of 1's in a certain memory state.</p>
-<p>We can easily create a python function, which would identify the Hamming weight
-or Hamming distance.</p>
-<pre><code class="language-python"># Hamming Weight
-HammingWeightFn = lambda x: bin(x).count('1')
-HammingDistanceFn = lambda x, y: HammingWeightFn(x ^ y)
-</code></pre>
-<p>Although it can be worth it to save this to memory, to speed to computation time
-later on.</p>
-<pre><code class="language-python"># ... prev ...
+<p>We have now correctly set up our <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> equipment, uploaded the
+source code of the encryption algorithm we are using to the target, captured
+power traces of the target and saved those power traces to a file on our system.
+Now, we are ready to do some analysis on those power traces.</p>
+<h1 id="crack-individual-key-byte"><a class="header" href="#crack-individual-key-byte">Crack individual key-byte</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Loading our saved power traces</li>
+<li>Calculating <a href="aes/./cpa.html#pearson-correlation-coefficients">Pearson correlation
+coefficients</a> in <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a></li>
+<li>Finding the highest <a href="aes/./cpa.html#pearson-correlation-coefficients">Pearson correlation
+coefficient</a> for a byte of the key used</li>
+</ul>
+</blockquote>
+<p>After creating files containing multiple power traces in the <a href="aes/./capture.html">previous
+section</a>, we can now start analyzing our traces and attempt to
+crack some bytes with the leakage model we defined in <a href="aes/./modeling.html">Modeling
+AES</a>.</p>
+<p>So what did we have for our leakage model up until now?</p>
+<pre><code class="language-python">HammingWeightFn = lambda x: bin(x).count('1')
 
-# Precompute Hamming Weight and Hamming Distance for bytes
+# Precompute Hamming Weight
 HammingWeight = [ HammingWeightFn(n) for n in range (0x00, 0xff + 1) ] 
-HammingDistance = [
-    [ HammingDistanceFn(x, y) for x in range(0x00, 0xff + 1) ]
-        for y in range(0x00, 0xff + 1)
-]
-</code></pre>
-<p>Although both models work for power usage, mainly to avoid repetition, from
-<strong>here on out we will be using the Hamming Weight model</strong>.</p>
-<h2 id="making-a-statement-about-aess-memory-state"><a class="header" href="#making-a-statement-about-aess-memory-state">Making a statement about AES's memory state</a></h2>
-<p>Suppose we have an input block \(Input\) and an output block \(Output\),
-which is a reasonably common situation. If we would want to check whether a
-supposed \(Key\) is the key used, we could run through the entire algorithm to
-check whether \(\text{AES}(Input, Key) = Output\). This is quite inefficient
-and is no better than brute forcing the key. Knowing what we now about the
-memory state of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> we can however do two extreme optimizations.</p>
-<h3 id="shortcutting-calculations"><a class="header" href="#shortcutting-calculations">Shortcutting calculations</a></h3>
-<p>The first optimization we can do has to do with identifying the first memory state
-where the key and the \(Input\) are combined. If we can identify this memory
-state in the power trace, we can determine a probability a certain key was used.
-There are two problems with this however. Firstly, identifying the presence or
-the location of this memory state is non-trivial. It is very difficult to
-manually look at a power trace and tell something about memory states. This is
-is mostly due to the variances in baseline power consumption but also due to
-noise and other factors. Some of these factors however can be nullified if we
-look at multiple power traces instead of one. In order to make it even easier,
-we also also look at different input blocks. This allows us to shortcut
-calculation time by a lot, since we don't have to do multiple rounds. But we
-still have to brute force through every key option.</p>
-<h3 id="limiting-the-amount-of-keys"><a class="header" href="#limiting-the-amount-of-keys">Limiting the amount of keys</a></h3>
-<p>If we have done the first optimization, there is another optimization which
-would lower the amount of possible keys. For the 128 (\(2^{128}\) different
-keys), 192 (\(2^{192}\) different keys) and 256 (\(2^{256}\) different keys)
-bits key variants, this leaves just \(2^{12}\), \((3 \cdot 2^{11})\) and
-\(2^{13}\) key possibilities left, respectively. These are massive
-differences, which will allow us to break <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> in just a few seconds.</p>
-<p>How does it work? Please read back <a href="aes/./workings.html#shifting">How AES Works -
-Shifting</a> for one second and see if you find what we can
-exploit, when have a value before this step happens. As it mentions this, step
-is needed to prevent <strong>attacking each column individually</strong>. Since we can now
-produce a value before this step is done. We can attempt to break parts of the
-key one at the time. The parts of this key are called sub-keys and they are 1
-byte in size. This means we can take sum of different values for the sub-keys
-instead of the product.</p>
-<h2 id="putting-this-together"><a class="header" href="#putting-this-together">Putting this together</a></h2>
-<p>Let us make a model of the memory states power usage. This model should provide
-us with a number that should <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlate</a> with the power traces at the point of
-which this first <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> step is done.</p>
-<pre><code class="language-python">def hypothetical_power_usage(subkey, plain_text_char):
-
-    # Use the Hamming Weight power usage model
-    return HammingWeight[
-
-        # Do a SBox look up of the XOR-ed value
-        #
-        # Since the Hamming Weight of the SBox value will
-        # persist for longer in memory this will make finding the
-        # pattern easier. It is also still before the Row Shifting
-        # so it doesn't cause trouble.
-        SBox [
-
-            # The initial round key XOR-ed with the plain text
-            subkey ^ plain_text_char
-        ]
-    ]
-</code></pre>
-<h1 id="manual-analysis"><a class="header" href="#manual-analysis">Manual Analysis</a></h1>
-<p>With the power usage model we described in the previous chapter, we can now
-start to do some analysis of our power traces.</p>
-<p>Let look what we have up until now.</p>
-<pre><code class="language-python"># Hamming Weight
-HammingWeightFn = lambda x: bin(x).count('1')
-HammingDistanceFn = lambda x, y: HammingWeightFn(x ^ y)
-
-# ... prev ...
-
-# Precompute Hamming Weight and Hamming Distance for bytes
-HammingWeight = [ HammingWeightFn(n) for n in range (0x00, 0xff + 1) ] 
-HammingDistance = [
-    [ HammingDistanceFn(x, y) for x in range(0x00, 0xff + 1) ]
-        for y in range(0x00, 0xff + 1)
-]
 
 # Rijndael Substitution box
 SBox = [
@@ -1101,8 +1389,17 @@ def hypothetical_power_usage(subkey, plain_text_char):
         ]
     ]
 </code></pre>
-<p>In order to load the data we created with our trace we can add the follow few
-lines which will load in the <a href="https://numpy.org/">numpy</a> arrays.</p>
+<p>We are going to take this as a starting point of a new <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> script. This
+walkthrough is will refer to that <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> file as <code>crack.py</code>. We can thus run
+this script from our shell using <code>python3 crack.py</code>.</p>
+<h2 id="loading-back-in-our-traces"><a class="header" href="#loading-back-in-our-traces">Loading back in our traces</a></h2>
+<p>In order to load the power traces we created in the <a href="aes/./capture.html">previous
+section</a>, we can add the follow few lines which will load in the
+<a href="https://numpy.org/">NumPy</a> arrays. The traces here are put into a subfolder called <code>output</code>. If for
+any reason making power traces did not work out or you don't own a
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> board, but you still want to continue, you can download some
+pre-made traces from
+<a href="https://github.com/coastalwhite/intro-power-analysis/tree/main/datasets/aes/premade">here</a>.</p>
 <pre><code class="language-python">import numpy as np
 
 traces = np.load('output/traces.npy')
@@ -1112,49 +1409,13 @@ num_traces = np.shape(traces)[0]
 num_points = np.shape(traces)[1]
 
 </code></pre>
-<h2 id="are-we-data-scientists-yet"><a class="header" href="#are-we-data-scientists-yet">Are we data-scientists yet?</a></h2>
-<p>We want to change the data in such a way that it makes it easier to identify
-whether a our <strong>modeled power usage is similar to the actual power usage</strong>. We
-need multiple power traces for this. The most important processing of data is
-going to be using <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation coefficient</a>s.</p>
-<h3 id="pearson-correlation-coefficient"><a class="header" href="#pearson-correlation-coefficient">Pearson correlation coefficient</a></h3>
-<p>We have an difficult task here. Again, we want to know how likely it is that our
-modeled power usage has a similar pattern to the actual power usage. In
-statistics this is known as the modeled power usage and the actual power usage
-having a high <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>. If two functions are in perfect correlation,
-one function should always rise when the other rises and one function
-should always decline when the other declines.</p>
-<p>This is what the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation coefficient</a> indicates. We provide it with
-two functions or arrays and it will give us a value between \(-1\) and
-\(1\), indicating whether the two functions <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlate</a>. \(1\) meaning
-extreme but almost unrealistic levels of <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>, \(0\) meaning no
-<a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> and \(-1\) meaning a inverse <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a>. How the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson
-correlation coefficient</a> manages to do this is not as important for us, but
-reading the Wikipedia page can be very interesting. What is important for us is
-the formula so we can use it in our code.</p>
-<p>\[
-\rho_{X,Y} = \frac{\text{cov}(X,Y)}{\sigma_X \sigma_Y}
-\]</p>
-<p>This may not be entirely clear to most people without knowledge of
-statistics. So let us break it down.</p>
-<ul>
-<li>\(\rho\) is the letter commonly used to represent the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation
-coefficient</a>.</li>
-<li>\(X\) and \(Y\) are our functions and can actually be represented as a
-finite list of numbers in our case. This means \(X = { x_0, \ldots, x_n }\) and
-\(Y = { y_0, \ldots, y_n }\) with \(n\) being an integers greater or
-equal to zero.</li>
-<li>\(\text{cov}(X,Y)\) is the <a href="https://en.wikipedia.org/wiki/Covariance">covariance</a> of \(X\) and \(Y\). This can be
-calculated with \(\text{cov}(X,Y)=\mathbb{E}[(X - \mu_X)(Y - \mu_Y)] =
-\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)(y_i - \mu_Y) \), with
-\(\mu_X\) and \(\mu_Y\) being the <a href="https://en.wikipedia.org/wiki/Mean">mean</a> of \(X\) and \(Y\),
-respectively.</li>
-<li>\(\sigma_X\) and \(\sigma_Y\) being the <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> of \(X\) and
-\(Y\), respectively. The <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> can be calculated with
-\(\sigma_X = \sqrt{\frac{1}{n} \sum_{i=0}^n (x_i - \mu_X)^2}\) with
-\(\mu_X\) being the <a href="https://en.wikipedia.org/wiki/Mean">mean</a> of \(X\).</li>
-</ul>
-<p>Let us move these formulas to <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>.</p>
+<p>Now we can use our from the <code>traces</code> variable, we know how many traces we have
+(<code>num_traces</code>), and how many points in time we have per trace (<code>num_points</code>).</p>
+<h2 id="implementing-pearson-correlation-coefficients"><a class="header" href="#implementing-pearson-correlation-coefficients">Implementing Pearson Correlation Coefficients</a></h2>
+<p>As explained in the section on <a href="aes/./cpa.html">Correlation Power Analysis</a>, we are
+going to be using <a href="aes/./cpa.html#pearson-correlation-coefficients">Pearson Correlation Coefficients</a> to detect whether
+our power trace is similar to our leakage model. So let us implement <a href="aes/./cpa.html#pearson-correlation-coefficients">Pearson
+Correlation Coefficients</a> in <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>.</p>
 <pre><code class="language-python">def covariance(X, Y):
     if len(X) != len(Y):
         print(&quot;Lengths are unequal, quiting...&quot;)
@@ -1181,8 +1442,8 @@ def pearson_correlation_coefficient(X, Y):
 </code></pre>
 <p>Although this code is very inefficient, and does a lot of unnecessary and double
 calculations, it will serve well for now. We are going to be optimizing this
-code in <a href="aes/./optimization.html">Sidenote: optimizing our algorithm</a>.</p>
-<h3 id="cracking-a-single-byte"><a class="header" href="#cracking-a-single-byte">Cracking a single byte</a></h3>
+code in <a href="aes/./optimization.html">Sidenote: optimizing our code</a>.</p>
+<h2 id="cracking-a-single-byte-of-the-key"><a class="header" href="#cracking-a-single-byte-of-the-key">Cracking a single byte of the key</a></h2>
 <p>As explained in <a href="aes/./modeling.html">Modeling AES</a>, we can — using <a href="https://en.wikipedia.org/wiki/Power_analysis">power analysis</a> —
 <strong>crack the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> key byte by byte</strong>. So let us start with a single one. We are
 going to go through every possibility and see which byte one provides the
@@ -1243,69 +1504,38 @@ plt.show()
 sub-key byte. If you used a different key, your plot will most probably look
 different and there will be a high spike at the ASCII value of your first
 sub-key.</p>
-<p>Well done! We have cracked our first sub-key!</p>
-<h1 id="pearson-correlation"><a class="header" href="#pearson-correlation">Pearson correlation</a></h1>
-<p>You might ask yourself, how did it do that? It looks a bit magical with all
-these correlations. So let us try to visualize what is actually happening.</p>
-<p>We are calculating all the [correlation coefficients] for all the points within
-all traces. So let us compare the result of this calculation between the correct
-and a wrong sub-key. Again, for me the first sub-key is <code>H</code> (ASCII 72 or hex
-<code>0x48</code>). If you chose a different key, you should adjust this in the following
-code.</p>
-<pre><code class="language-python">plt.plot(
-    abs(calculate_correlation_coefficients(0x48, 0)),
-    label='correct'
-)
-plt.plot(
-    abs(calculate_correlation_coefficients(0x00, 0)),
-    label='wrong'
-)
-
-plt.legend()
-plt.show()
-</code></pre>
-<p>This will show the following graph.</p>
-<p><img src="aes/../assets/aes_correlation_visualization.png" alt="AES Pearson Correlation Explaination" /></p>
-<p><em>Figure 1: A visualization of <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson Correlation Coefficient</a> for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a></em></p>
-<p>So what does this graph show? This has the <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> between our modeling
-power consumption on the <em>y-axis</em> and the different power traces on the <em>x-axis</em>.
-You can see that correlation coefficient remains reasonably consistent for the
-wrong sub-key. It never goes above \(\sim 0.4\). The correct follows the same
-pattern — never really reaching above \(\sim 0.4\) — except for one or two
-spikes. At these spikes apparently our model matches the actual power
-consumption very closely.</p>
-<p>These spikes are what we are interested in. We assume that at the highest of
-these spikes the microprocessor was executing the the first round of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>
-algorithm. The memory state based power model we created should match the
-pattern of the actual power consumption at that specific point.</p>
-<p>Just looking at the results, our assumption was most probably correct.</p>
-<h1 id="automatically-cracking-an-entire-key"><a class="header" href="#automatically-cracking-an-entire-key">Automatically cracking an entire key</a></h1>
-<p>In this chapter we are going to expand upon the <a href="aes/./manual-analysis.html">Manual
-Analysis</a> chapter to make the process automatic and work
-on the entire key. Most of what is discussed in this chapter is quite trivial.
-If you feel quite comfortable with what was discussed in the previous chapters,
-by all means skip this chapter and attempt to implement it yourself. If you get
-stuck, you can always come here to get a hint.</p>
+<p>Well done! We have cracked our first sub-key! Now that we know how to load in
+our power traces and we have successfully cracked one of the bytes of the
+encryption key, we can move on to cracking the entire key.</p>
+<h1 id="automate-the-cracking-process"><a class="header" href="#automate-the-cracking-process">Automate the cracking process</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Automatically selecting which sub-key fits best</li>
+<li>Cracking the entire key</li>
+</ul>
+</blockquote>
+<p>In this section, we are going to expand upon the <a href="aes/./key-bytes.html">previous
+section</a> by automating the cracking process for single bytes and
+then making the process work on the entire key. Most of what is discussed in
+this section is quite trivial. If you feel quite comfortable with what was
+discussed in the previous sections, by all means skip this section and attempt
+to implement these behaviors yourself. If you get stuck, you can always come
+back here for a hint.</p>
 <h2 id="where-were-we"><a class="header" href="#where-were-we">Where were we?</a></h2>
-<p>At the moment we have code for modeling the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> memory based power state,
-creating <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a>s and a piece to plot the results.</p>
+<p>At the moment, we have code for modeling the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> memory state based power
+consumption, calculating <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficients</a>
+between our leakage model and the power traces and a piece of code to plot our
+results. This is how that all looks together.</p>
 <pre><code class="language-python">import numpy as np
 from tqdm import trange
 
 # Modeling the power consumption
 ########################################
-# Hamming Weight
 HammingWeightFn = lambda x: bin(x).count('1')
-HammingDistanceFn = lambda x, y: HammingWeightFn(x ^ y)
 
-# ... prev ...
-
-# Precompute Hamming Weight and Hamming Distance for bytes
+# Precompute Hamming Weight
 HammingWeight = [ HammingWeightFn(n) for n in range (0x00, 0xff + 1) ] 
-HammingDistance = [
-    [ HammingDistanceFn(x, y) for x in range(0x00, 0xff + 1) ]
-        for y in range(0x00, 0xff + 1)
-]
 
 # Rijndael Substitution box
 SBox = [
@@ -1436,10 +1666,11 @@ plt.show()
 ########################################
 </code></pre>
 <h2 id="automatically-picking-the-best-subkey-guess"><a class="header" href="#automatically-picking-the-best-subkey-guess">Automatically picking the best subkey guess</a></h2>
-<p>At the moment we plot the graph of the maximum <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a>s and we
-determine from there what is the correct option. We can easily automate this
-using the observation that the correct option has the highest <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation
-coefficient</a>. For this we can use the <a href="https://numpy.org/doc/stable/reference/generated/numpy.argmax.html">numpy
+<p>Currently, we plot the graph of the maximum <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation
+coefficients</a> and we determine from there what the
+correct option is. We can easily automate this process from the observation that
+the correct option has the highest <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a>. To select this
+option, we can use the <a href="https://numpy.org/doc/stable/reference/generated/numpy.argmax.html">numpy
 <code>argmax</code></a>
 function.</p>
 <p>Replace the code for plotting with the following code.</p>
@@ -1452,16 +1683,16 @@ print(&quot;Best guess: {:02x} or '{}'&quot;.format(best_guess, chr(best_guess))
 <p>Now the code will automatically print out the option with the highest
 <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a>.</p>
 <blockquote>
-<p><em>Note:</em> If we have done only a few traces and our correlation coefficients are
-a bit less reliable, we can use
+<p><strong>Note:</strong> If we have done only a few traces and our <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation
+coefficients</a> are a bit less reliable, we can use
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.argsort.html?highlight=argsort#numpy.argsort"><code>np.argsort(...)[::-1]</code></a>
-to select multiple options. With this we can, for example, try to brute force
-with the top 5.</p>
+multiple good options. With these options we can then, for example, try to
+brute force our key with the top 5 best options.</p>
 </blockquote>
-<h2 id="cracking-an-entire-key"><a class="header" href="#cracking-an-entire-key">Cracking an entire key</a></h2>
-<p>In order for us to crack the entire key, we can just add another <code>for</code> loop.
-This loop will go through all sub-keys.</p>
-<p>This will turn the first following code into the second piece of code.</p>
+<h2 id="cracking-the-entire-key"><a class="header" href="#cracking-the-entire-key">Cracking the entire key</a></h2>
+<p>Cracking the entire key is as easy as adding another <code>for</code> loop.  This loop will
+go through all sub-keys and pick an best guess for each sub-key.</p>
+<p>This will turn the first piece of code into the second piece of code.</p>
 <pre><code class="language-python"># Looping through all possible bytes
 ########################################
 # Save all correlation coefficients
@@ -1513,15 +1744,26 @@ print(&quot;&quot;)
 ########################################
 </code></pre>
 <blockquote>
-<p><em>Note:</em> Our code is not very efficient and thus is might take quite a
-bit of time for it to crack entire key.</p>
+<p><strong>Note:</strong> Currently, our code is not very efficient and thus is might take
+quite a bit of time for it to crack entire key. This will be optimized in
+<a href="aes/./optimization.html">Sidenote: optimizing our code</a>.</p>
 </blockquote>
 <p>This should output the following.</p>
 <pre><code class="language-text">Best guess:
 48 34 63 6b 33 72 6d 34 6e 2d 6c 33 33 74 34 32
 H4ck3rm4n-l33t42
 </code></pre>
-<h1 id="sidenote-optimizing-our-algorithm"><a class="header" href="#sidenote-optimizing-our-algorithm">Sidenote: Optimizing our algorithm</a></h1>
+<p>This was indeed the key we used to produce our power traces!</p>
+<p>We have now successfully cracked the full encryption key from an implementation
+of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>. We can calculate the best suiting sub-key for each byte of the key and
+then combine them all together into one by looping over the bytes. Good job!</p>
+<h1 id="sidenote-optimizing-our-code"><a class="header" href="#sidenote-optimizing-our-code">Sidenote: Optimizing our code</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Optimizing the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson Correlation Coefficient</a> calculations</li>
+</ul>
+</blockquote>
 <p>As you may have noticed our algorithm is now really slow. This is due to the
 calculation of <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson Correlation Coefficient</a>s. We can speed this up by a lot
 if we notice a couple of things.</p>
@@ -1530,13 +1772,13 @@ if we notice a couple of things.</p>
 operation, we can optimize the calculation of \(\sigma_x \sigma_y\) from
 two square root calculations to one.</li>
 <li>We are recalculating a lot of averages and standard deviations. We can
-precompute these averages and <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>s and them fetch them instead
+pre-compute these averages and <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>s and them fetch them instead
 of recomputing them.</li>
 <li>Since we only care about the maximum <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a> and have no
 interest in the value itself, we can stop doing any factorization.</li>
 </ol>
 <p>In the following code we have created a function which applies these three
-optimized functions when calculating the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficient</a>s.</p>
+optimized functions when calculating the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">correlation coefficients</a>.</p>
 <pre><code class="language-python">point_means = np.mean(traces, axis=0, dtype=np.float64)
 point_mean_diff = traces - point_means
 
@@ -1575,22 +1817,181 @@ def optimized_calculate_correlation_coefficients(subkey, subkey_index):
 
     return point_correlation
 </code></pre>
+<p>After optimizing the calculations of the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation
+coefficients</a>, our <code>crack.py</code> script should run a lot
+faster.</p>
 <h1 id="exercises"><a class="header" href="#exercises">Exercises</a></h1>
-<blockquote>
-<p><em>Note:</em> These are not yet fininished.</p>
-</blockquote>
+<p>Here are some small exercises to verify you understand the material covered.</p>
 <ol>
 <li>At the following
 <a href="https://github.com/coastalwhite/intro-power-analysis/tree/main/datasets/aes">location</a>
 you can find 3 sets of power traces, can you crack their keys used? You will
 know when you cracked them.</li>
-<li>Does the method of statistical analysis apply to the <a href="https://en.wikipedia.org/wiki/Salsa20">ChaCha
-ciphers</a>. Why does it work? Why does
-it not work?</li>
-<li>Crack the secret key used for the following ChaCha power trace. The source
-code of which can be found <a href="https://githu.com/coastalwhite/cw-chacha">here</a>.
-<strong>TODO: HAS TO BE ADDED</strong></li>
+<li>Does the method of correlation power analysis
+apply to the <a href="https://en.wikipedia.org/wiki/Salsa20">ChaCha ciphers</a>. Why
+does it work? Why does it not work?</li>
 </ol>
+<h1 id="compiling-your-own-algorithms"><a class="header" href="#compiling-your-own-algorithms">Compiling your own algorithms</a></h1>
+<blockquote>
+<p><strong>What will this chapter cover?</strong></p>
+<ul>
+<li>Installing toolchains necessary for compiling code for a <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>
+target</li>
+<li>Getting started with the SimpleSerial protocol</li>
+<li>Some useful resources for target algorithms</li>
+</ul>
+</blockquote>
+<p>This walkthrough provides sources for most of the precompiled code you might
+need. However, in order to some experimentation yourself, you might want to
+compile some implementation of an algorithm. To do this, there are two things we
+need: the toolchain to compile to our specific microprocessor architecture and
+the low-level source code to compile.</p>
+<p>The following section will cover how to install the toolchains for the ARM
+architecture. Following that section, will some things to keep in mind when
+writing source code for our target. Then, there will be a section on some useful
+resources concerning <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> and algorithms for our target.</p>
+<h1 id="installing-toolchains"><a class="header" href="#installing-toolchains">Installing Toolchains</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Installing the ARM toolchain</li>
+<li>Compiling code</li>
+</ul>
+</blockquote>
+<p>In order to compile code which is usable for our specific microprocessor
+architecture, we need the toolchain for that specific architecture. As said in
+the <a href="compiling/../intro.html">introduction chapter</a>, this walkthrough is using the
+<a href="https://www.newae.com/products/NAE-CWLITE-ARM">ChipWhisperer Lite ARM</a> board. Therefore, this section will show
+how to install the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">ARM toolchain</a>. For other toolchains, have a look at the
+<a href="https://chipwhisperer.readthedocs.io/en/latest/prerequisites.html#compilers">ChipWhisperer
+documentation</a>.</p>
+<h2 id="installing-the-arm-toolchain"><a class="header" href="#installing-the-arm-toolchain">Installing the ARM toolchain</a></h2>
+<p>Information on the ARM toolchain can be found
+<a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">here</a>.</p>
+<h3 id="windows-and-macos"><a class="header" href="#windows-and-macos">Windows and macOS</a></h3>
+<p>For <em>Windows</em> and <em>macOS</em>, the installer on the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">ARM developer
+website</a>
+should be enough to install the ARM embedded toolchain.</p>
+<h3 id="gnulinux-2"><a class="header" href="#gnulinux-2">GNU/Linux</a></h3>
+<p>For <a href="https://en.wikipedia.org/wiki/Debian">Debian</a> based systems, including <a href="https://en.wikipedia.org/wiki/Ubuntu">Ubuntu</a>, we can use the following command
+to install the ARM embedded toolchain.</p>
+<pre><code class="language-bash">sudo apt install gcc-arm-none-eabi
+</code></pre>
+<p>For <a href="https://en.wikipedia.org/wiki/Arch_Linux">ArchLinux</a> based systems, including <a href="https://en.wikipedia.org/wiki/Manjaro">Manjaro</a>, we can use the following
+command to install the ARM embedded toolchain.</p>
+<pre><code class="language-bash">sudo pacman -S arm-none-eabi-gcc
+</code></pre>
+<h2 id="compiling-binaries"><a class="header" href="#compiling-binaries">Compiling binaries</a></h2>
+<p>With the proper toolchain installed, we can compile binaries which are going to
+used on <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> <em>targets</em>. All SimpleSerial resources mentioned in the
+the <a href="compiling/./resources.html">Existing resources</a> section contain a <em>Makefile</em> in their
+root directory. This file provides the computer instructions on how to compile
+source code. In order to create <code>.hex</code> files — which is the format used to
+program <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> targets — from our source, we can simply run the
+following command from the root directory of our project, replacing <code>&lt;PLATFORM&gt;</code>
+with the <a href="https://raw.githubusercontent.com/coastalwhite/simpleserial-c-template/main/PLATFORMS.md">proper
+platform</a>.</p>
+<pre><code class="language-bash">PLATFORM=&lt;PLATFORM&gt; make
+</code></pre>
+<p>This should create the <code>.hex</code> file in the root directory.</p>
+<p>We have now installed the proper toolchain and learned how to compile our own
+source code. Next up, we want to know how to properly write our source code, so
+we can best do our measurements.</p>
+<h1 id="simpleserial-protocol"><a class="header" href="#simpleserial-protocol">SimpleSerial protocol</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>What is the SimpleSerial protocol?</li>
+<li>How to we write source code?</li>
+<li>How do we trigger power traces to start and stop?</li>
+</ul>
+</blockquote>
+<p>In order to run your own algorithms, they first have to be written as source
+code. The <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> framework mostly uses <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">C</a> as the language for the
+source code of encryption algorithms. This means that any existing <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">C</a>
+implementation of an encryption algorithms can (most of the time) easily be used
+on the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> targets. There are a few things to take into account
+however. The protocol to send data back and forth between the capture board and
+the target board, some of the recommendations when writing or choosing software,
+and how to start and stop power traces. These will all be covered here.</p>
+<h2 id="the-simpleserial-protocol"><a class="header" href="#the-simpleserial-protocol">The SimpleSerial Protocol</a></h2>
+<p>In order to send data back and forth between the capture board and the target
+board and tell the target to start running its algorithm, a specific
+protocol is often used by <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>. It is called the <a href="https://chipwhisperer.readthedocs.io/en/latest/simpleserial.html">SimpleSerial
+protocol</a>. It basically explains how to send data to the target
+(such as keys, plain texts, commands, etc.) and return data back from the target
+(such as cipher texts, hashes, errors, etc.). Some documentation on the <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">C</a>
+implementation of the algorithm can be found
+<a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial">here</a>.
+Although, if you use either the official
+<a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-base">simpleserial-base</a>
+or the
+<a href="https://github.com/coastalwhite/simpleserial-c-template">simpleserial-c-template</a>,
+you almost don't need to worry about the specifics.</p>
+<h2 id="writing--selecting-your-code"><a class="header" href="#writing--selecting-your-code">Writing / selecting your code</a></h2>
+<p>When writing your own algorithms for the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>, it is recommended to
+either not use the heap or use it sparingly. Most of the boards used as targets
+by <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> don't have a lot of RAM and thus using it sparingly is
+preferred.</p>
+<p>Also when selecting existing implementations, it is recommended to use
+embedded hardware or heapless implementations.
+<a href="https://github.com/ARMmbed/mbedtls">MBedTLS</a> contains some of the more used
+encryption algorithms.</p>
+<h2 id="starting--stopping-power-traces"><a class="header" href="#starting--stopping-power-traces">Starting / Stopping power traces</a></h2>
+<p>On the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">ChipWhisperer Lite ARM</a> and on many other boards, we use the
+<code>trigger_high</code> function to start a power trace and the <code>trigger_low</code> to stop a
+power trace. Both of these functions are available from the <code>hal.h</code>, which is
+also used by the <a href="https://chipwhisperer.readthedocs.io/en/latest/simpleserial.html">SimpleSerial protocol</a>.</p>
+<p>This means somewhere in your code it should look something like the following.</p>
+<pre><code class="language-c">// ...
+
+trigger_high();
+
+encrypt(...);
+// or
+decrypt(...);
+
+trigger_low();
+
+// ...
+</code></pre>
+<p>This way your entire encryption or decryption will be captured by the power
+trace. You can also move the triggers to a specific point of the encryption or
+decryption, if you want to focus on a specific part of the algorithm.</p>
+<p>This should give you most of the information needed to write and/or compile your
+own implementations of algorithms. The next section will contain some other
+resources which can help you in this process.</p>
+<h1 id="existing-resources"><a class="header" href="#existing-resources">Existing resources</a></h1>
+<h2 id="information-on-the-simpleserial-protocol"><a class="header" href="#information-on-the-simpleserial-protocol">Information on the SimpleSerial protocol</a></h2>
+<ul>
+<li><a href="https://github.com/newaetech/chipwhisperer/blob/develop/hardware/victims/firmware/simpleserial/README.md">SimpleSerial
+README</a></li>
+<li><a href="https://chipwhisperer.readthedocs.io/en/latest/simpleserial.html">ChipWhisperer
+docs</a></li>
+</ul>
+<h2 id="templates-for-source-code"><a class="header" href="#templates-for-source-code">Templates for source code</a></h2>
+<ul>
+<li><a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-base">SimpleSerial
+Base</a></li>
+<li><a href="https://github.com/coastalwhite/simpleserial-c-template">SimpleSerial C
+Template</a>: written
+for this walkthrough</li>
+</ul>
+<h2 id="specific-algorithm-implementation-with-simpleserial"><a class="header" href="#specific-algorithm-implementation-with-simpleserial">Specific algorithm implementation with SimpleSerial</a></h2>
+<ul>
+<li><a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/">All list of firmware provided by the
+framework</a>:
+all the directories starting with <code>simpleserial-</code> can be used.</li>
+<li><a href="https://github.com/coastalwhite/chipwhisperer-nist-lwc"><strong>COMING SOON:</strong> SimpleSerial wrapper for NIST Lightweight Cryptography
+algorithms</a></li>
+</ul>
+<h2 id="useful-c-algorithm-implementations"><a class="header" href="#useful-c-algorithm-implementations">Useful C algorithm implementations</a></h2>
+<ul>
+<li><a href="https://github.com/ARMmbed/mbedtls">MBedTLS</a>: contains implementations for a
+lot of the common algorithms</li>
+<li><a href="https://www.oryx-embedded.com/doc/chacha_8c_source.html">ChaCha C
+implementation</a></li>
+</ul>
 <h1 id="assignment"><a class="header" href="#assignment">Assignment</a></h1>
 <p>As a final assignment for this walkthrough, there should detailed report on some
 component of power analysis including a demonstration and what effect it has on

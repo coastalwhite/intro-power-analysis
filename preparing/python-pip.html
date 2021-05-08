@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Python and Pip - Power analysis Introductory Walkthrough</title>
+        <title>Python and PIP - Power analysis Introductory Walkthrough</title>
         
         
 
@@ -98,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html" class="active"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="../preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/manual-analysis.html"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="../aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="../aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html" class="active"><strong aria-hidden="true">2.1.</strong> Python and PIP</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/cpa.html"><strong aria-hidden="true">4.1.</strong> Correlation Power Analysis</a></li><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.2.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.4.</strong> Capture multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/key-bytes.html"><strong aria-hidden="true">4.5.</strong> Crack individual key-bytes</a></li><li class="chapter-item expanded "><a href="../aes/automate.html"><strong aria-hidden="true">4.6.</strong> Automate the cracking process</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our code</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../compiling.html"><strong aria-hidden="true">5.</strong> Compiling/Creating your own algorithms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiling/toolchains.html"><strong aria-hidden="true">5.1.</strong> Installing Toolchains</a></li><li class="chapter-item expanded "><a href="../compiling/simpleserial.html"><strong aria-hidden="true">5.2.</strong> SimpleSerial Protocol</a></li><li class="chapter-item expanded "><a href="../compiling/resources.html"><strong aria-hidden="true">5.3.</strong> Existing resources</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">6.</strong> Assignment</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -170,12 +170,21 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="python-and-pip"><a class="header" href="#python-and-pip">Python and Pip</a></h1>
+                        <h1 id="python-and-pip"><a class="header" href="#python-and-pip">Python and PIP</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Installing <a href="#installing-python">Python</a></li>
+<li>Installing <a href="#installing-pip">PIP</a></li>
+<li>Installing mandatory dependencies: <a href="#numpy">NumPy</a></li>
+<li>Installing optional dependencies: <a href="#pyplot">PyPlot</a> &amp; <a href="#tqdm">TQDM</a></li>
+</ul>
+</blockquote>
 <p>We are going to be heavily relying on <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> to do most of our measurements.
 We are also going to do some data analysis using <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>. Because of this heavy
 reliance on <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>, we need to install <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> along with some packages for it.
-Two will be manditory: <a href="https://numpy.org/">NumPy</a> and the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> library (which will be
-covered in <a href="./chipwhisperer.html">ChipWhisper</a>) and two are optional but very
+Two will be mandatory: <a href="https://numpy.org/">NumPy</a> and the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> library (which will be
+covered in <a href="./chipwhisperer.html">ChipWhisperer</a>) and two are optional but very
 useful: <a href="https://matplotlib.org/">matplotlib</a> which is used for data plotting and <a href="https://github.com/tqdm/tqdm">TQDM</a> which is used
 for visual feedback whilst cracking.</p>
 <h2 id="installing-python"><a class="header" href="#installing-python">Installing Python</a></h2>
@@ -242,6 +251,17 @@ walkthrough uses the progress bars from <a href="https://github.com/tqdm/tqdm">T
 This is also optional, but indeed very handy. Installation can be done via <a href="https://pypi.org/project/pip/">pip</a>.</p>
 <pre><code class="language-bash">pip install tqdm
 </code></pre>
+<h2 id="verifying-installation-of-packages"><a class="header" href="#verifying-installation-of-packages">Verifying installation of packages</a></h2>
+<p>Go into the <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> interpreter by running <code>python3</code> in your shell. We can
+verify the installation of all the packages by running the following few
+commands:</p>
+<pre><code class="language-python">import numpy
+import matplotlib
+import tqdm
+</code></pre>
+<p>If none of those three returned an error, everything is installed correctly!</p>
+<p>We have now installed <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>, <a href="https://pypi.org/project/pip/">PIP</a> and some packages used throughout this
+walkthrough. We have also verified that everything is properly installed.</p>
 
                     </main>
 

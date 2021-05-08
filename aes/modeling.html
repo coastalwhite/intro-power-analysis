@@ -98,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="../preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html" class="active"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/manual-analysis.html"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="../aes/pearson.html"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="../aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and PIP</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/cpa.html"><strong aria-hidden="true">4.1.</strong> Correlation Power Analysis</a></li><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.2.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html" class="active"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.4.</strong> Capture multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/key-bytes.html"><strong aria-hidden="true">4.5.</strong> Crack individual key-bytes</a></li><li class="chapter-item expanded "><a href="../aes/automate.html"><strong aria-hidden="true">4.6.</strong> Automate the cracking process</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our code</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../compiling.html"><strong aria-hidden="true">5.</strong> Compiling/Creating your own algorithms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiling/toolchains.html"><strong aria-hidden="true">5.1.</strong> Installing Toolchains</a></li><li class="chapter-item expanded "><a href="../compiling/simpleserial.html"><strong aria-hidden="true">5.2.</strong> SimpleSerial Protocol</a></li><li class="chapter-item expanded "><a href="../compiling/resources.html"><strong aria-hidden="true">5.3.</strong> Existing resources</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">6.</strong> Assignment</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -171,53 +171,41 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="modeling-aes"><a class="header" href="#modeling-aes">Modeling AES</a></h1>
-<p>In order to make sensible statements about the power usage of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>, it can be
-handy to make a model of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm. To do this, we need some
-understanding about how computers use power and how the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm
-functions. The first of which we will discuss here and the second is discussed
-in the chapter <a href="./workings.html">How AES Works</a>.</p>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>Creating a leakage model for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a></li>
+<li>Implementing a leakage model for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> in <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a></li>
+</ul>
+</blockquote>
+<p>In order to make sensible statements about the power usage of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>, we are
+going to make a <a href="./cpa.html#leakage-models">leakage model</a> of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> algorithm.  To do this, we need
+some to determine the optimal memory state to target. When we have determined
+that state, we are going to implement that <a href="./cpa.html#leakage-models">leakage model</a> in <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>.</p>
 <h2 id="hamming-distance-and-hamming-weight"><a class="header" href="#hamming-distance-and-hamming-weight">Hamming Distance and Hamming Weight</a></h2>
-<p>Remember that computers are just emergent properties that we get when we have a
-ton of <a href="https://en.wikipedia.org/wiki/Transistor">transistors</a>,
-<a href="https://en.wikipedia.org/wiki/Capacitor">capacitors</a>, wires, etc. in the
-correct setup. This means that if we look at the capacitors level, there should
-be some capacitors that represents the state of a bit. Here mainly our interest
-falls on the internal state of memory. Since, we know that capacitors represents
-a binary 1 with a certain amount of charge and a binary 0 with close to no
-charge. We can ask ourselves the question, does it cost more power to set or
-maintain memory which involves more binary 1's than 0's. In fact, it indeed
-does. This gives us two models for looking at the power usage of memory.
-<strong>Looking at how much power it would take to set memory, which is known as the
-Hamming Distance model. Or we can look at how much power it would take to
-maintain memory, which is known as the Hamming Weight model.</strong> Hamming Distance
-meaning the amount of bitflips needed to turn one memory state into another, and
-Hamming Distance meaning the amount of 1's in a certain memory state.</p>
-<p>We can easily create a python function, which would identify the Hamming weight
-or Hamming distance.</p>
-<pre><code class="language-python"># Hamming Weight
-HammingWeightFn = lambda x: bin(x).count('1')
-HammingDistanceFn = lambda x, y: HammingWeightFn(x ^ y)
+<p>Remember that we covered both the <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming Distance</a> and <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a>
+hypotheses of looking at <a href="./cpa.html#leakage-models">memory-based leakage model in Correlation Power
+Analysis</a>. In this walkthrough, we are going to go through a
+software implementation of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>. The <code>.hex</code> file of the algorithm for
+<a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> targets can be found
+<a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-aes">here</a>.
+Since we are using a software implementation, this walkthrough is going to focus
+on the <a href="./cpa.html#hamming-weight">Hamming Weight-based leakage model</a>.</p>
+<p>We can easily calculate <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a> with the following lambda function.</p>
+<pre><code class="language-python">HammingWeightFn = lambda x: bin(x).count('1')
 </code></pre>
 <p>Although it can be worth it to save this to memory, to speed to computation time
 later on.</p>
-<pre><code class="language-python"># ... prev ...
-
-# Precompute Hamming Weight and Hamming Distance for bytes
+<pre><code class="language-python"># Precompute Hamming Weight
 HammingWeight = [ HammingWeightFn(n) for n in range (0x00, 0xff + 1) ] 
-HammingDistance = [
-    [ HammingDistanceFn(x, y) for x in range(0x00, 0xff + 1) ]
-        for y in range(0x00, 0xff + 1)
-]
 </code></pre>
-<p>Although both models work for power usage, mainly to avoid repetition, from
-<strong>here on out we will be using the Hamming Weight model</strong>.</p>
-<h2 id="making-a-statement-about-aess-memory-state"><a class="header" href="#making-a-statement-about-aess-memory-state">Making a statement about AES's memory state</a></h2>
-<p>Suppose we have an input block \(Input\) and an output block \(Output\),
+<h2 id="finding-a-memory-state"><a class="header" href="#finding-a-memory-state">Finding a memory state</a></h2>
+<p>Suppose we have an input block <em>Input</em> and an output block <em>Output</em>,
 which is a reasonably common situation. If we would want to check whether a
-supposed \(Key\) is the key used, we could run through the entire algorithm to
+supposed <em>Key</em> is the key used, we could run through the entire algorithm to
 check whether \(\text{AES}(Input, Key) = Output\). This is quite inefficient
 and is no better than brute forcing the key. Knowing what we now about the
-memory state of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a> we can however do two extreme optimizations.</p>
+memory state of <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>, we can however do two extreme optimizations.</p>
 <h3 id="shortcutting-calculations"><a class="header" href="#shortcutting-calculations">Shortcutting calculations</a></h3>
 <p>The first optimization we can do has to do with identifying the first memory state
 where the key and the \(Input\) are combined. If we can identify this memory
@@ -249,7 +237,12 @@ instead of the product.</p>
 <h2 id="putting-this-together"><a class="header" href="#putting-this-together">Putting this together</a></h2>
 <p>Let us make a model of the memory states power usage. This model should provide
 us with a number that should <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlate</a> with the power traces at the point of
-which this first <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> step is done.</p>
+which this first <a href="./workings.html#substitution">SBox</a> step is done. This leaves us
+with a longstanding memory state which is dependant on both the key and the
+input string. Two items we both preferred for our <a href="./cpa.html#leakage-models">leakage model</a> as explained in
+<a href="./cpa.html#memory-based-models">Memory-based models</a>. The <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> code for
+performing our model on a single byte input string using a single byte from the
+key (also called a subkey) is the following.</p>
 <pre><code class="language-python">def hypothetical_power_usage(subkey, plain_text_char):
 
     # Use the Hamming Weight power usage model
@@ -274,13 +267,13 @@ which this first <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> st
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../aes/capture.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../aes/workings.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../aes/manual-analysis.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../aes/capture.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -292,13 +285,13 @@ which this first <a href="https://en.wikipedia.org/wiki/Exclusive_or">XOR</a> st
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../aes/capture.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../aes/workings.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../aes/manual-analysis.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../aes/capture.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

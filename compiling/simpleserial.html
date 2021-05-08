@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Pearson correlation - Power analysis Introductory Walkthrough</title>
+        <title>SimpleSerial Protocol - Power analysis Introductory Walkthrough</title>
         
         
 
@@ -98,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and Pip</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li><li class="chapter-item expanded "><a href="../preparing/toolchains.html"><strong aria-hidden="true">2.3.</strong> Compiling your own algorithms</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.1.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.2.</strong> Capturing multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/manual-analysis.html"><strong aria-hidden="true">4.4.</strong> Manual analysis</a></li><li class="chapter-item expanded "><a href="../aes/pearson.html" class="active"><strong aria-hidden="true">4.5.</strong> Pearson correlation</a></li><li class="chapter-item expanded "><a href="../aes/entire.html"><strong aria-hidden="true">4.6.</strong> Automatically cracking an entire key</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our algorithm</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">5.</strong> Assignment</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../preparing.html"><strong aria-hidden="true">2.</strong> Preparing your environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../preparing/python-pip.html"><strong aria-hidden="true">2.1.</strong> Python and PIP</a></li><li class="chapter-item expanded "><a href="../preparing/chipwhisperer.html"><strong aria-hidden="true">2.2.</strong> ChipWhisperer</a></li></ol></li><li class="chapter-item expanded "><a href="../rsa.html"><strong aria-hidden="true">3.</strong> A case study: RSA</a></li><li class="chapter-item expanded "><a href="../aes.html"><strong aria-hidden="true">4.</strong> Breaking AES</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aes/cpa.html"><strong aria-hidden="true">4.1.</strong> Correlation Power Analysis</a></li><li class="chapter-item expanded "><a href="../aes/workings.html"><strong aria-hidden="true">4.2.</strong> How AES works</a></li><li class="chapter-item expanded "><a href="../aes/modeling.html"><strong aria-hidden="true">4.3.</strong> Modeling AES</a></li><li class="chapter-item expanded "><a href="../aes/capture.html"><strong aria-hidden="true">4.4.</strong> Capture multiple traces</a></li><li class="chapter-item expanded "><a href="../aes/key-bytes.html"><strong aria-hidden="true">4.5.</strong> Crack individual key-bytes</a></li><li class="chapter-item expanded "><a href="../aes/automate.html"><strong aria-hidden="true">4.6.</strong> Automate the cracking process</a></li><li class="chapter-item expanded "><a href="../aes/optimization.html"><strong aria-hidden="true">4.7.</strong> Sidenote: Optimizing our code</a></li><li class="chapter-item expanded "><a href="../aes/exercises.html"><strong aria-hidden="true">4.8.</strong> Exercises</a></li></ol></li><li class="chapter-item expanded "><a href="../compiling.html"><strong aria-hidden="true">5.</strong> Compiling/Creating your own algorithms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiling/toolchains.html"><strong aria-hidden="true">5.1.</strong> Installing Toolchains</a></li><li class="chapter-item expanded "><a href="../compiling/simpleserial.html" class="active"><strong aria-hidden="true">5.2.</strong> SimpleSerial Protocol</a></li><li class="chapter-item expanded "><a href="../compiling/resources.html"><strong aria-hidden="true">5.3.</strong> Existing resources</a></li></ol></li><li class="chapter-item expanded "><a href="../assignment.html"><strong aria-hidden="true">6.</strong> Assignment</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -170,54 +170,83 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="pearson-correlation"><a class="header" href="#pearson-correlation">Pearson correlation</a></h1>
-<p>You might ask yourself, how did it do that? It looks a bit magical with all
-these correlations. So let us try to visualize what is actually happening.</p>
-<p>We are calculating all the [correlation coefficients] for all the points within
-all traces. So let us compare the result of this calculation between the correct
-and a wrong sub-key. Again, for me the first sub-key is <code>H</code> (ASCII 72 or hex
-<code>0x48</code>). If you chose a different key, you should adjust this in the following
-code.</p>
-<pre><code class="language-python">plt.plot(
-    abs(calculate_correlation_coefficients(0x48, 0)),
-    label='correct'
-)
-plt.plot(
-    abs(calculate_correlation_coefficients(0x00, 0)),
-    label='wrong'
-)
+                        <h1 id="simpleserial-protocol"><a class="header" href="#simpleserial-protocol">SimpleSerial protocol</a></h1>
+<blockquote>
+<p><strong>What will this section cover?</strong></p>
+<ul>
+<li>What is the SimpleSerial protocol?</li>
+<li>How to we write source code?</li>
+<li>How do we trigger power traces to start and stop?</li>
+</ul>
+</blockquote>
+<p>In order to run your own algorithms, they first have to be written as source
+code. The <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> framework mostly uses <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">C</a> as the language for the
+source code of encryption algorithms. This means that any existing <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">C</a>
+implementation of an encryption algorithms can (most of the time) easily be used
+on the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> targets. There are a few things to take into account
+however. The protocol to send data back and forth between the capture board and
+the target board, some of the recommendations when writing or choosing software,
+and how to start and stop power traces. These will all be covered here.</p>
+<h2 id="the-simpleserial-protocol"><a class="header" href="#the-simpleserial-protocol">The SimpleSerial Protocol</a></h2>
+<p>In order to send data back and forth between the capture board and the target
+board and tell the target to start running its algorithm, a specific
+protocol is often used by <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>. It is called the <a href="https://chipwhisperer.readthedocs.io/en/latest/simpleserial.html">SimpleSerial
+protocol</a>. It basically explains how to send data to the target
+(such as keys, plain texts, commands, etc.) and return data back from the target
+(such as cipher texts, hashes, errors, etc.). Some documentation on the <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">C</a>
+implementation of the algorithm can be found
+<a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial">here</a>.
+Although, if you use either the official
+<a href="https://github.com/newaetech/chipwhisperer/tree/develop/hardware/victims/firmware/simpleserial-base">simpleserial-base</a>
+or the
+<a href="https://github.com/coastalwhite/simpleserial-c-template">simpleserial-c-template</a>,
+you almost don't need to worry about the specifics.</p>
+<h2 id="writing--selecting-your-code"><a class="header" href="#writing--selecting-your-code">Writing / selecting your code</a></h2>
+<p>When writing your own algorithms for the <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a>, it is recommended to
+either not use the heap or use it sparingly. Most of the boards used as targets
+by <a href="https://github.com/newaetech/chipwhisperer">ChipWhisperer</a> don't have a lot of RAM and thus using it sparingly is
+preferred.</p>
+<p>Also when selecting existing implementations, it is recommended to use
+embedded hardware or heapless implementations.
+<a href="https://github.com/ARMmbed/mbedtls">MBedTLS</a> contains some of the more used
+encryption algorithms.</p>
+<h2 id="starting--stopping-power-traces"><a class="header" href="#starting--stopping-power-traces">Starting / Stopping power traces</a></h2>
+<p>On the <a href="https://www.newae.com/products/NAE-CWLITE-ARM">ChipWhisperer Lite ARM</a> and on many other boards, we use the
+<code>trigger_high</code> function to start a power trace and the <code>trigger_low</code> to stop a
+power trace. Both of these functions are available from the <code>hal.h</code>, which is
+also used by the <a href="https://chipwhisperer.readthedocs.io/en/latest/simpleserial.html">SimpleSerial protocol</a>.</p>
+<p>This means somewhere in your code it should look something like the following.</p>
+<pre><code class="language-c">// ...
 
-plt.legend()
-plt.show()
+trigger_high();
+
+encrypt(...);
+// or
+decrypt(...);
+
+trigger_low();
+
+// ...
 </code></pre>
-<p>This will show the following graph.</p>
-<p><img src="../assets/aes_correlation_visualization.png" alt="AES Pearson Correlation Explaination" /></p>
-<p><em>Figure 1: A visualization of <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson Correlation Coefficient</a> for <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a></em></p>
-<p>So what does this graph show? This has the <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">correlation</a> between our modeling
-power consumption on the <em>y-axis</em> and the different power traces on the <em>x-axis</em>.
-You can see that correlation coefficient remains reasonably consistent for the
-wrong sub-key. It never goes above \(\sim 0.4\). The correct follows the same
-pattern — never really reaching above \(\sim 0.4\) — except for one or two
-spikes. At these spikes apparently our model matches the actual power
-consumption very closely.</p>
-<p>These spikes are what we are interested in. We assume that at the highest of
-these spikes the microprocessor was executing the the first round of the <a href="https://nl.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>
-algorithm. The memory state based power model we created should match the
-pattern of the actual power consumption at that specific point.</p>
-<p>Just looking at the results, our assumption was most probably correct.</p>
+<p>This way your entire encryption or decryption will be captured by the power
+trace. You can also move the triggers to a specific point of the encryption or
+decryption, if you want to focus on a specific part of the algorithm.</p>
+<p>This should give you most of the information needed to write and/or compile your
+own implementations of algorithms. The next section will contain some other
+resources which can help you in this process.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../aes/manual-analysis.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../compiling/toolchains.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../aes/entire.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../compiling/resources.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -229,13 +258,13 @@ pattern of the actual power consumption at that specific point.</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../aes/manual-analysis.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../compiling/toolchains.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../aes/entire.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../compiling/resources.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
