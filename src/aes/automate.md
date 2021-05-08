@@ -83,6 +83,10 @@ Best guess:
 H4ck3rm4n-l33t42
 ```
 
+We have now successfully cracked the full encryption key from an implementation
+of [AES]. We can calculate the best suiting sub-key for each byte of the key and
+then combine them all together into one by looping over the bytes. Good job!
+
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [RSA]: https://en.wikipedia.org/wiki/RSA_(cryptosystem)
