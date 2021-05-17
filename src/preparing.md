@@ -20,6 +20,7 @@ take you through some common necessities. Along with some of the things that
 could come in handy whilst following this walkthrough.
 
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
+[pip]: https://pypi.org/project/pip/
 [C]: https://en.wikipedia.org/wiki/Python_(programming_language)
 [RSA]: https://en.wikipedia.org/wiki/RSA_(cryptosystem)
 [Power analysis]: https://en.wikipedia.org/wiki/Power_analysis
